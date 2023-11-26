@@ -73,7 +73,8 @@ rec {
     useXkbConfig = true; # use xkbOptions in tty.
   };
 
-  fonts.packages = with pkgs; [
+#  fonts.packages = with pkgs; [
+  fonts.fonts = with pkgs; [
 
     meslo-lgs-nf
     meslo-lg

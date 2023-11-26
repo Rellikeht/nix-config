@@ -1,0 +1,7 @@
+*.swp
+*local*
+*~
+.*
+!.gitignore
+hardware-configuration.nix
+result

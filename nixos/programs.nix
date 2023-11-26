@@ -38,9 +38,9 @@ with pkgImport;
         highlighters = [
           "main"
           "brackets"
-#          "regexp"
-          "root"
-#          "pattern"
+          "regexp"
+#          "root"
+          "pattern"
         ];
       };
 

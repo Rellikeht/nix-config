@@ -84,12 +84,12 @@ rec {
       overrideDevices = true;
       overrideFolders = true;
 
-      settings = {
+#      settings = {
         devices = vars.syncthingDevs;
         folders = vars.syncthingFolders;
 #      };
 
-#      extraOptions = {
+      extraOptions = {
         gui = {
           theme = "dark";
           user = vars.name;
@@ -112,7 +112,9 @@ rec {
           relaysEnabled = false;
           globalAnnounceEnabled = true;
           localAnnounceEnabled = true;
-          reconnectIntervalS = 20;
+
+#          reconnectIntervalS = 20;
+          reconnectInterval = 20;
 
         };
 
