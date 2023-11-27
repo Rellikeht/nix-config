@@ -28,9 +28,11 @@ with pkgImport;
     zsh = {
       enable = true;
       enableBashCompletion = true;
+
       autosuggestions = {
         enable = true;
         strategy = ["completion" "history"];
+
       };
 
       syntaxHighlighting = {
@@ -43,6 +45,11 @@ with pkgImport;
           "pattern"
         ];
       };
+
+      setOptions = [
+        "HIST_IGNORE_DUPS"
+        "HIST_FCNTL_LOCK"
+      ];
 
       interactiveShellInit = "
         bindkey -e
@@ -63,6 +70,7 @@ with pkgImport;
 
     adb.enable = true;
     ccache.enable = true;
+    nix-ld.enable = true;
 
     xss-lock = {
       enable = true;
@@ -77,6 +85,13 @@ with pkgImport;
     java = {
       enable = true;
       package = pkgs.jdk17;
+    };
+
+    command-not-found.enable = false;
+    nix-index = {
+      enable = true;
+      enableBashIntegration = true;
+      enableZshIntegration = true;
     };
 
   };

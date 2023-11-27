@@ -1,6 +1,6 @@
 # vim: autoindent expandtab softtabstop=2 shiftwidth=2 tabstop=2
 
-{ pkgs, config, option, lib, ... }:
+{ config, ... }:
 let
 pkgImport = import ./pkgs.nix;
 
@@ -32,16 +32,25 @@ with pkgImport;
 
     };
 
-    kernelModules = [];
-    kernelParams = [];
-    extraModulePackages = with config.boot.kernelPackages; [
-      perf
+# this sets kernel
+#    kernelPackages = null;
+
+    kernelModules = [
+      "ntfs3"
     ];
+
+    kernelParams = [];
+    extraModulePackages = with config.boot.kernelPackages; [ ];
 
     supportedFilesystems = [
       "ntfs"
       "exfat"
       "fat32"
+
+#      "zfs"
+      "xfs"
+      "btrfs"
+      "f2fs"
     ];
 
   };

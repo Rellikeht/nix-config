@@ -1,11 +1,14 @@
 # vim: autoindent expandtab softtabstop=2 shiftwidth=2 tabstop=2
 
-{ config, option, lib, ... }:
+# pkgs, config, option, lib, stdenv, modulesPath
+{ ... }:
 let
 pkgImport = import ./pkgs.nix;
 
 in
 {
-  inherit pkgs unstable oldRel;
+#  inherit pkgs unstable;
+  inherit unstable;
+
 }
 

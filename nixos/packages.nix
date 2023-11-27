@@ -26,6 +26,7 @@ with pkgImport;
     lowdown
 # good latex, but not needed now
 #    texlive.combined.scheme-full # ?
+#    texlab
 
     screen
     physlock
@@ -33,7 +34,6 @@ with pkgImport;
     htop
 #    htop-vim
 
-    ncurses # ??
     gnumake
     gnum4
     automake
@@ -41,6 +41,18 @@ with pkgImport;
     flex
     bison
     rlwrap
+
+    direnv
+    nix-direnv
+    nix-zsh-completions
+    nix-bash-completions
+    zsh-nix-shell
+    nix-du
+    unstable.nixd
+    nixfmt
+    nix-top
+    nix-tree
+    nixos-shell
 
 #    python3Full
     sbcl
@@ -65,7 +77,6 @@ with pkgImport;
     ocaml
     jdk
 
-    unstable.nixd
     unstable.gopls
     unstable.zls
     unstable.zig-shell-completions
@@ -86,9 +97,6 @@ with pkgImport;
 
     zsh-completions
     zsh-syntax-highlighting
-    nix-zsh-completions
-    nix-bash-completions
-    zsh-nix-shell
     zsh-powerlevel10k
     dash
     tre
@@ -108,7 +116,6 @@ with pkgImport;
     psmisc
     zlib
     pkg-config
-    nix-du
     reptyr
     parallel-full
     xxh
@@ -147,6 +154,8 @@ with pkgImport;
     bat
     pv
     hyperfine
+    config.boot.kernelPackages.perf
+#    perf-tools # ?
 
     mpv
     ffmpeg
@@ -248,11 +257,7 @@ with pkgImport;
 
     cmatrix
     tmatrix
-    figlet
-    cowsay
-    lolcat
     haskellPackages.FractalArt
-#    xmountains
 
 # WARNING VERSIONS AHEAD
 # Cant download :(

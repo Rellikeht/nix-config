@@ -12,11 +12,15 @@ rec {
     hostName = "nixos";
     networkmanager.enable = true;
 
-  # Open ports in the firewall.
-  # firewall.allowedTCPPorts = [ ... ];
-  # firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # firewall.enable = false;
+    firewall = {
+#      enable = false;
+      allowPing = false;
+
+# TODO
+# Open ports in the firewall.
+#      allowedTCPPorts = [ ... ];
+#      allowedUDPPorts = [ ... ];
+    };
 
   # Configure network proxy if necessary
   # proxy.default = "http://user:password@proxy:port/";

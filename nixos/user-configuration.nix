@@ -24,6 +24,10 @@ with pkgs;
   giac-with-xcas
   pinta
 
+  figlet
+  cowsay
+  lolcat
+
 ];
 
 in
