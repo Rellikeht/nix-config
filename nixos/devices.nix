@@ -2,10 +2,8 @@
 
 { config, ... }:
 let
-pkgImport = import ./pkgs.nix;
 
 in
-#with pkgImport;
 
 {
 
@@ -48,7 +46,7 @@ in
       "exfat"
       "fat32"
 
-#      "zfs"
+      "zfs"
       "xfs"
       "btrfs"
       "f2fs"

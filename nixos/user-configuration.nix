@@ -1,15 +1,13 @@
 # vim: autoindent expandtab softtabstop=2 shiftwidth=2 tabstop=2
 
-{ config, lib, option, ... }:
+{ pkgs, config, lib, option, ... }:
 
 let
 vars = import ./local-vars.nix;
-
-pkgImport = import ./pkgs.nix;
-langPkgs = import ./user-lang-pkgs.nix {};
+langPkgs = import ./user-lang-pkgs.nix { inherit pkgs; };
 
 nonLangs =
-with pkgImport.pkgs;
+with pkgs;
 
 [
 
@@ -26,7 +24,6 @@ with pkgImport.pkgs;
 ];
 
 in
-with pkgImport;
 
 rec {
   imports = [

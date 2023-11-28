@@ -3,12 +3,10 @@
 # pkgs, config, option, lib, stdenv, modulesPath
 { ... }:
 let
-pkgImport = import ./pkgs.nix;
+#pkgImport = import ./pkgs.nix;
 
 in
 {
-#  inherit pkgs unstable;
-  inherit unstable;
 
 }
 

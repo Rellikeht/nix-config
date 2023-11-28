@@ -1,8 +1,7 @@
 # vim: autoindent expandtab softtabstop=2 shiftwidth=2 tabstop=2
 
-{ ... }:
+{ pkgs, ... }:
 let
-pkgImport = import ./pkgs.nix;
 
 defBrowser = "firefox.desktop";
 path = [
@@ -10,7 +9,6 @@ path = [
 ];
 
 in
-with pkgImport;
 rec {
 
   system = {
@@ -61,7 +59,7 @@ rec {
     extraInit = "";
     extraSetup = "";
 
-    etc = {};
+    etc = { };
   };
 
   i18n.defaultLocale = "en_GB.UTF-8";

@@ -2,32 +2,40 @@
 
 # TODO do that with flakes maybe
 let
-sysVer = "23.05";
-getChan = addr: import (fetchTarball addr);
-universalConf = {config = {allowUnfree = true;};};
 
+# Version of whole system
+sysVer = "23.05";
+
+getChan = addr: import (fetchTarball addr);
+universalConf = {
+  config = {
+    allowUnfree = true;
+  };
+};
+
+# Links to pkgs repos
 stableLink = "https://nixos.org/channels/nixos-${sysVer}/nixexprs.tar.xz";
 unstableLink = "https://nixos.org/channels/nixos-unstable/nixexprs.tar.xz";
 homeManagerLink = "https://github.com/nix-community/home-manager/archive/release-${sysVer}.tar.gz";
+# TODO NUR at some day
 
-# Mismatch, probably needs whole system using unstable
-#homeManagerLink = "https://github.com/nix-community/home-manager/archive/master.tar.gz";
+# downloaded nixpkgs for usage as pkgs in system
+nixexprs = fetchTarball stableLink;
 
-pkgsTarball = fetchTarball stableLink;
-pkgs = import pkgsTarball universalConf;
+# for installing packages ?
+pkgs = import nixexprs universalConf;
 
-#pkgs = getChan stableLink universalConf;
-
+# And the same things here
 unstable = getChan unstableLink universalConf;
-
 home-manager = fetchTarball homeManagerLink;
 homeManagerPkgs = (import home-manager) {};
 
 in
 {
+#   And some simple exporting
   inherit sysVer getChan universalConf;
   inherit stableLink unstableLink homeManagerLink;
-  inherit pkgs pkgsTarball;
+  inherit pkgs nixexprs;
   inherit unstable;
   inherit home-manager homeManagerPkgs;
 

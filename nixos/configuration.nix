@@ -37,25 +37,36 @@ with pkgImport;
     allowUnfree = true;
     permittedInsecurePackages = [ ];
 
-# maybe this will solve dependency on channels
-#    pkgs = {};
+#     This is for having packages downloaded declaratively
+    pkgs = import "${nixexprs}" {
 
-# this doesn't get rid of channels
-#    packageOverrides = rec {
-#      nixos = getChan stableLink {config = config.nixpkgs.config;};
-#      unstable = getChan unstableLink {config = config.nixpkgs.config;};
-#      home-manager = getChan homeManagerLink {};
-#
-#    };
+#       Just in case
+      inherit (config.nixpkgs) config
+        overlays localSystem crossSystem;
+    };
+
+#	    This enables all collections through pkgs
+    packageOverrides = rec {
+      nixos = pkgImport.pkgs;
+      unstable = pkgImport.unstable;
+      home-manager = pkgImport.homeManagerPkgs;
+    };
 
   };
 
+#   This puts nixos pkgs in /etc
+#   Don't really know why, but why not
+  environment.etc."nixpkgs".source = "${nixexprs}";
+
   nix = {
     package = pkgs.nixFlakes;
-#    nixPath = [
-#      "nixpkgs=${pkgsTarball}"
-#      "nixos-config=/etc/nixos/configuration.nix"
-#    ];
+
+#     This makes nixpkgs downloaded before available
+#     for building system
+    nixPath = [
+      "nixpkgs=/etc/nixpkgs"
+      "nixos-config=/etc/nixos/configuration.nix"
+    ];
 
     settings = {
       auto-optimise-store = true;
@@ -72,12 +83,6 @@ with pkgImport;
   };
 
   system = {
-# Copy the NixOS configuration file and
-# link it from the resulting system
-# (/run/current-system/configuration.nix).
-# This is useful in case you
-# accidentally delete configuration.nix.
-    copySystemConfiguration = false;
 
 # This value determines the NixOS release from which the default
 # settings for stateful data, like file locations and database versions
@@ -86,7 +91,7 @@ with pkgImport;
 # Before changing this value read the documentation for this option
 # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
 
-    stateVersion = "23.11"; # Did you read the comment?
+    stateVersion = sysVer; # Did you read the comment?
   };
 
 }

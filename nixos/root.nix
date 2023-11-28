@@ -1,11 +1,9 @@
 # vim: autoindent expandtab softtabstop=2 shiftwidth=2 tabstop=2
 
-{ config, option, ... }:
+{ pkgs, config, option, ... }:
 let
-pkgImport = import ./pkgs.nix;
 
 in
-with pkgImport;
 {
   users.users.root = {
     shell = pkgs.zsh;

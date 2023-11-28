@@ -1,16 +1,14 @@
 # vim: autoindent expandtab softtabstop=2 shiftwidth=2 tabstop=2
 
-{ config, ... }:
+{ pkgs, config, ... }:
 let
-pkgImport = import ./pkgs.nix;
 
 in
-with pkgImport;
 
 {
 
   environment.systemPackages = with pkgs; [
-    homeManagerPkgs.home-manager
+    home-manager.home-manager
 
     vim
     neovim
