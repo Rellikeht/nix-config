@@ -13,12 +13,10 @@ rec {
 
   # Because of versions
   python = [
-#    oldRel.pypy3
     pypy3
 #    unstable.pypy310
 
     python311Packages.mypy
-
     python311Packages.matplotlib
     python311Packages.pandas
     python311Packages.numpy

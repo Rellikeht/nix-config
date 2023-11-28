@@ -5,7 +5,8 @@ let
 pkgImport = import ./pkgs.nix;
 
 in
-with pkgImport;
+#with pkgImport;
+
 {
 
   boot = {

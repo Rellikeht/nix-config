@@ -4,12 +4,13 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running `nixos-help`).
 
+#{ pkgs, config, ... }:
 { pkgs, config, ... }:
 let
 pkgImport = import ./pkgs.nix;
 
 in
-with pkgImport;
+#with pkgImport;
 
 {
 
@@ -24,6 +25,7 @@ with pkgImport;
       ./root.nix
 
       ./user-configuration.nix
+      ./home-manager.nix
       ./other-local.nix
 
       ./hardware-configuration.nix
@@ -71,21 +73,13 @@ with pkgImport;
     allowUnfree = true;
     permittedInsecurePackages = [ ];
 
-#    packageOverrides = pkgs: rec {
-    packageOverrides = rec {
-      nixos = getChan
-        "https://nixos.org/channels/nixos-${config.system.stateVersion}/nixexprs.tar.xz"
-        {config = config.nixpkgs.config;};
-
-      nixos-unstable = getChan
-        "https://nixos.org/channels/nixos-unstable/nixexprs.tar.xz"
-        {config = config.nixpkgs.config;};
-
-      home-manager = getChan
-        "https://github.com/nix-community/home-manager/archive/master.tar.xz"
-        {};
-
-    };
+# this doesn't get rid of channels
+#    packageOverrides = rec {
+#      nixos = getChan stableLink {config = config.nixpkgs.config;};
+#      unstable = getChan unstableLink {config = config.nixpkgs.config;};
+#      home-manager = getChan homeManagerLink {};
+#
+#    };
 
   };
 

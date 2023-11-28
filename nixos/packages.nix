@@ -7,9 +7,12 @@ pkgImport = import ./pkgs.nix;
 
 in
 with pkgImport;
+
 {
 
   environment.systemPackages = with pkgs; [
+    pkgImport.home-manager.home-manager
+
     vim
     neovim
     neovim-qt
@@ -20,7 +23,7 @@ with pkgImport;
     ranger
     fdupes
 
-    groff
+    unstable.groff
     mdp
     mdr
     lowdown
@@ -123,8 +126,7 @@ with pkgImport;
     unstable.e2fsprogs
     util-linux
     os-prober
-    arc-theme
-    materia-theme
+    help2man
 
     gnutar
     p7zip
@@ -178,6 +180,9 @@ with pkgImport;
     xlockmore
     xss-lock
     xautolock
+    fortune
+    figlet
+    lolcat
 
     qutebrowser
     firefox
@@ -258,6 +263,8 @@ with pkgImport;
     cmatrix
     tmatrix
     haskellPackages.FractalArt
+    arc-theme
+    materia-theme
 
 # WARNING VERSIONS AHEAD
 # Cant download :(

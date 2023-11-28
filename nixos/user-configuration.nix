@@ -9,8 +9,8 @@ pkgImport = import ./pkgs.nix;
 langPkgs = import ./user-lang-pkgs.nix { inherit pkgs; };
 
 nonLangs =
-with pkgImport;
 with pkgs;
+#with pkgImport;
 
 [
 
@@ -23,10 +23,6 @@ with pkgs;
   wxmaxima
   giac-with-xcas
   pinta
-
-  figlet
-  cowsay
-  lolcat
 
 ];
 

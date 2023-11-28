@@ -87,11 +87,16 @@ with pkgImport;
       package = pkgs.jdk17;
     };
 
-    command-not-found.enable = false;
+    command-not-found.enable = true;
+#    command-not-found.enable = false;
+
+# TODO download database somehow
+# https://github.com/nix-community/nix-index
+# https://github.com/nix-community/nix-index-database
     nix-index = {
       enable = true;
-      enableBashIntegration = true;
-      enableZshIntegration = true;
+      enableBashIntegration = false;
+      enableZshIntegration = false;
     };
 
   };
