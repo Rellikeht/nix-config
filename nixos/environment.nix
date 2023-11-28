@@ -1,6 +1,6 @@
 # vim: autoindent expandtab softtabstop=2 shiftwidth=2 tabstop=2
 
-{ pkgs, ... }:
+{ ... }:
 let
 pkgImport = import ./pkgs.nix;
 

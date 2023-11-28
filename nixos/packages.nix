@@ -1,7 +1,6 @@
 # vim: autoindent expandtab softtabstop=2 shiftwidth=2 tabstop=2
 
-#{ pkgs, config, ... }:
-{ pkgs, config, ... }:
+{ config, ... }:
 let
 pkgImport = import ./pkgs.nix;
 
@@ -11,7 +10,7 @@ with pkgImport;
 {
 
   environment.systemPackages = with pkgs; [
-    pkgImport.home-manager.home-manager
+    homeManagerPkgs.home-manager
 
     vim
     neovim

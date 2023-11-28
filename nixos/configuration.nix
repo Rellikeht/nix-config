@@ -4,13 +4,12 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running `nixos-help`).
 
-#{ pkgs, config, ... }:
-{ pkgs, config, ... }:
+{ config, ... }:
 let
 pkgImport = import ./pkgs.nix;
 
 in
-#with pkgImport;
+with pkgImport;
 
 {
 
@@ -34,8 +33,29 @@ in
       ./commands.nix
     ];
 
+  nixpkgs.config = {
+    allowUnfree = true;
+    permittedInsecurePackages = [ ];
+
+# maybe this will solve dependency on channels
+#    pkgs = {};
+
+# this doesn't get rid of channels
+#    packageOverrides = rec {
+#      nixos = getChan stableLink {config = config.nixpkgs.config;};
+#      unstable = getChan unstableLink {config = config.nixpkgs.config;};
+#      home-manager = getChan homeManagerLink {};
+#
+#    };
+
+  };
+
   nix = {
     package = pkgs.nixFlakes;
+#    nixPath = [
+#      "nixpkgs=${pkgsTarball}"
+#      "nixos-config=/etc/nixos/configuration.nix"
+#    ];
 
     settings = {
       auto-optimise-store = true;
@@ -67,20 +87,6 @@ in
 # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
 
     stateVersion = "23.11"; # Did you read the comment?
-  };
-
-  nixpkgs.config = {
-    allowUnfree = true;
-    permittedInsecurePackages = [ ];
-
-# this doesn't get rid of channels
-#    packageOverrides = rec {
-#      nixos = getChan stableLink {config = config.nixpkgs.config;};
-#      unstable = getChan unstableLink {config = config.nixpkgs.config;};
-#      home-manager = getChan homeManagerLink {};
-#
-#    };
-
   };
 
 }
