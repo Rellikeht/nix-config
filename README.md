@@ -1,3 +1,2 @@
 # nix-config
-My nixos configuration...
-...at least when it will be worth to put here
+Not even half done, but base system works
