@@ -2,6 +2,11 @@
 
 { pkgs, config, option, ... }:
 let
+noPassCmd = name: {
+        groups = ["wheel"];
+        noPass = true;
+        cmd = name;
+      };
 
 in
 
@@ -168,10 +173,11 @@ rec {
       {
         groups = ["wheel"];
         keepEnv = true;
-        runAs = "root";
         persist = true;
       }
 
+      ] ++ map noPassCmd [
+        "brightnessctl"
       ];
     };
 

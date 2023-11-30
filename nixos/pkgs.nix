@@ -21,12 +21,13 @@ homeManagerLink = "https://github.com/nix-community/home-manager/archive/release
 
 # downloaded nixpkgs for usage as pkgs in system
 nixexprs = fetchTarball stableLink;
-
 # for installing packages ?
 pkgs = import nixexprs universalConf;
 
 # And the same things here
-unstable = getChan unstableLink universalConf;
+unstableExprs = fetchTarball unstableLink;
+unstable = import unstableExprs universalConf;
+
 home-manager = fetchTarball homeManagerLink;
 homeManagerPkgs = (import home-manager) {};
 
@@ -35,8 +36,8 @@ in
 #   And some simple exporting
   inherit sysVer getChan universalConf;
   inherit stableLink unstableLink homeManagerLink;
-  inherit pkgs nixexprs;
-  inherit unstable;
+  inherit nixexprs pkgs;
+  inherit unstable unstableExprs;
   inherit home-manager homeManagerPkgs;
 
 }

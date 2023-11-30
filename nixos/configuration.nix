@@ -55,8 +55,11 @@ with pkgImport;
   };
 
 #   This puts nixos pkgs in /etc
-#   Don't really know why, but why not
-  environment.etc."nixpkgs".source = "${nixexprs}";
+#   For nixPath purposes ?
+  environment.etc = {
+    "nixpkgs".source = "${nixexprs}";
+    "unstable".source = "${unstableExprs}";
+  };
 
   nix = {
     package = pkgs.nixFlakes;
@@ -65,6 +68,7 @@ with pkgImport;
 #     for building system
     nixPath = [
       "nixpkgs=/etc/nixpkgs"
+      "unstable=/etc/unstable"
       "nixos-config=/etc/nixos/configuration.nix"
     ];
 

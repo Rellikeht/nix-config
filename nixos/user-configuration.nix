@@ -11,7 +11,6 @@ with pkgs;
 
 [
 
-  tesseract
   moc
   ungoogled-chromium
   zathura
@@ -20,6 +19,9 @@ with pkgs;
   wxmaxima
   giac-with-xcas
   pinta
+
+  tesseract
+  almonds
 
 ];
 

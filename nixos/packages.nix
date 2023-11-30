@@ -21,6 +21,7 @@ in
     fdupes
 
     unstable.groff
+    glow
     mdp
     mdr
     lowdown
@@ -83,6 +84,7 @@ in
     unstable.nimlsp
 
     nil
+    haskell-language-server
     opam
     ocamlPackages.utop
     ocamlPackages.ocaml-lsp

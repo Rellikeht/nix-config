@@ -23,7 +23,15 @@ rec {
 
   ];
 
-  others = [
+  r = [
+
+    rPackages.vioplot
+    rPackages.units
+    rPackages.ggplot2
+
+  ];
+
+  java = [
 
     jdk11
     jdk17
@@ -32,18 +40,26 @@ rec {
     java-language-server
     jdt-language-server
 
+  ];
+
+  haskell = [
+
+    haskellPackages.vector
+    haskellPackages.hashtables
+    haskellPackages.unordered-containers
+#    haskellPackages.unordered-intmap
+
+  ];
+
+  others = [
+
     julia
-    haskell-language-server
     pforth
 
-    rPackages.vioplot
-    rPackages.units
-    rPackages.ggplot2
-
-    # additional solvers
+    # TODO additional solvers
     unstable.minizinc
 
   ];
 
-  langs = others ++ python;
+  langs = python ++ r ++ haskell ++ java ++ others;
 }
