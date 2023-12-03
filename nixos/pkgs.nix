@@ -4,7 +4,8 @@
 let
 
 # Version of whole system
-sysVer = "23.05";
+sysVer = "23.11";
+oldVer = "23.05";
 
 getChan = addr: import (fetchTarball addr);
 universalConf = {
@@ -14,10 +15,13 @@ universalConf = {
 };
 
 # Links to pkgs repos
+oldLink = "https://nixos.org/channels/nixos-${oldVer}/nixexprs.tar.xz";
 stableLink = "https://nixos.org/channels/nixos-${sysVer}/nixexprs.tar.xz";
 unstableLink = "https://nixos.org/channels/nixos-unstable/nixexprs.tar.xz";
 homeManagerLink = "https://github.com/nix-community/home-manager/archive/release-${sysVer}.tar.gz";
 # TODO NUR at some day
+
+oldPkgs = getChan oldLink universalConf;
 
 # downloaded nixpkgs for usage as pkgs in system
 nixexprs = fetchTarball stableLink;
@@ -36,7 +40,7 @@ in
 #   And some simple exporting
   inherit sysVer getChan universalConf;
   inherit stableLink unstableLink homeManagerLink;
-  inherit nixexprs pkgs;
+  inherit nixexprs pkgs oldPkgs;
   inherit unstable unstableExprs;
   inherit home-manager homeManagerPkgs;
 

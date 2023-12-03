@@ -78,8 +78,7 @@ rec {
 
     locate = {
       enable = true;
-#      package = pkgs.plocate;
-      locate = pkgs.plocate;
+      package = pkgs.plocate;
       localuser = null;
     };
 

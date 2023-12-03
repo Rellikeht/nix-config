@@ -20,6 +20,7 @@ rec {
 
     profileRelativeSessionVariables = {
       PATH = path;
+      PYTHONDONTWRITEBYTECODE = ["true"];
     };
 
     profileRelativeEnvVars = {
@@ -34,6 +35,7 @@ rec {
       ZIG_LOCAL_CACHE_DIR = "/tmp/$USER-zig/";
       PYTHONDONTWRITEBYTECODE = "false";
       _JAVA_AWT_WM_NONREPARENTING = "1";
+      _JAVA_OPTIONS = "-Dawt.useSystemAAFontSettings=lcd";
 
     };
 
@@ -44,7 +46,7 @@ rec {
       XDG_CONFIG_HOME = "$HOME/.config/";
       XDG_BIN_HOME = "$HOME/.local/bin/";
       JULIA_EDITOR = "ssvim";
-#      PATH = variables.PATH;
+
     };
 
     binsh = "${pkgs.dash}/bin/dash";
@@ -71,8 +73,7 @@ rec {
     useXkbConfig = true; # use xkbOptions in tty.
   };
 
-#  fonts.packages = with pkgs; [
-  fonts.fonts = with pkgs; [
+  fonts.packages = with pkgs; [
 
     meslo-lgs-nf
     meslo-lg

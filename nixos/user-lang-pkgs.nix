@@ -35,8 +35,6 @@ rec {
 
     jdk11
     jdk17
-    jetbrains.idea-community
-    gradle
     java-language-server
     jdt-language-server
 
@@ -52,12 +50,13 @@ rec {
   ];
 
   others = [
+# good latex, but not needed now
+#    texlive.combined.scheme-full # ?
+#    texlab
 
     julia
     pforth
-
-    # TODO additional solvers
-    unstable.minizinc
+    unstable.tree-sitter
 
   ];
 

@@ -25,9 +25,6 @@ in
     mdp
     mdr
     lowdown
-# good latex, but not needed now
-#    texlive.combined.scheme-full # ?
-#    texlab
 
     screen
     physlock
@@ -73,25 +70,25 @@ in
     unstable.nim
 
     gcc
-    ghc
-    rustc
-    ocaml
     jdk
 
+    unstable.ghc
+    unstable.rustc
+    unstable.ocaml
     unstable.gopls
     unstable.zls
     unstable.zig-shell-completions
     unstable.nimlsp
+    unstable.rustfmt
+    unstable.rust-analyzer
+    unstable.opam
+    unstable.ocamlPackages.utop
+    unstable.ocamlPackages.ocaml-lsp
+    unstable.haskell-language-server
+    unstable.nil
 
-    nil
-    haskell-language-server
-    opam
-    ocamlPackages.utop
-    ocamlPackages.ocaml-lsp
     udunits
     clang-tools
-    rustfmt
-    rust-analyzer
     lua-language-server
     vim-vint
     shellcheck
@@ -165,7 +162,8 @@ in
     mediainfo
     file
     iconv
-    spotdl
+
+    old.spotdl
 
     gparted
     gpart
@@ -270,7 +268,7 @@ in
 # unstable doesn't help
 #    unstable.libsForQt5.xp-pen-deco-01-v2-driver
 
-#    unstable.nim2
+    unstable.python313Full
 
     python311Full
     python311Packages.bpython
@@ -278,7 +276,8 @@ in
     python311Packages.python-lsp-server
     python311Packages.pynvim
 
-    perl536Packages.WWWYoutubeViewer
+    unstable.perl538Packages.WWWYoutubeViewer
+    unstable.perl538Packages.TermReadLineGnu
 
   ];
 }

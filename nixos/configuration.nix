@@ -47,6 +47,7 @@ with pkgImport;
 
 #	    This enables all collections through pkgs
     packageOverrides = rec {
+      old = pkgImport.oldPkgs;
       nixos = pkgImport.pkgs;
       unstable = pkgImport.unstable;
       home-manager = pkgImport.homeManagerPkgs;
@@ -70,6 +71,9 @@ with pkgImport;
       "nixpkgs=/etc/nixpkgs"
       "unstable=/etc/unstable"
       "nixos-config=/etc/nixos/configuration.nix"
+
+# ??
+#      "/nix/var/nix/profiles/per-user/root/channels"
     ];
 
     settings = {
