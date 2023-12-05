@@ -28,13 +28,15 @@ in
 
       autosuggestions = {
         enable = true;
-        strategy = ["completion" "history"];
+        strategy = ["completion" "history" "match_prev_cmd"];
 
       };
 
       syntaxHighlighting = {
         enable = true;
         highlighters = [
+# bad root
+
           "main"
           "brackets"
           "regexp"
@@ -47,9 +49,29 @@ in
         "HIST_FCNTL_LOCK"
       ];
 
-      interactiveShellInit = "
+#      interactiveShellInit = "
+      shellInit = "
         bindkey -e
         [ -e ~/.zshrc ] && source ~/.zshrc
+        export WORDCHARS='%~!?+'
+
+#        my-backward-delete-word () {
+#           local WORDCHARS='~!#$%^*<>?+/'
+#           zle backward-delete-word
+#        }
+#        zle -N my-backward-delete-word
+#        bindkey    '\\e^?' my-backward-delete-word
+
+        conditional_source () {
+          [ -f \"\$1\" ] && source \"\$1\"
+        }
+
+        conditional_source \"/etc/.aliasrc\"
+        conditional_source \"\$HOME/.aliasrc\"
+        conditional_source \"/etc/.funcrc\"
+        conditional_source \"\$HOME/.funcrc\"
+        conditional_source \"/etc/.varrc\"
+        conditional_source \"\$HOME/.varrc\"
       ";
 
     };
@@ -93,6 +115,31 @@ in
       enable = true;
       enableBashIntegration = false;
       enableZshIntegration = false;
+    };
+
+    direnv = {
+      enable = true;
+      nix-direnv = {
+        enable = true;
+      };
+
+#      silent = true;
+    };
+
+    git = {
+      enable = true;
+      package = pkgs.gitFull;
+# TODO config
+
+    };
+
+    neovim = {
+      enable = true;
+
+# TODO ?
+#      configure = {};
+#      runtime = {};
+
     };
 
   };

@@ -162,6 +162,8 @@ rec {
 
     };
 
+# TODO aria2 daemon
+
   };
 
   security = {

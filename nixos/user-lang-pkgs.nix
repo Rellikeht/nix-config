@@ -58,6 +58,10 @@ rec {
     pforth
     unstable.tree-sitter
 
+# TODO build shit from source
+# and add solvers
+    minizinc
+
   ];
 
   langs = python ++ r ++ haskell ++ java ++ others;

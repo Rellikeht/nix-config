@@ -11,7 +11,6 @@ in
     home-manager.home-manager
 
     vim
-    neovim
     neovim-qt
     kakoune
     vis
@@ -40,8 +39,6 @@ in
     bison
     rlwrap
 
-    direnv
-    nix-direnv
     nix-zsh-completions
     nix-bash-completions
     zsh-nix-shell
@@ -50,7 +47,10 @@ in
     nixfmt
     nix-top
     nix-tree
+    nix-search-cli
+    nix-script
     nixos-shell
+    nixopsUnstable
 
 #    python3Full
     sbcl
@@ -68,6 +68,7 @@ in
     unstable.go
     unstable.zig
     unstable.nim
+    unstable.nimble
 
     gcc
     jdk
@@ -138,11 +139,13 @@ in
     unrar
 
     pass
+    keepassxc
     dhcpcd
     wpa_supplicant
     speedtest-cli
     inetutils
 
+    delta
     w3m
     silver-searcher
     progress
@@ -163,7 +166,7 @@ in
     file
     iconv
 
-    old.spotdl
+    spotdl
 
     gparted
     gpart
@@ -199,7 +202,6 @@ in
 #    pipecontrol
     pavucontrol
 
-    git
     aria
     wget
     curl
@@ -221,10 +223,14 @@ in
     dzen2
     shotgun
     scrot
+
+# Modes don't work
+# they probably need some overlay
     rofi
-    rofi-pass
     rofi-calc
     rofi-emoji
+
+    rofi-pass
 
     mesa-demos
     xarchiver

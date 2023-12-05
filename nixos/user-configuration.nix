@@ -106,6 +106,7 @@ rec {
             value = 2;
           };
 
+          urAccepted = -1;
           startBrowser = false;
           relaysEnabled = false;
           globalAnnounceEnabled = true;
@@ -123,14 +124,11 @@ rec {
 #          {  line = "*.bin"; }
 #          {  line = "*.so"; }
 #          ];
-#
-#        };
 
+      };
     };
-
   };
-
-};
 
 }
 
+# TODO global syncthing?
