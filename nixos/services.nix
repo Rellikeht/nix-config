@@ -1,34 +1,33 @@
 # vim: autoindent expandtab softtabstop=2 shiftwidth=2 tabstop=2
-
-{ pkgs, config, option, ... }:
-let
-noPassCmd = name: {
-        groups = ["wheel"];
-        noPass = true;
-        cmd = name;
-      };
-
-in
-
-rec {
-
+{
+  pkgs,
+  config,
+  option,
+  ...
+}: let
+  noPassCmd = name: {
+    groups = ["wheel"];
+    noPass = true;
+    cmd = name;
+  };
+in rec {
   networking = {
     hostName = "nixos";
     networkmanager.enable = true;
 
     firewall = {
-#      enable = false;
+      #      enable = false;
       allowPing = false;
 
-# TODO
-# Open ports in the firewall.
-#      allowedTCPPorts = [ ... ];
-#      allowedUDPPorts = [ ... ];
+      # TODO
+      # Open ports in the firewall.
+      #      allowedTCPPorts = [ ... ];
+      #      allowedUDPPorts = [ ... ];
     };
 
-  # Configure network proxy if necessary
-  # proxy.default = "http://user:password@proxy:port/";
-  # proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+    # Configure network proxy if necessary
+    # proxy.default = "http://user:password@proxy:port/";
+    # proxy.noProxy = "127.0.0.1,localhost,internal.domain";
   };
 
   sound = {
@@ -51,17 +50,17 @@ rec {
     printing.enable = true;
     thermald.enable = true;
 
-# TODO pipewire
-#    pipewire = {
-#      enable = true;
-#
-#      alsa = {
-#        enable = true;
-#        support32Bit = true;
-#      };
-#
-#      pulse.enable = true;
-#    };
+    # TODO pipewire
+    #    pipewire = {
+    #      enable = true;
+    #
+    #      alsa = {
+    #        enable = true;
+    #        support32Bit = true;
+    #      };
+    #
+    #      pulse.enable = true;
+    #    };
 
     tlp = {
       enable = true;
@@ -111,19 +110,18 @@ rec {
           package = pkgs.i3; # ??
 
           extraPackages = with pkgs; [
-          i3status
+            i3status
             dmenu
           ];
 
-# TODO fucking xinitrc
-#          extraSessionCommands = "\$HOME/.xinitrc_common";
+          # TODO fucking xinitrc
+          #          extraSessionCommands = "\$HOME/.xinitrc_common";
         };
 
         awesome = {
           enable = true;
-#          noArgb = true;
+          #          noArgb = true;
         };
-
       };
 
       displayManager = {
@@ -133,11 +131,13 @@ rec {
 
         sddm = {
           enable = true;
-          theme = "maladives";
+          theme = "chili";
+          # theme = pkgs.sddm-chili-theme;
         };
       };
 
-      xautolock = { # ???
+      xautolock = {
+        # ???
         enable = true;
         nowlocker = "${services.xserver.xautolock.locker}";
         extraOptions = [
@@ -150,49 +150,44 @@ rec {
         killer = "/run/current-system/systemd/bin/systemctl suspend";
         killtime = 10;
       };
-
     };
 
     cron = {
       enable = true;
 
-      systemCronJobs = [ # @reboot creating directories ??
+      systemCronJobs = [
+        # @reboot creating directories ??
         "*/30 * * * * root updatedb"
       ];
-
     };
 
-# TODO aria2 daemon
-
+    # TODO aria2 daemon
   };
 
   security = {
     doas = {
       enable = true;
-      extraRules = [
-
-      {
-        groups = ["wheel"];
-        keepEnv = true;
-        persist = true;
-      }
-
-      ] ++ map noPassCmd [
-        "brightnessctl"
-      ];
+      extraRules =
+        [
+          {
+            groups = ["wheel"];
+            keepEnv = true;
+            persist = true;
+          }
+        ]
+        ++ map noPassCmd [
+          "brightnessctl"
+        ];
     };
 
     sudo = {
       enable = true;
       extraRules = [
-      {
-        groups = ["wheel"];
-        commands = ["ALL"];
-      }
+        {
+          groups = ["wheel"];
+          commands = ["ALL"];
+        }
       ];
     };
-
   };
-
 }
-

@@ -1,12 +1,10 @@
 # vim: autoindent expandtab softtabstop=2 shiftwidth=2 tabstop=2
-
-{ pkgs, config, ... }:
-let
-
-in
-
 {
-
+  pkgs,
+  config,
+  ...
+}: let
+in {
   environment.systemPackages = with pkgs; [
     home-manager.home-manager
 
@@ -29,7 +27,7 @@ in
     physlock
     lm_sensors
     htop
-#    htop-vim
+    #    htop-vim
 
     gnumake
     gnum4
@@ -44,15 +42,17 @@ in
     zsh-nix-shell
     nix-du
     unstable.nixd
-    nixfmt
     nix-top
     nix-tree
     nix-search-cli
     nix-script
     nixos-shell
     nixopsUnstable
+    #    nixfmt
+    nixpkgs-fmt
+    alejandra
 
-#    python3Full
+    #    python3Full
     sbcl
     clisp
     guile
@@ -156,7 +156,7 @@ in
     pv
     hyperfine
     config.boot.kernelPackages.perf
-#    perf-tools # ?
+    #    perf-tools # ?
 
     mpv
     ffmpeg
@@ -198,8 +198,8 @@ in
     alsa-utils
     alsa-tools # ?
 
-#    wireplumber
-#    pipecontrol
+    #    wireplumber
+    #    pipecontrol
     pavucontrol
 
     aria
@@ -213,19 +213,21 @@ in
     sshfs
     davfs2
 
+    sddm-chili-theme
     papirus-icon-theme
     fontconfig
     freetype
     ghostscript
 
-    dmenu # Remove when installed properly
+    # will be installed as flake from my github
+    #    dmenu
     unclutter
     dzen2
     shotgun
     scrot
 
-# Modes don't work
-# they probably need some overlay
+    # Modes don't work
+    # they probably need some overlay
     rofi
     rofi-calc
     rofi-emoji
@@ -261,7 +263,7 @@ in
     android-file-transfer
     android-tools
     adbfs-rootless
-#   adb-sync #?
+    #   adb-sync #?
 
     cmatrix
     tmatrix
@@ -269,10 +271,10 @@ in
     arc-theme
     materia-theme
 
-# WARNING VERSIONS AHEAD
-# Cant download :(
-# unstable doesn't help
-#    unstable.libsForQt5.xp-pen-deco-01-v2-driver
+    # WARNING VERSIONS AHEAD
+    # Cant download :(
+    # unstable doesn't help
+    #    unstable.libsForQt5.xp-pen-deco-01-v2-driver
 
     unstable.python313Full
 
@@ -284,9 +286,8 @@ in
 
     unstable.perl538Packages.WWWYoutubeViewer
     unstable.perl538Packages.TermReadLineGnu
-
   ];
 }
-
 # TODO Categorize properly
 # TODO smapi - battery, proper linux for that
+

@@ -3,48 +3,44 @@
 # TODO do that with flakes maybe
 let
 
-# Version of whole system
-sysVer = "23.11";
+  # Version of whole system
+  sysVer = "23.11";
 
-getChan = addr: import (fetchTarball addr);
-universalConf = {
-  config = {
-    allowUnfree = true;
-  };
-};
+  getChan = addr: import (fetchTarball addr);
+  universalConf = { config = { allowUnfree = true; }; };
 
-# Links to pkgs repos
-stableLink = "https://nixos.org/channels/nixos-${sysVer}/nixexprs.tar.xz";
-unstableLink = "https://nixos.org/channels/nixos-unstable/nixexprs.tar.xz";
-homeManagerLink = "https://github.com/nix-community/home-manager/archive/release-${sysVer}.tar.gz";
-# TODO NUR at some day
+  # Links to pkgs repos
+  stableLink = "https://nixos.org/channels/nixos-${sysVer}/nixexprs.tar.xz";
+  unstableLink = "https://nixos.org/channels/nixos-unstable/nixexprs.tar.xz";
+  homeManagerLink =
+    "https://github.com/nix-community/home-manager/archive/release-${sysVer}.tar.gz";
+  # TODO NUR at some day
 
-#oldVer = "23.05";
-#oldLink = "https://nixos.org/channels/nixos-${oldVer}/nixexprs.tar.xz";
-#oldPkgs = getChan oldLink universalConf;
+  #oldVer = "23.05";
+  #oldLink = "https://nixos.org/channels/nixos-${oldVer}/nixexprs.tar.xz";
+  #oldPkgs = getChan oldLink universalConf;
 
-# downloaded nixpkgs for usage as pkgs in system
-nixexprs = fetchTarball stableLink;
-# for installing packages ?
-pkgs = import nixexprs universalConf;
+  # downloaded nixpkgs for usage as pkgs in system
+  nixexprs = fetchTarball stableLink;
+  # for installing packages ?
+  pkgs = import nixexprs universalConf;
 
-# And the same things here
-unstableExprs = fetchTarball unstableLink;
-unstable = import unstableExprs universalConf;
+  # And the same things here
+  unstableExprs = fetchTarball unstableLink;
+  unstable = import unstableExprs universalConf;
 
-home-manager = fetchTarball homeManagerLink;
-homeManagerPkgs = (import home-manager) {};
+  home-manager = fetchTarball homeManagerLink;
+  homeManagerPkgs = (import home-manager) { };
 
-in
-{
-#   And some simple exporting
+in {
+  #   And some simple exporting
   inherit sysVer getChan universalConf;
   inherit stableLink unstableLink homeManagerLink;
   inherit nixexprs pkgs;
   inherit unstable unstableExprs;
   inherit home-manager homeManagerPkgs;
 
-#  inherit oldPkgs;
+  #  inherit oldPkgs;
 
 }
 
