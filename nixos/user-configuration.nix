@@ -1,33 +1,28 @@
 # vim: autoindent expandtab softtabstop=2 shiftwidth=2 tabstop=2
+{
+  pkgs,
+  config,
+  lib,
+  option,
+  ...
+}: let
+  vars = import ./local-vars.nix;
+  langPkgs = import ./user-lang-pkgs.nix {inherit pkgs;};
 
-{ pkgs, config, lib, option, ... }:
+  nonLangs = with pkgs; [
+    moc
+    ungoogled-chromium
+    zathura
+    mupdf
+    libreoffice-fresh
+    wxmaxima
+    giac-with-xcas
+    pinta
 
-let
-vars = import ./local-vars.nix;
-langPkgs = import ./user-lang-pkgs.nix { inherit pkgs; };
-
-nonLangs =
-with pkgs;
-
-[
-
-  moc
-  ungoogled-chromium
-  zathura
-  mupdf
-  libreoffice-fresh
-  wxmaxima
-  giac-with-xcas
-  pinta
-
-  tesseract
-  almonds
-
-];
-
-in
-
-rec {
+    tesseract
+    almonds
+  ];
+in rec {
   imports = [
     ./user-fsystem.nix
     ./user-managers.nix
@@ -36,7 +31,6 @@ rec {
   ];
 
   users.users.default = {
-
     name = vars.name;
     home = vars.home;
     initialPassword = vars.initPass;
@@ -64,7 +58,7 @@ rec {
     ];
 
     packages = with langPkgs;
-    langs ++ nonLangs;
+      langs ++ nonLangs;
 
     shell = pkgs.zsh;
   };
@@ -113,22 +107,19 @@ rec {
           localAnnounceEnabled = true;
 
           reconnectIntervalS = 20;
-
         };
 
-# TODO
-#          ignores = [
-#          { line = "*.swp"; }
-#          {  line = "*.~"; }
-#          {  line = "*.out"; }
-#          {  line = "*.bin"; }
-#          {  line = "*.so"; }
-#          ];
-
+        # TODO
+        #          ignores = [
+        #          { line = "*.swp"; }
+        #          {  line = "*.~"; }
+        #          {  line = "*.out"; }
+        #          {  line = "*.bin"; }
+        #          {  line = "*.so"; }
+        #          ];
       };
     };
   };
-
 }
-
 # TODO global syncthing?
+

@@ -1,22 +1,14 @@
 # vim: autoindent expandtab softtabstop=2 shiftwidth=2 tabstop=2
-
-{ config, ... }:
-let
-
-in
-
-{
-
+{config, ...}: let
+in {
   boot = {
     loader = {
-
       grub = {
         enable = true;
-#        theme = pkgs.nixos-grub2-theme;
+        #        theme = pkgs.nixos-grub2-theme;
         theme = null;
         useOSProber = true;
       };
-
     };
 
     tmp = {
@@ -28,18 +20,17 @@ in
       sysctl = {
         "vm.swappiness" = 10;
       };
-
     };
 
-# this sets kernel
-#    kernelPackages = null;
+    # this sets kernel
+    #    kernelPackages = null;
 
     kernelModules = [
       "ntfs3"
     ];
 
     kernelParams = [];
-    extraModulePackages = with config.boot.kernelPackages; [ ];
+    extraModulePackages = with config.boot.kernelPackages; [];
 
     supportedFilesystems = [
       "ntfs"
@@ -51,8 +42,7 @@ in
       "btrfs"
       "f2fs"
     ];
-
   };
 
-# TODO zram
+  # TODO zram
 }

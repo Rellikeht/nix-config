@@ -1,18 +1,17 @@
 # vim: autoindent expandtab softtabstop=2 shiftwidth=2 tabstop=2
-
-{ config, option, ... }:
-let
+{
+  config,
+  option,
+  ...
+}: let
   vars = import ./local-vars.nix;
 
   downloads = builtins.mkDerivation {
-# TODO downloads copying
+    # TODO downloads copying
   };
-
-in
-{
-
-# TODO move without infinite recursion
-# maybe simple let
+in {
+  # TODO move without infinite recursion
+  # maybe simple let
   fileSystems = {
     "${vars.home}/Downloads" = {
       device = "none";
@@ -23,9 +22,8 @@ in
       ];
     };
   };
-
 }
-
 # TODO home manager ??
 # TODO directories
 # TODO symlinks
+

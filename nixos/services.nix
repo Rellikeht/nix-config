@@ -11,6 +11,33 @@
     cmd = name;
   };
 in rec {
+  security = {
+    doas = {
+      enable = true;
+      extraRules =
+        [
+          {
+            groups = ["wheel"];
+            keepEnv = true;
+            persist = true;
+          }
+        ]
+        ++ map noPassCmd [
+          "brightnessctl"
+        ];
+    };
+
+    sudo = {
+      enable = true;
+      extraRules = [
+        {
+          groups = ["wheel"];
+          commands = ["ALL"];
+        }
+      ];
+    };
+  };
+
   networking = {
     hostName = "nixos";
     networkmanager.enable = true;
@@ -36,8 +63,22 @@ in rec {
   };
 
   hardware = {
-    pulseaudio.enable = true;
-    bluetooth.enable = true;
+    pulseaudio = {
+      enable = true;
+      package = pkgs.pulseaudioFull;
+      extraConfig = "
+        load-module module-switch-on-connect
+      ";
+    };
+
+    bluetooth = {
+      enable = true;
+      settings = {
+        General = {
+          Enable = "Source,Sink,Media,Socket";
+        };
+      };
+    };
   };
 
   powerManagement = {
@@ -161,33 +202,10 @@ in rec {
       ];
     };
 
+    blueman = {
+      enable = true;
+    };
+
     # TODO aria2 daemon
-  };
-
-  security = {
-    doas = {
-      enable = true;
-      extraRules =
-        [
-          {
-            groups = ["wheel"];
-            keepEnv = true;
-            persist = true;
-          }
-        ]
-        ++ map noPassCmd [
-          "brightnessctl"
-        ];
-    };
-
-    sudo = {
-      enable = true;
-      extraRules = [
-        {
-          groups = ["wheel"];
-          commands = ["ALL"];
-        }
-      ];
-    };
   };
 }

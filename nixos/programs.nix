@@ -1,14 +1,12 @@
 # vim: autoindent expandtab softtabstop=2 shiftwidth=2 tabstop=2
-
-{ pkgs, config, option, ... }:
-let
-
-in
-
 {
-
+  pkgs,
+  config,
+  option,
+  ...
+}: let
+in {
   programs = {
-
     # Some programs need SUID wrappers, can be configured further or are
     # started in user sessions.
     # mtr.enable = true;
@@ -29,13 +27,12 @@ in
       autosuggestions = {
         enable = true;
         strategy = ["completion" "history" "match_prev_cmd"];
-
       };
 
       syntaxHighlighting = {
         enable = true;
         highlighters = [
-# bad root
+          # bad root
 
           "main"
           "brackets"
@@ -49,7 +46,7 @@ in
         "HIST_FCNTL_LOCK"
       ];
 
-#      interactiveShellInit = "
+      #      interactiveShellInit = "
       shellInit = "
         bindkey -e
         [ -e ~/.zshrc ] && source ~/.zshrc
@@ -73,7 +70,6 @@ in
         conditional_source \"/etc/.varrc\"
         conditional_source \"\$HOME/.varrc\"
       ";
-
     };
 
     tmux = {
@@ -94,10 +90,9 @@ in
       enable = true;
       lockerCommand = "${pkgs.xlockmore}/bin/xlock";
 
-#      extraOptions = [
-#        ""
-#      ];
-
+      #      extraOptions = [
+      #        ""
+      #      ];
     };
 
     java = {
@@ -106,11 +101,11 @@ in
     };
 
     command-not-found.enable = true;
-#    command-not-found.enable = false;
+    #    command-not-found.enable = false;
 
-# TODO download database somehow
-# https://github.com/nix-community/nix-index
-# https://github.com/nix-community/nix-index-database
+    # TODO download database somehow
+    # https://github.com/nix-community/nix-index
+    # https://github.com/nix-community/nix-index-database
     nix-index = {
       enable = true;
       enableBashIntegration = false;
@@ -123,26 +118,21 @@ in
         enable = true;
       };
 
-#      silent = true;
+      #      silent = true;
     };
 
     git = {
       enable = true;
       package = pkgs.gitFull;
-# TODO config
-
+      # TODO config
     };
 
     neovim = {
       enable = true;
 
-# TODO ?
-#      configure = {};
-#      runtime = {};
-
+      # TODO ?
+      #      configure = {};
+      #      runtime = {};
     };
-
   };
-
 }
-
