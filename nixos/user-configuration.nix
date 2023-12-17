@@ -15,9 +15,10 @@
     zathura
     mupdf
     libreoffice-fresh
+    pinta
     wxmaxima
     giac-with-xcas
-    pinta
+    # qalculate-gtk
 
     tesseract
     almonds

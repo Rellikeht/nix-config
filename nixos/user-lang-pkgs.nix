@@ -5,7 +5,7 @@ in
     # Because of versions
     python = [
       pypy3
-      #    unstable.pypy310
+      #    pypy310
 
       python311Packages.mypy
       python311Packages.matplotlib
@@ -25,6 +25,7 @@ in
     java = [
       jdk11
       jdk17
+
       java-language-server
       jdt-language-server
     ];

@@ -29,6 +29,7 @@ in rec {
       PYTHONDONTWRITEBYTECODE = "false";
       _JAVA_AWT_WM_NONREPARENTING = "1";
       _JAVA_OPTIONS = "-Dawt.useSystemAAFontSettings=lcd";
+      NIXPKGS_ALLOW_UNFREE = "1";
     };
 
     sessionVariables = {

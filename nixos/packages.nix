@@ -16,15 +16,18 @@ in {
     vifm
     ranger
     fdupes
+    stow
 
     unstable.groff
     glow
     mdp
     mdr
     lowdown
+    pinfo
 
     screen
     physlock
+    procps
     lm_sensors
     htop
     #    htop-vim
@@ -41,7 +44,6 @@ in {
     nix-bash-completions
     zsh-nix-shell
     nix-du
-    unstable.nixd
     nix-top
     nix-tree
     nix-search-cli
@@ -58,35 +60,42 @@ in {
     guile
     lua
     luajit
-    maxima
     R
     gforth
     tcl
     tclreadline
     tk
-
-    unstable.go
-    unstable.zig
-    unstable.nim
-    unstable.nimble
+    maxima
+    # libqalculate
 
     gcc
     jdk
 
-    unstable.ghc
-    unstable.rustc
-    unstable.ocaml
+    unstable.go
     unstable.gopls
+
+    unstable.zig
     unstable.zls
     unstable.zig-shell-completions
+
+    unstable.nim
+    unstable.nimble
     unstable.nimlsp
+
+    unstable.rustc
     unstable.rustfmt
     unstable.rust-analyzer
-    unstable.opam
-    unstable.ocamlPackages.utop
-    unstable.ocamlPackages.ocaml-lsp
+
+    unstable.ghc
     unstable.haskell-language-server
+
     unstable.nil
+    unstable.nixd
+
+    ocaml
+    opam
+    ocamlPackages.utop
+    ocamlPackages.ocaml-lsp
 
     udunits
     clang-tools
@@ -165,7 +174,6 @@ in {
     mediainfo
     file
     iconv
-
     spotdl
 
     gparted
@@ -209,6 +217,11 @@ in {
     phodav
     cadaver
     megatools
+    gdown
+    qbittorrent
+    dumptorrent
+    syncthing
+    rclone
 
     sshfs
     davfs2
@@ -235,6 +248,7 @@ in {
     rofi-pass
 
     mesa-demos
+    mesa
     xarchiver
 
     nitrogen
