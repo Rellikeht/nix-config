@@ -24,6 +24,7 @@ in {
     mdr
     lowdown
     pinfo
+    highlight
 
     screen
     physlock
@@ -66,7 +67,7 @@ in {
     tclreadline
     tk
     maxima
-    # libqalculate
+    libqalculate
 
     gcc
     jdk
@@ -211,17 +212,20 @@ in {
     pavucontrol
 
     aria
+    lftp
     wget
     curl
+    curlie
     rsync
     phodav
     cadaver
     megatools
     gdown
-    qbittorrent
-    dumptorrent
     syncthing
     rclone
+    dumptorrent
+    transmission
+    transmission-gtk
 
     sshfs
     davfs2
@@ -232,7 +236,8 @@ in {
     freetype
     ghostscript
 
-    # will be installed as flake from my github
+    # Remove when this will be added properly
+    # Config must be flake probably for that
     #    dmenu
     unclutter
     dzen2

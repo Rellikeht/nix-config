@@ -11,30 +11,30 @@ let
   stableLink = "https://nixos.org/channels/nixos-${sysVer}/nixexprs.tar.xz";
   unstableLink = "https://nixos.org/channels/nixos-unstable/nixexprs.tar.xz";
   homeManagerLink = "https://github.com/nix-community/home-manager/archive/release-${sysVer}.tar.gz";
-  # TODO NUR at some day
+  nurLink = "https://github.com/nix-community/NUR/archive/master.tar.gz";
 
   #oldVer = "23.05";
   #oldLink = "https://nixos.org/channels/nixos-${oldVer}/nixexprs.tar.xz";
-  #oldPkgs = getChan oldLink universalConf;
+  #old = getChan oldLink universalConf;
 
-  # downloaded nixpkgs for usage as pkgs in system
+  # Is this pinning already?
   nixexprs = fetchTarball stableLink;
-  # for installing packages ?
   pkgs = import nixexprs universalConf;
-
-  # And the same things here
   unstableExprs = fetchTarball unstableLink;
   unstable = import unstableExprs universalConf;
 
-  homeManager = fetchTarball homeManagerLink;
-  homeManagerPkgs = (import homeManager) {};
+  homeManagerExprs = fetchTarball homeManagerLink;
+  homeManager = (import homeManagerExprs) {};
+  nurExprs = fetchTarball nurLink;
+  nur = (import nurExprs) {inherit pkgs;};
 in {
   #   And some simple exporting
   inherit sysVer getChan universalConf;
-  inherit stableLink unstableLink homeManagerLink;
-  inherit nixexprs pkgs;
+  inherit stableLink unstableLink homeManagerLink nurLink;
+  inherit pkgs nixexprs;
   inherit unstable unstableExprs;
-  inherit homeManager homeManagerPkgs;
+  inherit homeManager homeManagerExprs;
+  inherit nur nurExprs;
 
   #  inherit oldPkgs;
 }

@@ -39,7 +39,8 @@ in rec {
   };
 
   networking = {
-    hostName = "nixos";
+    # hostName = "nixos";
+    hostName = config.system.name;
     networkmanager.enable = true;
 
     firewall = {

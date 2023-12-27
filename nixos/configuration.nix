@@ -43,10 +43,11 @@ in
 
       #	    This enables all collections through pkgs
       packageOverrides = rec {
-        old = pkgImport.oldPkgs;
+        # old = pkgImport.old;
         nixos = pkgImport.pkgs;
         unstable = pkgImport.unstable;
-        home-manager = pkgImport.homeManagerPkgs;
+        home-manager = pkgImport.homeManager;
+        nur = pkgImport.nur;
       };
     };
 

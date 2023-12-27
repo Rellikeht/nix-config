@@ -1,0 +1,45 @@
+rec {
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
+    homeManager = {
+      url = "github:nix-community/home-manager/";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nixpkgs-unstable.url = "https://nixos.org/channels/nixos-unstable/nixexprs.tar.xz";
+  };
+
+  outputs = {
+    self,
+    nixpkgs,
+    nixpkgs-unstable,
+    homeManager,
+    ...
+  } @ attrs: let
+    system = "x86_64-linux";
+
+    pkgs = import nixpkgs {
+      config.allowUnfree = true;
+      system = system;
+    };
+
+    unstable = import nixpkgs-unstable {
+      config.allowUnfree = true;
+      system = system;
+    };
+  in {
+    nixosConfigurations = {
+      nixos = nixpkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs = {inherit attrs;};
+        modules = [
+          ./configuration.nix
+          homeManager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+          }
+        ];
+      };
+    };
+  };
+}
