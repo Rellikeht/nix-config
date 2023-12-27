@@ -1,11 +1,17 @@
 rec {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
+    nixpkgs-unstable.url = "https://nixos.org/channels/nixos-unstable/nixexprs.tar.xz";
+
     homeManager = {
       url = "github:nix-community/home-manager/";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixpkgs-unstable.url = "https://nixos.org/channels/nixos-unstable/nixexprs.tar.xz";
+
+    locals = {
+      url = path:/etc/nixos-local;
+      flake = false;
+    };
   };
 
   outputs = {
@@ -13,9 +19,11 @@ rec {
     nixpkgs,
     nixpkgs-unstable,
     homeManager,
+    locals,
     ...
   } @ attrs: let
     system = "x86_64-linux";
+    sysVer = nixpkgs.stateVersion;
 
     pkgs = import nixpkgs {
       config.allowUnfree = true;
@@ -28,11 +36,14 @@ rec {
     };
   in {
     nixosConfigurations = {
-      nixos = nixpkgs.lib.nixosSystem {
+      declarativeMonster = nixpkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = {inherit attrs;};
+        specialArgs = {
+          inherit attrs sysVer;
+        };
         modules = [
           ./configuration.nix
+          locals
           homeManager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;

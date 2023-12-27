@@ -1,13 +1,22 @@
 # vim: autoindent expandtab softtabstop=2 shiftwidth=2 tabstop=2
-{...}: let
-  pkgImport = import ./pkgs.nix;
+{
+  # homeManagerExprs,
+  # home-manager,
+  ...
+}: let
+  # pkgImport = import ./pkgs.nix;
 in {
   # No idea what happens here
   # No idea how to incorporate shit into config
   # Modularity is very hard
-  imports = [(import "${pkgImport.homeManagerExprs}/nixos")];
 
-  home-manager.users.default = {...}: {
-    home.stateVersion = pkgImport.sysVer;
-  };
+  # Infinite recursion loves me so much
+  # imports = [(import "${homeManagerExprs}/nixos")];
+  # imports = [home-manager];
+
+  # This should be done after changing config
+  # to flake :(
+  # home-manager.users.default = {...}: {
+  #   home.stateVersion = pkgImport.sysVer;
+  # };
 }

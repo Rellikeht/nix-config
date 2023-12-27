@@ -20,6 +20,19 @@
         "type": "github"
       }
     },
+    "locals": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1703706499,
+        "narHash": "sha256-uPwzOeutJHYyP/4PCQKB7rFyWr+jSSeQEOLYzIwWCoI=",
+        "path": "/etc/nixos-local",
+        "type": "path"
+      },
+      "original": {
+        "path": "/etc/nixos-local",
+        "type": "path"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1703467016,
@@ -51,6 +64,7 @@
     "root": {
       "inputs": {
         "homeManager": "homeManager",
+        "locals": "locals",
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable"
       }

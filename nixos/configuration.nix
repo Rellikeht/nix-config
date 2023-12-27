@@ -4,26 +4,25 @@
 # and in the NixOS manual (accessible by running `nixos-help`).
 {...}: let
   pkgImport = import ./pkgs.nix;
+  locals = import /etc/nixos-local/default.nix;
 in
   with pkgImport; {
-    imports = [
-      ./packages.nix
-      ./programs.nix
-      ./environment.nix
-      ./gits.nix
-      ./services.nix
-      ./source.nix
-      ./root.nix
+    imports =
+      [
+        ./packages.nix
+        ./programs.nix
+        ./environment.nix
+        ./gits.nix
+        ./services.nix
+        ./source.nix
+        ./root.nix
 
-      ./home-manager.nix
-      ./user-configuration.nix
-      ./other-local.nix
-
-      ./hardware-configuration.nix
-      ./devices.nix
-      ./devices-local.nix
-      ./commands.nix
-    ];
+        # ./home-manager.nix
+        ./user-configuration.nix
+        ./devices.nix
+        ./commands.nix
+      ]
+      ++ locals.modules;
 
     nixpkgs.config = {
       allowUnfree = true;

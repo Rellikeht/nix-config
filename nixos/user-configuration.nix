@@ -27,7 +27,6 @@ in rec {
   imports = [
     ./user-fsystem.nix
     ./user-managers.nix
-    ./user-local.nix
     ./user-gits.nix
   ];
 
