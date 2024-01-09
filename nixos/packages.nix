@@ -4,6 +4,37 @@
   config,
   ...
 }: let
+  unstable = pkgs.unstable;
+  perlProv = pkgs.perl538;
+  perlPkgs = pkgs.perl538Packages;
+  #perlPkgs = perlProv.pkgs;
+
+  #  pythonPackage = pkgs.python311Full;
+  #  pythonOverride = pythonPackage.override {
+  #    enableOptimizations = true;
+  #    reproducibleBuild = false;
+  #    self = pythonOverride;
+  #  };
+  #  pyOverPkgs = pythonOverride.pkgs;
+
+  #  pythonOptimized = pythonOverride.pkgs.buildPythonPackage rec {
+  #    name = "python-example";
+  #    #inherit src;
+  #    propagatedBuildInputs = with pyOverPkgs; [
+  #      numpy
+  #    ];
+  #    nativeBuildInputs = with pyOverPkgs;
+  #      pkgs.lib.optionals (pkgs.lib.inNixShell) [
+  #        ipython
+  #      ];
+  #  };
+
+  #pythonProv = pythonOptimized;
+  pythonProv = pkgs.python311Full;
+  newestPython = unstable.python313;
+
+  pythonPkgs = pkgs.python311Packages;
+  #pythonPkgs = pythonProv.pkgs;
 in {
   environment.systemPackages = with pkgs; [
     home-manager.home-manager
@@ -290,23 +321,23 @@ in {
     arc-theme
     materia-theme
 
-    # WARNING VERSIONS AHEAD
     # Cant download :(
     # unstable doesn't help
     #    unstable.libsForQt5.xp-pen-deco-01-v2-driver
 
-    unstable.python313Full
+    newestPython
+    pythonProv
+    pythonPkgs.bpython
+    pythonPkgs.pip
+    pythonPkgs.python-lsp-server
+    pythonPkgs.pynvim
 
-    python311Full
-    python311Packages.bpython
-    python311Packages.pip
-    python311Packages.python-lsp-server
-    python311Packages.pynvim
-
-    unstable.perl538Packages.WWWYoutubeViewer
-    unstable.perl538Packages.TermReadLineGnu
+    perlProv
+    perlPkgs.WWWYoutubeViewer
+    perlPkgs.TermReadLineGnu
   ];
 }
 # TODO Categorize properly
+# TODO flake builds of my programs
 # TODO smapi - battery, proper linux for that
 

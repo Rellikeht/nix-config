@@ -67,9 +67,14 @@ in rec {
     pulseaudio = {
       enable = true;
       package = pkgs.pulseaudioFull;
+
       extraConfig = "
         load-module module-switch-on-connect
       ";
+
+      extraModules = with pkgs; [
+        #pulseaudio-modules-bt
+      ];
     };
 
     bluetooth = {

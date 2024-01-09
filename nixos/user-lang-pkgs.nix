@@ -35,6 +35,8 @@ in
       haskellPackages.hashtables
       haskellPackages.unordered-containers
       #    haskellPackages.unordered-intmap
+
+      stack
     ];
 
     others = [
