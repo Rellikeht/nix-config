@@ -3,13 +3,14 @@
   pkgs,
   config,
   ...
-}: let
-  unstable = pkgs.unstable;
-  perlProv = pkgs.perl538;
-  perlPkgs = pkgs.perl538Packages;
+}:
+with pkgs; let
+  #  unstable = unstable;
+  perlProv = perl538;
+  perlPkgs = perl538Packages;
   #perlPkgs = perlProv.pkgs;
 
-  #  pythonPackage = pkgs.python311Full;
+  #  pythonPackage = python311Full;
   #  pythonOverride = pythonPackage.override {
   #    enableOptimizations = true;
   #    reproducibleBuild = false;
@@ -30,11 +31,19 @@
   #  };
 
   #pythonProv = pythonOptimized;
-  pythonProv = pkgs.python311Full;
-  newestPython = unstable.python313;
+  # This at least doesn't rebuild fucking everything
+  # From fucking source
+  pythonProv = python311;
+  pythonPackages = ps:
+    with ps; [
+      bpython
+      pip
+      python-lsp-server
+      pynvim
+    ];
 
-  pythonPkgs = pkgs.python311Packages;
-  #pythonPkgs = pythonProv.pkgs;
+  myPython = pythonProv.withPackages pythonPackages;
+  newestPython = unstable.python313;
 in {
   environment.systemPackages = with pkgs; [
     home-manager.home-manager
@@ -86,19 +95,18 @@ in {
     nixpkgs-fmt
     alejandra
 
-    #    python3Full
     sbcl
     clisp
     guile
     lua
     luajit
-    R
     gforth
     tcl
     tclreadline
     tk
     maxima
     libqalculate
+    gnuplot
 
     gcc
     jdk
@@ -160,11 +168,13 @@ in {
     reptyr
     parallel-full
     xxh
+    pcre
 
-    unstable.e2fsprogs
+    e2fsprogs
     util-linux
     os-prober
     help2man
+    v4l-utils
 
     gnutar
     p7zip
@@ -200,6 +210,7 @@ in {
     #    perf-tools # ?
 
     mpv
+    vlc
     ffmpeg
     yt-dlp
     ytfzf
@@ -226,6 +237,7 @@ in {
 
     qutebrowser
     firefox
+    ungoogled-chromium
 
     brightnessctl
     alacritty
@@ -326,11 +338,7 @@ in {
     #    unstable.libsForQt5.xp-pen-deco-01-v2-driver
 
     newestPython
-    pythonProv
-    pythonPkgs.bpython
-    pythonPkgs.pip
-    pythonPkgs.python-lsp-server
-    pythonPkgs.pynvim
+    myPython
 
     perlProv
     perlPkgs.WWWYoutubeViewer

@@ -85,7 +85,7 @@ in
         substituters = [
           "https://nix-community.cachix.org"
           "https://cache.nixos.org/"
-          "https://hydra.nixos.org/"
+          #"https://hydra.nixos.org/"
         ];
 
         trusted-public-keys = [

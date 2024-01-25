@@ -1,25 +1,39 @@
 # vim: autoindent expandtab softtabstop=2 shiftwidth=2 tabstop=2
-{pkgs, ...}: let
+{pkgs, ...}:
+with pkgs; let
+  myR = pkgs.rWrapper.override {
+    packages = with rPackages; [
+      ggplot2
+      units
+      languageserver
+      vioplot
+    ];
+  };
+
+  pythonProv = python311;
+  pythonPackages = ps:
+    with ps; [
+      bpython
+      pip
+      python-lsp-server
+
+      pynvim
+      yt-dlp
+      mypy
+
+      matplotlib
+      pandas
+      numpy
+      sympy
+    ];
+  myPython = pythonProv.withPackages pythonPackages;
 in
   with pkgs; rec {
     # Because of versions
     python = [
       pypy3
-      #    pypy310
-
-      python311Packages.mypy
-      python311Packages.matplotlib
-      python311Packages.pandas
-      python311Packages.numpy
-      python311Packages.sympy
-
-      python311Packages.yt-dlp
-    ];
-
-    r = [
-      rPackages.vioplot
-      rPackages.units
-      rPackages.ggplot2
+      #pypy310
+      myPython
     ];
 
     java = [
@@ -34,8 +48,6 @@ in
       haskellPackages.vector
       haskellPackages.hashtables
       haskellPackages.unordered-containers
-      #    haskellPackages.unordered-intmap
-
       stack
     ];
 
@@ -44,6 +56,7 @@ in
       #    texlive.combined.scheme-full # ?
       #    texlab
 
+      myR
       julia
       pforth
       unstable.tree-sitter
@@ -53,5 +66,5 @@ in
       minizinc
     ];
 
-    langs = python ++ r ++ haskell ++ java ++ others;
+    langs = python ++ haskell ++ java ++ others;
   }
