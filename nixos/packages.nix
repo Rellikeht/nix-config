@@ -43,7 +43,7 @@ with pkgs; let
     ];
 
   myPython = pythonProv.withPackages pythonPackages;
-  newestPython = unstable.python313;
+  newestPython = python313;
 in {
   environment.systemPackages = with pkgs; [
     home-manager.home-manager
@@ -91,9 +91,9 @@ in {
     nix-script
     nixos-shell
     nixopsUnstable
-    #    nixfmt
-    nixpkgs-fmt
     alejandra
+    comma
+    nix-index
 
     sbcl
     clisp

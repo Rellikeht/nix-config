@@ -27,6 +27,7 @@ let
   homeManager = (import homeManagerExprs) {};
   nurExprs = fetchTarball nurLink;
   nur = (import nurExprs) {inherit pkgs;};
+  # TODO nix index, but that is probably work for home manager
 in {
   #   And some simple exporting
   inherit sysVer getChan universalConf;
@@ -38,5 +39,3 @@ in {
 
   #  inherit oldPkgs;
 }
-# TODO make channels of that (may be undoable without flakes)?
-

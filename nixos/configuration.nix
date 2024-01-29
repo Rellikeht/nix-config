@@ -40,9 +40,8 @@ in
           ;
       };
 
-      #	    This enables all collections through pkgs
+      # This enables all collections through pkgs
       packageOverrides = rec {
-        # old = pkgImport.old;
         nixos = pkgImport.pkgs;
         unstable = pkgImport.unstable;
         home-manager = pkgImport.homeManager;
@@ -60,15 +59,12 @@ in
     nix = {
       package = pkgs.nixFlakes;
 
-      #     This makes nixpkgs downloaded before available
-      #     for building system
+      # This makes nixpkgs downloaded before available
+      # for building system
       nixPath = [
         "nixpkgs=/etc/nixpkgs"
         "unstable=/etc/unstable"
         "nixos-config=/etc/nixos/configuration.nix"
-
-        # ??
-        #      "/nix/var/nix/profiles/per-user/root/channels"
       ];
 
       settings = {
@@ -85,7 +81,6 @@ in
         substituters = [
           "https://nix-community.cachix.org"
           "https://cache.nixos.org/"
-          #"https://hydra.nixos.org/"
         ];
 
         trusted-public-keys = [
