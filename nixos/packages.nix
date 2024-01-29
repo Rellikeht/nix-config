@@ -5,7 +5,6 @@
   ...
 }:
 with pkgs; let
-  #  unstable = unstable;
   perlProv = perl538;
   perlPkgs = perl538Packages;
   #perlPkgs = perlProv.pkgs;
@@ -58,7 +57,7 @@ in {
     fdupes
     stow
 
-    unstable.groff
+    unstable.groff # :(
     glow
     mdp
     mdr
@@ -70,8 +69,8 @@ in {
     physlock
     procps
     lm_sensors
-    htop
-    #    htop-vim
+    htop # got used to variant without vim bindings :(
+    # htop-vim
 
     gnumake
     gnum4
@@ -111,6 +110,7 @@ in {
     gcc
     jdk
 
+    # No idea how much of that unstables is needed
     unstable.go
     unstable.gopls
 
@@ -263,12 +263,12 @@ in {
     phodav
     cadaver
     megatools
-    gdown
     syncthing
     rclone
     dumptorrent
     transmission
     transmission-gtk
+    unstable.gdown # temporary
 
     sshfs
     davfs2
@@ -290,10 +290,7 @@ in {
     # Modes don't work
     # they probably need some overlay
     rofi
-    rofi-calc
-    rofi-emoji
-
-    rofi-pass
+    rofi-pass # This works
 
     mesa-demos
     mesa

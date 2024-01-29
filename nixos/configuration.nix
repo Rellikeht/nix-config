@@ -24,29 +24,33 @@ in
       ]
       ++ locals.modules;
 
-    nixpkgs.config = {
-      allowUnfree = true;
-      permittedInsecurePackages = [];
+    nixpkgs = {
+      config = {
+        allowUnfree = true;
+        permittedInsecurePackages = [];
 
-      #     This is for having packages downloaded declaratively
-      pkgs = import "${nixexprs}" {
-        #       Just in case
-        inherit
-          (config.nixpkgs)
-          config
-          overlays
-          localSystem
-          crossSystem
-          ;
+        #     This is for having packages downloaded declaratively
+        pkgs = import "${nixexprs}" {
+          #       Just in case
+          inherit
+            (config.nixpkgs)
+            config
+            overlays
+            localSystem
+            crossSystem
+            ;
+        };
+
+        # This enables all collections through pkgs
+        packageOverrides = rec {
+          nixos = pkgImport.pkgs;
+          unstable = pkgImport.unstable;
+          home-manager = pkgImport.homeManager;
+          nur = pkgImport.nur;
+        };
       };
 
-      # This enables all collections through pkgs
-      packageOverrides = rec {
-        nixos = pkgImport.pkgs;
-        unstable = pkgImport.unstable;
-        home-manager = pkgImport.homeManager;
-        nur = pkgImport.nur;
-      };
+      inherit overlays;
     };
 
     #   This puts nixos pkgs in /etc
@@ -54,6 +58,8 @@ in
     environment.etc = {
       "nixpkgs".source = "${nixexprs}";
       "unstable".source = "${unstableExprs}";
+      # Dirty workaround
+      "rofi/themes".source = "${pkgs.rofi}/share/rofi/themes";
     };
 
     nix = {
@@ -101,7 +107,7 @@ in
       # Before changing this value read the documentation for this option
       # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
 
-      stateVersion = sysVer; # Did you read the comment?
+      inherit stateVersion; # Did you read the comment?
     };
   }
 # TODO conditional imports
