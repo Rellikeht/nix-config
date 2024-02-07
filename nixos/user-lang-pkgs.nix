@@ -44,7 +44,7 @@ in
       jdt-language-server
     ];
 
-    haskell = [
+    haskell = with unstable; [
       haskellPackages.vector
       haskellPackages.hashtables
       haskellPackages.unordered-containers

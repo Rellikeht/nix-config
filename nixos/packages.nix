@@ -51,6 +51,7 @@ in {
     neovim-qt
     kakoune
     vis
+    emacs
 
     vifm
     ranger
@@ -58,6 +59,9 @@ in {
     stow
 
     unstable.groff # :(
+    typst
+    typst-lsp
+    typst-live
     glow
     mdp
     mdr
@@ -125,9 +129,11 @@ in {
     unstable.rustc
     unstable.rustfmt
     unstable.rust-analyzer
+    unstable.cargo
 
-    unstable.ghc
-    unstable.haskell-language-server
+    ghc
+    haskellPackages.haskell-language-server
+    haskellPackages.floskell
 
     unstable.nil
     unstable.nixd
@@ -136,10 +142,13 @@ in {
     opam
     ocamlPackages.utop
     ocamlPackages.ocaml-lsp
+    ocamlPackages.yojson
+    dune_3
 
     udunits
     clang-tools
     lua-language-server
+    luaformatter
     vim-vint
     shellcheck
     checkbashisms
@@ -201,6 +210,7 @@ in {
     silver-searcher
     progress
     neofetch
+    fastfetch
     tree
     plocate
     bat
@@ -330,12 +340,20 @@ in {
     arc-theme
     materia-theme
 
+    imagemagickBig
+    graphicsmagick
+    pinta
+
     # Cant download :(
     # unstable doesn't help
     #    unstable.libsForQt5.xp-pen-deco-01-v2-driver
 
     newestPython
     myPython
+
+    system-config-printer
+    sane-backends
+    sane-frontends
 
     perlProv
     perlPkgs.WWWYoutubeViewer

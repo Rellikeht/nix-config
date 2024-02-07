@@ -11,17 +11,18 @@
 
   nonLangs = with pkgs; [
     moc
-    ungoogled-chromium
     zathura
     mupdf
     libreoffice-fresh
-    pinta
     wxmaxima
     giac-with-xcas
     # qalculate-gtk
 
     tesseract
     almonds
+
+    epsonscan2
+    epson-escpr2
   ];
 in rec {
   imports = [

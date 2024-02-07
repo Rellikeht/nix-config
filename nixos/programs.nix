@@ -78,8 +78,17 @@ in {
       historyLimit = 10000;
       keyMode = "vi";
       customPaneNavigationAndResize = true;
-      shortcut = "q";
       terminal = "tmux-direct";
+      #shortcut = "q";
+
+      extraConfig = let
+        prefix = "M-Space";
+      in ''
+        unbind C-b
+        unbind "${prefix}"
+        set -g prefix "${prefix}"
+        bind "${prefix}" send-prefix
+      '';
     };
 
     adb.enable = true;
