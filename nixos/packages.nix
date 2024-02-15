@@ -32,6 +32,8 @@ with pkgs; let
   #pythonProv = pythonOptimized;
   # This at least doesn't rebuild fucking everything
   # From fucking source
+  newestPython = python313;
+  oldPython = python312;
   pythonProv = python311;
   pythonPackages = ps:
     with ps; [
@@ -42,7 +44,6 @@ with pkgs; let
     ];
 
   myPython = pythonProv.withPackages pythonPackages;
-  newestPython = python313;
 in {
   environment.systemPackages = with pkgs; [
     home-manager.home-manager
@@ -151,6 +152,7 @@ in {
     luaformatter
     vim-vint
     shellcheck
+    shfmt
     checkbashisms
 
     zsh-completions
@@ -175,7 +177,7 @@ in {
     zlib
     pkg-config
     reptyr
-    parallel-full
+    parallel
     xxh
     pcre
 
@@ -348,8 +350,11 @@ in {
     # unstable doesn't help
     #    unstable.libsForQt5.xp-pen-deco-01-v2-driver
 
+    oldPython
     newestPython
     myPython
+    ruff
+    pylyzer
 
     system-config-printer
     sane-backends

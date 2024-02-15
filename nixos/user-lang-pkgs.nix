@@ -20,6 +20,8 @@ with pkgs; let
       pynvim
       yt-dlp
       mypy
+      flake8
+      autopep8
 
       matplotlib
       pandas
@@ -31,9 +33,10 @@ in
   with pkgs; rec {
     # Because of versions
     python = [
-      pypy3
-      #pypy310
+      # pypy3
+      pypy310
       myPython
+      ruff
     ];
 
     java = [
