@@ -46,7 +46,11 @@ in rec {
 
     interactiveShellInit = ""; # TODO
     loginShellInit = ""; # TODO
-    #    shellAliases = {};
+
+    shellAliases = {
+      ll = "ls -la";
+      nv = "nvim";
+    };
 
     # TODO needed directories and symlinks
     extraInit = "";
@@ -84,6 +88,9 @@ in rec {
 
   systemd = {
     ctrlAltDelUnit = "";
+    extraConfig = "
+      DefaultTimeoutStopSec=15s
+    ";
   };
 
   users = {

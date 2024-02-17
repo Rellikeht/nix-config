@@ -44,46 +44,52 @@ with pkgs; let
     ];
 
   myPython = pythonProv.withPackages pythonPackages;
-in {
-  environment.systemPackages = with pkgs; [
-    home-manager.home-manager
 
-    vim
-    neovim-qt
-    kakoune
-    vis
-    emacs
+  # SYSTEM
 
-    vifm
-    ranger
-    fdupes
-    stow
-
-    unstable.groff # :(
-    typst
-    typst-lsp
-    typst-live
-    glow
-    mdp
-    mdr
-    lowdown
-    pinfo
-    highlight
-
-    screen
-    physlock
+  system-libs = with pkgs; [
     procps
     lm_sensors
+    util-linux
+    psmisc
+    mesa
+    libuuid
+  ];
+
+  system-utils = with pkgs; [
+    v4l-utils
+
+    lsof
+    lshw
+    acpi
+    pciutils
+
+    reptyr
+    os-prober
+
     htop # got used to variant without vim bindings :(
     # htop-vim
 
-    gnumake
-    gnum4
-    automake
-    cmake
-    flex
-    bison
-    rlwrap
+    su
+
+    arch-install-scripts
+    android-file-transfer
+    android-tools
+  ];
+
+  filesystems = with pkgs; [
+    e2fsprogs
+    ntfs3g
+
+    sshfs
+    davfs2
+
+    adbfs-rootless
+    #   adb-sync #?
+  ];
+
+  nix-utils = with pkgs; [
+    home-manager.home-manager
 
     nix-zsh-completions
     nix-bash-completions
@@ -99,227 +105,25 @@ in {
     comma
     nix-index
 
-    sbcl
-    clisp
-    guile
-    lua
-    luajit
-    gforth
-    tcl
-    tclreadline
-    tk
-    maxima
-    libqalculate
-    gnuplot
-
-    gcc
-    jdk
-
-    # No idea how much of that unstables is needed
-    unstable.go
-    unstable.gopls
-
-    unstable.zig
-    unstable.zls
-    unstable.zig-shell-completions
-
-    unstable.nim
-    unstable.nimble
-    unstable.nimlsp
-
-    unstable.rustc
-    unstable.rustfmt
-    unstable.rust-analyzer
-    unstable.cargo
-
-    ghc
-    haskellPackages.haskell-language-server
-    haskellPackages.floskell
-
     unstable.nil
     unstable.nixd
+  ];
 
-    ocaml
-    opam
-    ocamlPackages.utop
-    ocamlPackages.ocaml-lsp
-    ocamlPackages.yojson
-    dune_3
+  tty-utils = with pkgs; [
+    physlock
+  ];
 
-    udunits
-    clang-tools
-    lua-language-server
-    luaformatter
-    vim-vint
-    shellcheck
-    shfmt
-    checkbashisms
-
-    zsh-completions
-    zsh-syntax-highlighting
-    zsh-powerlevel10k
-    dash
-    tre
-    fzf
-    fzy
-
-    bc
-    ed
-    gnused
-    gawk
-    man
-    coreutils-full
-    lsof
-    gnugrep
-    time
-    less
-    psmisc
-    zlib
-    pkg-config
-    reptyr
-    parallel
-    xxh
-    pcre
-
-    e2fsprogs
-    util-linux
-    os-prober
-    help2man
-    v4l-utils
-
-    gnutar
-    p7zip
-    zip
-    unzip
-    xz
-    gzip
-    bzip2
-    zstd
-    arj
-    lzip
-    rar
-    unrar
+  secrets = with pkgs; [
+    gpgme
+    gpg-tui
 
     pass
     keepassxc
-    dhcpcd
-    wpa_supplicant
-    speedtest-cli
-    inetutils
+  ];
 
-    delta
-    w3m
-    silver-searcher
-    progress
-    neofetch
-    fastfetch
-    tree
-    plocate
-    bat
-    pv
-    hyperfine
-    config.boot.kernelPackages.perf
-    #    perf-tools # ?
+  # NETWORK
 
-    mpv
-    vlc
-    ffmpeg
-    yt-dlp
-    ytfzf
-    mediainfo
-    file
-    iconv
-    spotdl
-
-    gparted
-    gpart
-    parted
-    pciutils
-    lshw
-    acpi
-    libuuid
-    sqlite
-
-    xlockmore
-    xss-lock
-    xautolock
-    fortune
-    figlet
-    lolcat
-
-    qutebrowser
-    firefox
-    ungoogled-chromium
-
-    brightnessctl
-    alacritty
-    rxvt-unicode-emoji
-    feh
-    sxiv
-    pdfgrep
-    pulsemixer
-    playerctl
-    alsa-utils
-    alsa-tools # ?
-
-    #    wireplumber
-    #    pipecontrol
-    pavucontrol
-
-    aria
-    lftp
-    wget
-    curl
-    curlie
-    rsync
-    phodav
-    cadaver
-    megatools
-    syncthing
-    rclone
-    dumptorrent
-    transmission
-    transmission-gtk
-    unstable.gdown # temporary
-
-    sshfs
-    davfs2
-
-    sddm-chili-theme
-    papirus-icon-theme
-    fontconfig
-    freetype
-    ghostscript
-
-    # Remove when this will be added properly
-    # Config must be flake probably for that
-    #    dmenu
-    unclutter
-    dzen2
-    shotgun
-    scrot
-
-    # Modes don't work
-    # they probably need some overlay
-    rofi
-    rofi-pass # This works
-
-    mesa-demos
-    mesa
-    xarchiver
-
-    nitrogen
-    keynav
-    xcape
-    xclip
-    xdotool
-    xbindkeys
-    xorg.xmodmap
-    xorg.xinit
-    xorg.xev
-    xorg.xrandr
-    xorg.xrdb
-
+  network-utils = with pkgs; [
     nmap
     nettools
     iperf
@@ -327,45 +131,433 @@ in {
     networkmanager
     networkmanager-openvpn
     openvpn
+
+    phodav
+    syncthing
     kubo
 
-    ntfs3g
-    arch-install-scripts
-    android-file-transfer
-    android-tools
-    adbfs-rootless
-    #   adb-sync #?
+    cadaver
+    inetutils
 
+    dhcpcd
+    wpa_supplicant
+  ];
+
+  network-programs = with pkgs; [
+    wget
+    curl
+    curlie
+
+    aria
+    lftp
+    rsync
+
+    speedtest-cli
+
+    megatools
+    rclone
+    transmission
+    unstable.gdown # temporary
+
+    dumptorrent
+
+    w3m
+
+    transmission-gtk
+  ];
+
+  # BASIC
+
+  shell-utils = with pkgs; [
+    rlwrap
+
+    zsh-completions
+    zsh-syntax-highlighting
+    zsh-powerlevel10k
+    dash
+    fzf
+    fzy
+
+    screen
+    less
+    bat
+    file
+
+    time
+    progress
+    pv
+
+    parallel
+    findutils
+    coreutils-full
+
+    gnugrep
+    silver-searcher
+
+    bc
+    gnused
+    gawk
+
+    man
+    help2man
+  ];
+
+  shell-libs = with pkgs; [
+    gnum4
+    xxh
+    zlib
+    pcre
+    tre
+    iconv
+    readline
+  ];
+
+  shell-graphics = with pkgs; [
     cmatrix
     tmatrix
-    haskellPackages.FractalArt
-    arc-theme
-    materia-theme
 
+    delta
+
+    neofetch
+    fastfetch
+    tree
+
+    fortune
+    figlet
+    lolcat
+  ];
+
+  terminals = with pkgs; [
+    alacritty
+    rxvt-unicode-emoji
+  ];
+
+  editors = with pkgs; [
+    vim
+    neovim
+    kakoune
+    vis
+
+    emacs
+    neovim-qt
+
+    ed
+  ];
+
+  # FILES
+
+  file-management = with pkgs; [
+    vifm
+    ranger
+    stow
+  ];
+
+  archives = with pkgs; [
+    xarchiver
+
+    gnutar
+    xz
+
+    p7zip
+    zip
+    unzip
+
+    gzip
+    bzip2
+    lzip
+
+    zstd
+    arj
+
+    rar
+    unrar
+  ];
+
+  fsys-utils = with pkgs; [
+    fdupes
+    plocate
+
+    gparted
+    gpart
+    parted
+  ];
+
+  # GRAPHICAL
+
+  xorg = with pkgs.xorg; [
+    xmodmap
+    xinit
+    xev
+    xrandr
+    xrdb
+  ];
+
+  x-utils = with pkgs; [
+    brightnessctl
+
+    xlockmore
+    xss-lock
+    xautolock
+
+    xcape
+    xclip
+
+    xdotool
+    xbindkeys
+    keynav
+
+    dzen2
+    shotgun
+    scrot
+
+    unclutter
+    nitrogen
+
+    rofi
+    rofi-pass
+  ];
+
+  graphics = with pkgs; [
     imagemagickBig
     graphicsmagick
     pinta
+  ];
 
-    # Cant download :(
-    # unstable doesn't help
-    #    unstable.libsForQt5.xp-pen-deco-01-v2-driver
+  viewers = with pkgs; [
+    feh
+    sxiv
+  ];
+
+  themes = with pkgs; [
+    haskellPackages.FractalArt
+    arc-theme
+    materia-theme
+    sddm-chili-theme
+    papirus-icon-theme
+  ];
+
+  fonts = with pkgs; [
+    fontconfig
+    freetype
+  ];
+
+  documents = with pkgs; [
+    ghostscript
+    pdfgrep
+
+    zathura
+    mupdf
+  ];
+
+  browsers = with pkgs; [
+    qutebrowser
+    firefox
+    ungoogled-chromium
+  ];
+
+  # AUDIO
+
+  audio-libs = with pkgs; [
+    alsa-utils
+    # wireplumber
+  ];
+
+  audio-utils = with pkgs; [
+    pulsemixer
+    alsa-tools # ?
+    # pipecontrol
+    pavucontrol
+
+    playerctl
+  ];
+
+  audio-programs = with pkgs; [
+    mpv
+    vlc
+
+    ffmpeg
+
+    ytfzf
+
+    mediainfo
+  ];
+
+  audio-downloaders = with pkgs; [
+    yt-dlp
+    spotdl
+  ];
+
+  # CODE
+
+  # No idea how much of that unstables is needed
+  code = with pkgs; [
+    sbcl
+    clisp
+    guile
+    lua
+    luajit
+    gforth
+    tcl
+
+    gcc
+    jdk
+
+    unstable.go
+    unstable.zig
+    unstable.nim
+    unstable.rustc
+    ghc
+    ocaml
 
     oldPython
     newestPython
     myPython
-    ruff
-    pylyzer
+    perlProv
+  ];
 
+  lsps = with pkgs; [
+    clang-tools
+    unstable.gopls
+    unstable.zls
+    unstable.nimlsp
+    unstable.rust-analyzer
+    haskellPackages.haskell-language-server
+    ocamlPackages.ocaml-lsp
+
+    lua-language-server
+
+    pylyzer
+  ];
+
+  formatters = with pkgs; [
+    unstable.rustfmt
+    luaformatter
+    vim-vint
+    shfmt
+    ruff
+  ];
+
+  pkg-managers = with pkgs; [
+    unstable.nimble
+    unstable.cargo
+    opam
+  ];
+
+  builders = with pkgs; [
+    gnumake
+    automake
+    cmake
+
+    dune_3
+  ];
+
+  code-utils = with pkgs; [
+    flex
+    bison
+    pkg-config
+
+    unstable.zig-shell-completions
+
+    ocamlPackages.utop
+
+    shellcheck
+    checkbashisms
+
+    hyperfine
+    config.boot.kernelPackages.perf
+    #    perf-tools # ?
+  ];
+
+  code-libs = with pkgs; [
+    tclreadline
+    tk
+
+    haskellPackages.floskell
+    ocamlPackages.yojson
+    udunits
+
+    perlPkgs.WWWYoutubeViewer
+    perlPkgs.TermReadLineGnu
+
+    sqlite
+  ];
+
+  # OTHER
+
+  meth = with pkgs; [
+    maxima
+    libqalculate
+    gnuplot
+  ];
+
+  typesetting = with pkgs; [
+    unstable.groff # :(
+    typst
+    typst-lsp
+    typst-live
+    glow
+    mdp
+    mdr
+    lowdown
+    pinfo
+    highlight
+  ];
+
+  scan-print = with pkgs; [
     system-config-printer
     sane-backends
     sane-frontends
-
-    perlProv
-    perlPkgs.WWWYoutubeViewer
-    perlPkgs.TermReadLineGnu
   ];
+
+  other = with pkgs; [
+    mesa-demos
+
+    # Cant download :(
+    # unstable doesn't help
+    #    unstable.libsForQt5.xp-pen-deco-01-v2-driver
+  ];
+in {
+  environment.systemPackages =
+    system-libs
+    ++ system-utils
+    ++ filesystems
+    ++ nix-utils
+    ++ tty-utils
+    ++ secrets
+    ++ network-utils
+    ++ network-programs
+    ++ shell-utils
+    ++ shell-libs
+    ++ shell-graphics
+    ++ terminals
+    ++ editors
+    ++ file-management
+    ++ archives
+    ++ fsys-utils
+    ++ xorg
+    ++ x-utils
+    ++ graphics
+    ++ viewers
+    ++ themes
+    ++ fonts
+    ++ documents
+    ++ browsers
+    ++ audio-libs
+    ++ audio-utils
+    ++ audio-programs
+    ++ audio-downloaders
+    ++ code
+    ++ lsps
+    ++ formatters
+    ++ pkg-managers
+    ++ builders
+    ++ code-utils
+    ++ code-libs
+    ++ meth
+    ++ typesetting
+    ++ scan-print
+    ++ other;
 }
-# TODO Categorize properly
 # TODO flake builds of my programs
 # TODO smapi - battery, proper linux for that
 

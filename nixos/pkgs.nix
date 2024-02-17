@@ -40,8 +40,15 @@ let
     };
   };
 
+  epsonscan2 = final: prev: {
+    epsonscan2 = prev.epsonscan2.override {
+      withNonFreePlugins = true;
+    };
+  };
+
   overlays = [
     myRofi
+    epsonscan2
   ];
 in {
   #   And some simple exporting

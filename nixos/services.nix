@@ -84,7 +84,22 @@ in rec {
         General = {
           Enable = "Source,Sink,Media,Socket";
         };
+        Policy = {
+          AutoEnable = false;
+        };
       };
+    };
+
+    sane = {
+      enable = true;
+      extraBackends = with pkgs; [
+        epsonscan2
+        epkowa
+        utsushi
+
+        sane-airscan
+        hplipWithPlugin
+      ];
     };
   };
 
@@ -94,8 +109,24 @@ in rec {
   };
 
   services = {
+    udev = {
+      enable = true;
+      packages = with pkgs; [
+        utsushi
+      ];
+    };
+
     openssh.enable = true;
-    printing.enable = true;
+    printing = {
+      enable = true;
+      drivers = with pkgs; [
+        epson-escpr
+        epson-escpr2
+      ];
+
+      # ???
+      # tempDir = "/tmp/cups";
+    };
     thermald.enable = true;
 
     # TODO pipewire
@@ -212,6 +243,23 @@ in rec {
     blueman = {
       enable = true;
     };
+
+    avahi = {
+      enable = true;
+      cacheEntriesMax = 32767;
+      domainName = "nygus";
+
+      nssmdns = true;
+      openFirewall = true;
+
+      publish = {
+        enable = true;
+        addresses = true;
+        userServices = true;
+      };
+    };
+
+    ipp-usb.enable = true;
 
     # TODO aria2 daemon
   };

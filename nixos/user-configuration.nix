@@ -11,8 +11,6 @@
 
   nonLangs = with pkgs; [
     moc
-    zathura
-    mupdf
     libreoffice-fresh
     wxmaxima
     giac-with-xcas
@@ -21,8 +19,8 @@
     tesseract
     almonds
 
-    epsonscan2
-    epson-escpr2
+    gimp
+    inkscape
   ];
 in rec {
   imports = [
@@ -43,19 +41,25 @@ in rec {
     extraGroups = [
       "wheel"
       "users"
-      "networkmanager"
       "audio"
       "video"
       "disk"
-      "adbusers"
-      "plocate"
-      "sshd"
       "render"
-      "syncthing"
       "input"
-      "sddm"
       "adm"
+
+      "sddm"
+
+      "plocate"
+
+      "adbusers"
+      "networkmanager"
+      "sshd"
+      "syncthing"
+
       "lp"
+      "scanner"
+      "cups"
     ];
 
     packages = with langPkgs;
