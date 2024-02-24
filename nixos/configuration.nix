@@ -35,22 +35,23 @@ in
           inherit
             (config.nixpkgs)
             config
-            overlays
+            # overlays
+            
             localSystem
             crossSystem
             ;
         };
 
         # This enables all collections through pkgs
-        packageOverrides = rec {
-          nixos = pkgImport.pkgs;
-          unstable = pkgImport.unstable;
-          home-manager = pkgImport.homeManager;
-          nur = pkgImport.nur;
+        packageOverrides = with pkgImport; rec {
+          nixos = pkgs;
+          unstable = pkgs-unstable;
+          home-manager = homeManager;
+          nur = nur;
         };
       };
 
-      inherit overlays;
+      # inherit overlays;
     };
 
     #   This puts nixos pkgs in /etc
@@ -75,6 +76,7 @@ in
 
       settings = {
         auto-optimise-store = true;
+        access-tokens = "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";
         allowed-users = [
           "@wheel"
         ];

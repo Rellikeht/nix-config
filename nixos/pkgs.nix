@@ -21,44 +21,21 @@ let
   nixexprs = fetchTarball stableLink;
   pkgs = import nixexprs universalConf;
   unstableExprs = fetchTarball unstableLink;
-  unstable = import unstableExprs universalConf;
+  pkgs-unstable = import unstableExprs universalConf;
 
   homeManagerExprs = fetchTarball homeManagerLink;
   homeManager = (import homeManagerExprs) {};
   nurExprs = fetchTarball nurLink;
   nur = (import nurExprs) {inherit pkgs;};
   # TODO nix index, but that is probably work for home manager
-
-  # OMG THIS WORKS
-  myRofi = final: prev: {
-    rofi = prev.rofi.override {
-      plugins = with prev; [
-        rofi-calc
-        rofi-emoji
-        #rofi-file-browser
-      ];
-    };
-  };
-
-  epsonscan2 = final: prev: {
-    epsonscan2 = prev.epsonscan2.override {
-      withNonFreePlugins = true;
-    };
-  };
-
-  overlays = [
-    myRofi
-    epsonscan2
-  ];
 in {
   #   And some simple exporting
   inherit stateVersion getChan universalConf;
   inherit stableLink unstableLink homeManagerLink nurLink;
   inherit pkgs nixexprs;
-  inherit unstable unstableExprs;
+  inherit pkgs-unstable unstableExprs;
   inherit homeManager homeManagerExprs;
   inherit nur nurExprs;
-  inherit overlays;
 
   #  inherit oldPkgs;
 }
