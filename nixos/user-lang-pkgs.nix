@@ -2,12 +2,14 @@
 {pkgs, ...}:
 with pkgs; let
   myR = pkgs.rWrapper.override {
-    packages = with rPackages; [
-      ggplot2
-      units
-      languageserver
-      vioplot
-    ];
+    packages = with rPackages;
+      [
+        ggplot2
+        units
+        languageserver
+        vioplot
+      ]
+      ++ (with pkgs; [udunits]);
   };
 
   pythonProv = python311;
@@ -39,11 +41,13 @@ in
       ruff
     ];
 
-    java = [
+    jdks = [
       jdk11
       jdk17
+    ];
 
-      java-language-server
+    java = [
+      # java-language-server
       jdt-language-server
     ];
 
@@ -64,10 +68,9 @@ in
       pforth
       unstable.tree-sitter
 
-      # TODO build shit from source
-      # and add solvers
+      # TODO add flake from nix builds
       minizinc
     ];
 
-    langs = python ++ haskell ++ java ++ others;
+    langs = python ++ haskell ++ java ++ jdks ++ others;
   }

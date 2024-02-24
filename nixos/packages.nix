@@ -5,6 +5,8 @@
   ...
 }:
 with pkgs; let
+  b = builtins;
+
   perlProv = perl538;
   perlPkgs = perl538Packages;
   #perlPkgs = perlProv.pkgs;
@@ -105,7 +107,8 @@ with pkgs; let
     comma
     nix-index
 
-    unstable.nil
+    patchelf
+
     unstable.nixd
   ];
 
@@ -309,6 +312,7 @@ with pkgs; let
     dzen2
     shotgun
     scrot
+    slop
 
     unclutter
     nitrogen
@@ -400,7 +404,6 @@ with pkgs; let
     tcl
 
     gcc
-    jdk
 
     unstable.go
     unstable.zig
@@ -414,6 +417,11 @@ with pkgs; let
     myPython
     perlProv
   ];
+
+  jdks = with pkgs; [
+    jdk
+  ];
+  # TODO links and/or env variable for differentiation
 
   lsps = with pkgs; [
     clang-tools
@@ -474,12 +482,17 @@ with pkgs; let
 
     haskellPackages.floskell
     ocamlPackages.yojson
-    udunits
 
     perlPkgs.WWWYoutubeViewer
     perlPkgs.TermReadLineGnu
 
     sqlite
+  ];
+
+  guile-libs = with pkgs; [
+    guile-git
+    guile-ssh
+    guile-gnutls
   ];
 
   # OTHER
@@ -547,16 +560,21 @@ in {
     ++ audio-programs
     ++ audio-downloaders
     ++ code
+    ++ jdks
     ++ lsps
     ++ formatters
     ++ pkg-managers
     ++ builders
     ++ code-utils
     ++ code-libs
+    ++ guile-libs
     ++ meth
     ++ typesetting
     ++ scan-print
     ++ other;
+
+  environment.variables = {
+  };
 }
 # TODO flake builds of my programs
 # TODO smapi - battery, proper linux for that

@@ -1,11 +1,20 @@
 # vim: autoindent expandtab softtabstop=2 shiftwidth=2 tabstop=2
 {config, ...}: let
 in {
+  fileSystems."/" = {
+    options = [
+      "nodiratime"
+      "noatime"
+    ];
+  };
+
   boot = {
     loader = {
+      timeout = 2;
+
       grub = {
         enable = true;
-        #        theme = pkgs.nixos-grub2-theme;
+        # theme = pkgs.nixos-grub2-theme;
         theme = null;
         useOSProber = true;
       };

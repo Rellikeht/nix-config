@@ -216,7 +216,6 @@ in rec {
       };
 
       xautolock = {
-        # ???
         enable = true;
         nowlocker = "${services.xserver.xautolock.locker}";
         extraOptions = [
@@ -260,6 +259,7 @@ in rec {
     };
 
     ipp-usb.enable = true;
+    # unclutter ?
 
     # TODO aria2 daemon
   };

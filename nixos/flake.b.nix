@@ -1,12 +1,17 @@
 rec {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
-    nixpkgs-unstable.url = "https://nixos.org/channels/nixos-unstable/nixexprs.tar.xz";
+    nixpkgs.url = github:NixOS/nixpkgs/nixos-23.11;
+    nixpkgs-unstable.url = github:NixOS/nixpkgs;
+    # nixpkgs-old.url = github:NixOS/nixpkgs/nixos-23.05;
 
     homeManager = {
-      url = "github:nix-community/home-manager/";
+      url = github:nix-community/home-manager/release-23.11;
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nur.url = github:nix-community/NUR;
+    flakeUtils.url = github:numtide/flake-utils;
+    nix-builds.url = github:Rellikeht/nix-builds;
 
     locals = {
       url = path:/etc/nixos-local;
@@ -18,22 +23,25 @@ rec {
     self,
     nixpkgs,
     nixpkgs-unstable,
+    # nixpkgs-old,
     homeManager,
+    nur,
+    flakeUtils,
+    nix-builds,
     locals,
     ...
   } @ attrs: let
     system = "x86_64-linux";
     sysVer = nixpkgs.stateVersion;
 
-    pkgs = import nixpkgs {
+    config = {
       config.allowUnfree = true;
       system = system;
     };
 
-    unstable = import nixpkgs-unstable {
-      config.allowUnfree = true;
-      system = system;
-    };
+    pkgs = import nixpkgs config;
+    unstable = import nixpkgs-unstable config;
+    # old = import nixpkgs-old config;
   in {
     nixosConfigurations = {
       declarativeMonster = nixpkgs.lib.nixosSystem {

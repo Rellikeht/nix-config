@@ -8,13 +8,15 @@
 }: let
   vars = import ./local-vars.nix;
   langPkgs = import ./user-lang-pkgs.nix {inherit pkgs;};
+  langs = langPkgs.langs;
+  jdks = langPkgs.jdks;
+  # TODO jdks
 
   nonLangs = with pkgs; [
     moc
     libreoffice-fresh
     wxmaxima
     giac-with-xcas
-    # qalculate-gtk
 
     tesseract
     almonds
@@ -62,8 +64,7 @@ in rec {
       "cups"
     ];
 
-    packages = with langPkgs;
-      langs ++ nonLangs;
+    packages = langs ++ nonLangs;
 
     shell = pkgs.zsh;
   };
