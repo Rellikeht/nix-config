@@ -1,16 +1,15 @@
 # vim: autoindent expandtab softtabstop=2 shiftwidth=2 tabstop=2
-{
-  pkgs,
-  config,
-  lib,
-  option,
-  ...
-}: let
+{pkgs, ...} @ inputs: let
   vars = import ./local-vars.nix;
   langPkgs = import ./user-lang-pkgs.nix {inherit pkgs;};
   langs = langPkgs.langs;
   jdks = langPkgs.jdks;
   # TODO jdks
+
+  pkgImport = import ./pkgs.nix;
+  userName = pkgImport.userName;
+  userHome = "/home/${userName}";
+  homeMode = "750";
 
   nonLangs = with pkgs; [
     moc
@@ -27,17 +26,18 @@
 in rec {
   imports = [
     # probably for home manager
-    ./user-fsystem.nix
+    (import ./user-fsystem.nix
+      {inherit userHome homeMode;})
   ];
 
   users.users.default = {
-    name = vars.name;
-    home = vars.home;
+    name = userName;
+    home = userHome;
     initialPassword = vars.initPass;
     description = "standard user";
     isNormalUser = true;
     createHome = true;
-    homeMode = "740";
+    inherit homeMode;
 
     extraGroups = [
       "wheel"
@@ -48,9 +48,6 @@ in rec {
       "render"
       "input"
       "adm"
-
-      "sddm"
-
       "plocate"
 
       "adbusers"
@@ -58,6 +55,7 @@ in rec {
       "sshd"
       "syncthing"
 
+      "sddm"
       "lp"
       "scanner"
       "cups"
@@ -70,15 +68,16 @@ in rec {
 
   services = {
     cron.systemCronJobs = [
-      "*/20 * * * * ${vars.name} ~/.dwm/dbackup.sh"
-      "*/30 * * * * ${vars.home} ~/.dwm/dremove.sh"
+      "*/20 * * * * ${userName} ~/.dwm/dbackup.sh"
+      "*/30 * * * * ${userName} ~/.dwm/dremove.sh"
     ];
 
+    # TODO devices to local hardware config
     syncthing = {
       enable = true;
-      user = "${vars.name}";
-      configDir = "${vars.home}/.config/syncthing";
-      dataDir = "${vars.home}/Shared";
+      user = "${userName}";
+      configDir = "${userHome}/.config/syncthing";
+      dataDir = "${userHome}/Shared";
 
       overrideDevices = true;
       overrideFolders = true;
@@ -89,14 +88,8 @@ in rec {
 
         gui = {
           theme = "dark";
-          user = vars.name;
+          user = userName;
           password = vars.syncthingPass;
-        };
-
-        defaults = {
-          device = {
-            id = vars.syncthingDefDevId;
-          };
         };
 
         options = {

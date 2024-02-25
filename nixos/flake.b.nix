@@ -33,6 +33,9 @@ rec {
   } @ attrs: let
     system = "x86_64-linux";
     sysVer = nixpkgs.stateVersion;
+    # one day this will be here...
+    sysName = "declarativeMonster";
+    userName = "michal";
 
     config = {
       config.allowUnfree = true;
@@ -47,7 +50,7 @@ rec {
       declarativeMonster = nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = {
-          inherit attrs sysVer;
+          inherit attrs sysVer sysName userName;
         };
         modules = [
           ./configuration.nix

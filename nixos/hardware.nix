@@ -6,10 +6,11 @@
   ...
 }: let
   b = builtins;
+  pkgImport = import ./pkgs.nix;
+  sysName = pkgImport.sysName;
 in {
   networking = {
-    # hostName = "nixos";
-    hostName = config.system.name;
+    hostName = sysName;
     networkmanager.enable = true;
 
     firewall = {

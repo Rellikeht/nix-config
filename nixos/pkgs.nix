@@ -1,8 +1,11 @@
 # vim: autoindent expandtab softtabstop=2 shiftwidth=2 tabstop=2
 # TODO do that with flakes maybe
 let
-  # Version of whole system
+  # Version of whole system ?
   stateVersion = "23.11";
+  sysName = "declarativeMonster";
+  userName = "michal";
+  # userHome = "/home/${userName}";
 
   getChan = addr: import (fetchTarball addr);
   universalConf = {config = {allowUnfree = true;};};
@@ -17,7 +20,6 @@ let
   #oldLink = "https://nixos.org/channels/nixos-${oldVer}/nixexprs.tar.xz";
   #old = getChan oldLink universalConf;
 
-  # Is this pinning already?
   nixexprs = fetchTarball stableLink;
   pkgs = import nixexprs universalConf;
   unstableExprs = fetchTarball unstableLink;
@@ -30,8 +32,9 @@ let
   # TODO nix index, but that is probably work for home manager
 in {
   #   And some simple exporting
-  inherit stateVersion getChan universalConf;
-  inherit stableLink unstableLink homeManagerLink nurLink;
+  inherit stateVersion sysName userName;
+  # inherit userHome;
+
   inherit pkgs nixexprs;
   inherit pkgs-unstable unstableExprs;
   inherit homeManager homeManagerExprs;

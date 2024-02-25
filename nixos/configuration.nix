@@ -1,22 +1,26 @@
 # vim: autoindent expandtab softtabstop=2 shiftwidth=2 tabstop=2
-{...}: let
+{config, ...}: let
   pkgImport = import ./pkgs.nix;
   locals = import /etc/nixos-local/default.nix;
 in
   with pkgImport; {
-    imports =
+    imports = with pkgImport;
       [
         ./packages.nix
         ./overlays.nix
         ./programs.nix
+
         ./environment.nix
+        ./security.nix
         ./services.nix
+        ./commands.nix
+
+        ./user-configuration.nix
         ./root.nix
         ./gits.nix
 
-        ./user-configuration.nix
+        ./hardware.nix
         ./devices.nix
-        ./commands.nix
       ]
       ++ locals.modules;
 
@@ -106,7 +110,7 @@ in
       # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
 
       inherit stateVersion; # Did you read the comment?
-      name = "declarativeMonster";
+      name = sysName;
     };
   }
 # TODO conditional imports
