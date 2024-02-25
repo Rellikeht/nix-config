@@ -10,6 +10,7 @@ in {
     # Some programs need SUID wrappers, can be configured further or are
     # started in user sessions.
     # mtr.enable = true;
+
     gnupg = {
       agent = {
         enable = true;
@@ -104,13 +105,13 @@ in {
       #      ];
     };
 
+    # ???
     java = {
       enable = true;
       package = pkgs.jdk17;
     };
 
     command-not-found.enable = true;
-    #    command-not-found.enable = false;
 
     # TODO download database somehow
     # https://github.com/nix-community/nix-index

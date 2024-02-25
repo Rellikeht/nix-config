@@ -1,7 +1,4 @@
 # vim: autoindent expandtab softtabstop=2 shiftwidth=2 tabstop=2
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running `nixos-help`).
 {...}: let
   pkgImport = import ./pkgs.nix;
   locals = import /etc/nixos-local/default.nix;
@@ -10,14 +7,13 @@ in
     imports =
       [
         ./packages.nix
+        ./overlays.nix
         ./programs.nix
         ./environment.nix
-        ./gits.nix
         ./services.nix
-        ./source.nix
         ./root.nix
+        ./gits.nix
 
-        # ./home-manager.nix
         ./user-configuration.nix
         ./devices.nix
         ./commands.nix
@@ -76,7 +72,7 @@ in
 
       settings = {
         auto-optimise-store = true;
-        access-tokens = "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";
+        access-tokens = "github.com=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";
         allowed-users = [
           "@wheel"
         ];
@@ -110,6 +106,7 @@ in
       # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
 
       inherit stateVersion; # Did you read the comment?
+      name = "declarativeMonster";
     };
   }
 # TODO conditional imports

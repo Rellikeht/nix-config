@@ -7,10 +7,6 @@
     "/usr/bin/"
   ];
 in rec {
-  system = {
-    name = "declarativeMonster";
-  };
-
   environment = {
     enableAllTerminfo = true;
 
@@ -86,7 +82,7 @@ in rec {
   };
 
   users = {
-    defaultUserShell = pkgs.bash;
+    defaultUserShell = pkgs.zsh;
   };
 
   systemd = {

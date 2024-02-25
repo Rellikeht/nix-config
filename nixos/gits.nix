@@ -1,6 +1,5 @@
 # vim: autoindent expandtab softtabstop=2 shiftwidth=2 tabstop=2
-
-{ ... }:
+{...}:
 #let
 #
 #  documentation = fetchGit {
@@ -8,11 +7,7 @@
 #    outDir = "/home/nixpkgs/";
 #  };
 #in
-
 {
-
-# TODO nixpkgs repo here for reading
-# TODO dotfiles and links
+  # TODO readable git repos, probably mostly thing for
+  # home manager
 }
-
-# TODO maybe some minizinc

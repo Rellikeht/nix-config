@@ -26,9 +26,8 @@
   ];
 in rec {
   imports = [
+    # probably for home manager
     ./user-fsystem.nix
-    ./user-managers.nix
-    ./user-gits.nix
   ];
 
   users.users.default = {
@@ -127,5 +126,3 @@ in rec {
     };
   };
 }
-# TODO global syncthing?
-
