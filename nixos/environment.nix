@@ -95,6 +95,12 @@ in rec {
   users = {
     enforceIdUniqueness = true;
 
+    users.test = {
+      isNormalUser = true;
+      shell = pkgs.zsh;
+      group = "users";
+    };
+
     groups = {
       #      "name" = {
       #        gid = 0;

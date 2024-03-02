@@ -7,6 +7,7 @@
 }: let
 in {
   users.users.root = {
+    # isNormalUser = true;
     shell = pkgs.zsh;
   };
 }

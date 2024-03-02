@@ -2,6 +2,7 @@
 {config, ...}: let
   pkgImport = import ./pkgs.nix;
   locals = import /etc/nixos-local/default.nix;
+  vars = import /etc/nixos-local/local-vars.nix;
 in
   with pkgImport; {
     imports = with pkgImport;
@@ -47,7 +48,8 @@ in
           nixos = pkgs;
           unstable = pkgs-unstable;
           home-manager = homeManager;
-          nur = nur;
+          builds = pkgImport.myBuilds.packages."x86_64-linux";
+          inherit nur;
         };
       };
 
@@ -64,6 +66,7 @@ in
     };
 
     nix = {
+      # channel.enable = false;
       package = pkgs.nixFlakes;
 
       # This makes nixpkgs downloaded before available
@@ -74,11 +77,13 @@ in
         "nixos-config=/etc/nixos/configuration.nix"
       ];
 
+      # daemonCPUSchedPolicy = "idle";
+
       settings = {
         auto-optimise-store = true;
-        access-tokens = "github.com=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";
+        access-tokens = "github.com=${vars.githubToken}";
         allowed-users = [
-          "@wheel"
+          "@users"
         ];
 
         experimental-features = [

@@ -9,6 +9,8 @@
   };
 in {
   security = {
+    lockKernelModules = false;
+
     doas = {
       enable = true;
       extraRules =

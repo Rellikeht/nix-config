@@ -30,6 +30,8 @@ let
   nurExprs = fetchTarball nurLink;
   nur = (import nurExprs) {inherit pkgs;};
   # TODO nix index, but that is probably work for home manager
+
+  myBuilds = builtins.getFlake "github:Rellikeht/nix-builds";
 in {
   #   And some simple exporting
   inherit stateVersion sysName userName;
@@ -39,6 +41,7 @@ in {
   inherit pkgs-unstable unstableExprs;
   inherit homeManager homeManagerExprs;
   inherit nur nurExprs;
+  inherit myBuilds;
 
   #  inherit oldPkgs;
 }

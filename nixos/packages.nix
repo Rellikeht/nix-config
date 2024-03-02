@@ -2,6 +2,7 @@
 {
   pkgs,
   config,
+  # builds,
   ...
 }:
 with pkgs; let
@@ -522,6 +523,21 @@ with pkgs; let
     sane-frontends
   ];
 
+  # builds = builtins.trace pkgs.builds pkgs.builds.packages;
+  # builds = pkgs.builds.packages.${config.nixpkgs.hostPlatform};
+  # builds = pkgs.builds.${config.nixpkgs.hostPlatform}.packages;
+  # builds = pkgs.myBuilds.packages;
+  my = with pkgs.builds; [
+    st
+    dwm
+    dmenu
+    tabbed
+
+    # WHY THE FUCK THIS SHIT CAN'T WORK
+    xinit-xsession
+    svim
+  ];
+
   other = with pkgs; [
     mesa-demos
 
@@ -571,6 +587,7 @@ in {
     ++ meth
     ++ typesetting
     ++ scan-print
+    ++ my
     ++ other;
 
   environment.variables = {
