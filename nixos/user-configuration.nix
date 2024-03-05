@@ -1,5 +1,9 @@
 # vim: autoindent expandtab softtabstop=2 shiftwidth=2 tabstop=2
-{pkgs, ...} @ inputs: let
+{
+  pkgs,
+  config,
+  ...
+} @ inputs: let
   vars = import ./local-vars.nix;
   langPkgs = import ./user-lang-pkgs.nix {inherit pkgs;};
   langs = langPkgs.langs;
@@ -10,6 +14,9 @@
   userName = pkgImport.userName;
   userHome = "/home/${userName}";
   homeMode = "750";
+  userGroup = "michal";
+  userGid = 1000;
+  userUid = 1000;
 
   nonLangs = with pkgs; [
     moc
@@ -24,46 +31,52 @@
     inkscape
   ];
 in rec {
-  imports = [
-    # probably for home manager
-    (import ./user-fsystem.nix
-      {inherit userHome homeMode;})
-  ];
+  users = {
+    groups = {
+      ${userGroup} = {
+        gid = userGid;
+        members = [
+          userName
+        ];
+      };
+    };
 
-  users.users.default = {
-    name = userName;
-    home = userHome;
-    initialPassword = vars.initPass;
-    description = "standard user";
-    isNormalUser = true;
-    createHome = true;
-    inherit homeMode;
+    users.default = {
+      name = userName;
+      home = userHome;
+      uid = userUid;
+      group = userGroup;
+      initialPassword = vars.initPass;
+      description = "standard user";
+      isNormalUser = true;
+      createHome = true;
+      inherit homeMode;
 
-    extraGroups = [
-      "wheel"
-      "users"
-      "audio"
-      "video"
-      "disk"
-      "render"
-      "input"
-      "adm"
-      "plocate"
+      extraGroups = [
+        "users"
+        "audio"
+        "video"
+        "disk"
+        "render"
+        "input"
+        "adm"
+        "plocate"
 
-      "adbusers"
-      "networkmanager"
-      "sshd"
-      "syncthing"
+        "adbusers"
+        "networkmanager"
+        "sshd"
+        "syncthing"
 
-      "sddm"
-      "lp"
-      "scanner"
-      "cups"
-    ];
+        "sddm"
+        "lp"
+        "scanner"
+        "cups"
+      ];
 
-    packages = langs ++ nonLangs;
+      packages = langs ++ nonLangs;
 
-    shell = pkgs.zsh;
+      shell = pkgs.zsh;
+    };
   };
 
   services = {
@@ -118,4 +131,16 @@ in rec {
       };
     };
   };
+
+  imports = [
+    # probably for home manager
+    (
+      import ./user-fsystem.nix
+      {
+        inherit userName userGroup;
+        inherit userHome homeMode;
+        inherit userGid userUid;
+      }
+    )
+  ];
 }

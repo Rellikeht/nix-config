@@ -432,6 +432,7 @@ with pkgs; let
     unstable.rust-analyzer
     haskellPackages.haskell-language-server
     ocamlPackages.ocaml-lsp
+    ocamlPackages.ocamlformat
 
     lua-language-server
 
