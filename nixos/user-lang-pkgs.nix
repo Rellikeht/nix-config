@@ -47,7 +47,7 @@ in
     ];
 
     java = [
-      # java-language-server
+      java-language-server
       jdt-language-server
     ];
 
@@ -64,12 +64,26 @@ in
       #    texlab
 
       myR
-      julia
       pforth
       unstable.tree-sitter
+      # unstable.julia
 
-      # TODO add flake from nix builds
-      minizinc
+      # No idea how well works caching of that :(
+      (unstable.julia.withPackages [
+        "LanguageServer"
+        "OhMyREPL"
+        "Revise"
+        "BenchmarkTools"
+
+        "Plots"
+        "Unitful"
+
+        "JSON3"
+        "CSV"
+      ])
+
+      builds.minizinc-ide-bin
+      # minizinc
     ];
 
     langs = python ++ haskell ++ java ++ jdks ++ others;

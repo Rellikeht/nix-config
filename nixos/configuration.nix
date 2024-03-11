@@ -28,7 +28,10 @@ in
     nixpkgs = {
       config = {
         allowUnfree = true;
-        permittedInsecurePackages = [];
+        # Somehow this doesn't help :(
+        permittedInsecurePackages = [
+          "nix-2.16.2"
+        ];
 
         #     This is for having packages downloaded declaratively
         pkgs = import "${nixexprs}" {

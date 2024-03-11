@@ -2,12 +2,10 @@
 {
   pkgs,
   config,
-  # builds,
   ...
 }:
 with pkgs; let
-  b = builtins;
-
+  # b = builtins;
   perlProv = perl538;
   perlPkgs = perl538Packages;
   #perlPkgs = perlProv.pkgs;
@@ -54,6 +52,7 @@ with pkgs; let
     procps
     lm_sensors
     util-linux
+    usbutils
     psmisc
     mesa
     libuuid
@@ -110,7 +109,8 @@ with pkgs; let
 
     patchelf
 
-    unstable.nixd
+    nil
+    # unstable.nixd
   ];
 
   tty-utils = with pkgs; [
@@ -123,6 +123,9 @@ with pkgs; let
 
     pass
     keepassxc
+    keepass-diff
+    keepmenu
+    kpcli
   ];
 
   # NETWORK
@@ -508,6 +511,7 @@ with pkgs; let
   typesetting = with pkgs; [
     unstable.groff # :(
     typst
+    typstfmt
     typst-lsp
     typst-live
     glow
@@ -524,19 +528,17 @@ with pkgs; let
     sane-frontends
   ];
 
-  # builds = builtins.trace pkgs.builds pkgs.builds.packages;
-  # builds = pkgs.builds.packages.${config.nixpkgs.hostPlatform};
-  # builds = pkgs.builds.${config.nixpkgs.hostPlatform}.packages;
-  # builds = pkgs.myBuilds.packages;
   my = with pkgs.builds; [
     st
     dwm
     dmenu
     tabbed
 
-    # WHY THE FUCK THIS SHIT CAN'T WORK
-    xinit-xsession
     svim
+    breeze-hacked
+
+    # TODO this should be in system xsession settings
+    xinit-xsession
   ];
 
   other = with pkgs; [

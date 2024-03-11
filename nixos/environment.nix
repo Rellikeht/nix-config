@@ -1,7 +1,6 @@
 # vim: autoindent expandtab softtabstop=2 shiftwidth=2 tabstop=2
 {pkgs, ...}: let
-  b = builtins;
-
+  # b = builtins;
   defBrowser = "firefox.desktop";
   path = [
     "/usr/bin/"
@@ -49,6 +48,7 @@ in rec {
       ll = "ls -la";
       nv = "nvim";
       npr = "nix repl --expr 'import <nixpkgs> {}'";
+      nur = "nix repl --expr 'import <unstable> {}'";
     };
 
     # TODO needed directories and symlinks

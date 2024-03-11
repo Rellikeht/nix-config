@@ -5,6 +5,7 @@
   noPassCmd = name: {
     groups = ["wheel"];
     noPass = true;
+    keepEnv = true; # ??
     cmd = name;
   };
 in {

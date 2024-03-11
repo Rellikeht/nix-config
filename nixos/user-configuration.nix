@@ -53,6 +53,8 @@ in rec {
       inherit homeMode;
 
       extraGroups = [
+        "wheel"
+
         "users"
         "audio"
         "video"
