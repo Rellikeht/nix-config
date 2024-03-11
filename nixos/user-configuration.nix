@@ -8,7 +8,6 @@
   langPkgs = import ./user-lang-pkgs.nix {inherit pkgs;};
   langs = langPkgs.langs;
   jdks = langPkgs.jdks;
-  # TODO jdks
 
   pkgImport = import ./pkgs.nix;
   userName = pkgImport.userName;
@@ -75,8 +74,7 @@ in rec {
         "cups"
       ];
 
-      packages = langs ++ nonLangs;
-
+      packages = langs ++ nonLangs; # ++ jdks;
       shell = pkgs.zsh;
     };
   };
@@ -135,7 +133,6 @@ in rec {
   };
 
   imports = [
-    # probably for home manager
     (
       import ./user-fsystem.nix
       {

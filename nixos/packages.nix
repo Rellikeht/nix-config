@@ -41,6 +41,8 @@ with pkgs; let
       bpython
       pip
       python-lsp-server
+      pylsp-mypy
+      mypy
       pynvim
     ];
 
@@ -73,6 +75,7 @@ with pkgs; let
     # htop-vim
 
     su
+    binutils
 
     arch-install-scripts
     android-file-transfer
@@ -150,28 +153,29 @@ with pkgs; let
     wpa_supplicant
   ];
 
-  network-programs = with pkgs; [
-    wget
-    curl
-    curlie
+  network-programs = with pkgs;
+    [
+      wget
+      curl
+      curlie
+      w3m
 
-    aria
-    lftp
-    rsync
+      aria
+      lftp
+      rsync
 
-    speedtest-cli
+      speedtest-cli
 
-    megatools
-    rclone
-    transmission
-    unstable.gdown # temporary
+      megatools
+      rclone
+      transmission
 
-    dumptorrent
-
-    w3m
-
-    transmission-gtk
-  ];
+      dumptorrent
+      transmission-gtk
+    ]
+    ++ (with unstable; [
+      gdown # temporary ???
+    ]);
 
   # BASIC
 
@@ -398,63 +402,76 @@ with pkgs; let
   # CODE
 
   # No idea how much of that unstables is needed
-  code = with pkgs; [
-    sbcl
-    clisp
-    guile
-    lua
-    luajit
-    gforth
-    tcl
+  code = with pkgs;
+    [
+      sbcl
+      clisp
+      guile
+      lua
+      luajit
+      gforth
+      tcl
 
-    gcc
+      gcc
+      ghc
+      ocaml
 
-    unstable.go
-    unstable.zig
-    unstable.nim
-    unstable.rustc
-    ghc
-    ocaml
-
-    oldPython
-    newestPython
-    myPython
-    perlProv
-  ];
+      oldPython
+      newestPython
+      myPython
+      perlProv
+    ]
+    ++ (with unstable; [
+      go
+      zig
+      nim
+      rustc
+    ]);
 
   jdks = with pkgs; [
     jdk
   ];
   # TODO links and/or env variable for differentiation
 
-  lsps = with pkgs; [
-    clang-tools
-    unstable.gopls
-    unstable.zls
-    unstable.nimlsp
-    unstable.rust-analyzer
-    haskellPackages.haskell-language-server
-    ocamlPackages.ocaml-lsp
-    ocamlPackages.ocamlformat
+  lsps = with pkgs;
+    [
+      clang-tools
+      lua-language-server
+      pylyzer
+    ]
+    ++ (with unstable; [
+      gopls
+      zls
+      nimlsp
+      rust-analyzer
+    ])
+    ++ (with haskellPackages; [
+      haskell-language-server
+    ])
+    ++ (with unstable.ocamlPackages; [
+      ocaml-lsp
+      ocamlformat
+    ]);
 
-    lua-language-server
+  formatters = with pkgs;
+    [
+      luaformatter
+      vim-vint
+      shfmt
+    ]
+    ++ (with unstable; [
+      rustfmt
+      ruff
+    ]);
 
-    pylyzer
-  ];
-
-  formatters = with pkgs; [
-    unstable.rustfmt
-    luaformatter
-    vim-vint
-    shfmt
-    ruff
-  ];
-
-  pkg-managers = with pkgs; [
-    unstable.nimble
-    unstable.cargo
-    opam
-  ];
+  pkg-managers = with pkgs;
+    [
+      opam
+    ]
+    ++ (with unstable; [
+      nimble
+      cargo
+    ]);
 
   builders = with pkgs; [
     gnumake
@@ -464,35 +481,40 @@ with pkgs; let
     dune_3
   ];
 
-  code-utils = with pkgs; [
-    flex
-    bison
-    pkg-config
+  code-utils = with pkgs;
+    [
+      flex
+      bison
+      pkg-config
 
-    unstable.zig-shell-completions
+      shellcheck
+      checkbashisms
 
-    ocamlPackages.utop
+      hyperfine
+      config.boot.kernelPackages.perf
+      #    perf-tools # ?
+    ]
+    ++ (with ocamlPackages; [
+      utop
+    ])
+    ++ (with unstable; [
+      zig-shell-completions
+    ]);
 
-    shellcheck
-    checkbashisms
+  code-libs = with pkgs;
+    [
+      tclreadline
+      tk
 
-    hyperfine
-    config.boot.kernelPackages.perf
-    #    perf-tools # ?
-  ];
+      haskellPackages.floskell
+      ocamlPackages.yojson
 
-  code-libs = with pkgs; [
-    tclreadline
-    tk
-
-    haskellPackages.floskell
-    ocamlPackages.yojson
-
-    perlPkgs.WWWYoutubeViewer
-    perlPkgs.TermReadLineGnu
-
-    sqlite
-  ];
+      sqlite
+    ]
+    ++ (with perlPkgs; [
+      WWWYoutubeViewer
+      TermReadLineGnu
+    ]);
 
   guile-libs = with pkgs; [
     guile-git

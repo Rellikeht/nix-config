@@ -1,7 +1,7 @@
 # vim: autoindent expandtab softtabstop=2 shiftwidth=2 tabstop=2
 {pkgs, ...}:
 with pkgs; let
-  myR = pkgs.rWrapper.override {
+  myR = rWrapper.override {
     packages = with rPackages;
       [
         ggplot2
@@ -18,10 +18,11 @@ with pkgs; let
       bpython
       pip
       python-lsp-server
+      pylsp-mypy
+      mypy
 
       pynvim
       yt-dlp
-      mypy
       flake8
       autopep8
 
@@ -34,12 +35,16 @@ with pkgs; let
 in
   with pkgs; rec {
     # Because of versions
-    python = [
-      # pypy3
-      pypy310
-      myPython
-      ruff
-    ];
+    python =
+      [
+        # pypy3
+        pypy310
+        myPython
+        pylyzer
+      ]
+      ++ (with unstable; [
+        ruff
+      ]);
 
     jdks = [
       jdk11
