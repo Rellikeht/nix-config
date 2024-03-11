@@ -66,21 +66,22 @@ in
       myR
       pforth
       unstable.tree-sitter
-      # unstable.julia
+      unstable.julia
 
-      # No idea how well works caching of that :(
-      (unstable.julia.withPackages [
-        "LanguageServer"
-        "OhMyREPL"
-        "Revise"
-        "BenchmarkTools"
+      # Not cached enough :(
+      # And read only file system
+      # This may be job for home manager activation
+      # (unstable.julia.withPackages [
+      #   "LanguageServer"
+      #   "OhMyREPL"
+      #   "Revise"
 
-        "Plots"
-        "Unitful"
-
-        "JSON3"
-        "CSV"
-      ])
+      #   #   "BenchmarkTools"
+      #   #   "Plots"
+      #   #   "Unitful"
+      #   #   "JSON3"
+      #   #   "CSV"
+      # ])
 
       builds.minizinc-ide-bin
       # minizinc

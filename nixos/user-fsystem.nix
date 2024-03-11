@@ -4,12 +4,12 @@
   userHome,
   homeMode,
   userGroup,
-  userUid,
-  userGid,
+  # userUid,
+  # userGid,
   ...
 }: let
   downloads = builtins.mkDerivation {
-    # TODO downloads copying
+    # TODO downloads copying, probably not here
   };
 in {
   fileSystems = {
@@ -25,7 +25,3 @@ in {
     };
   };
 }
-# TODO home manager ??
-# TODO directories
-# TODO symlinks
-

@@ -53,5 +53,10 @@ in {
     ];
   };
 
-  # TODO zram
+  zramSwap = {
+    enable = true;
+    algorithm = "zstd";
+    memoryPercent = 80;
+    priority = 256;
+  };
 }
