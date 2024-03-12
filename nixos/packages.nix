@@ -388,16 +388,19 @@ with pkgs; let
     playerctl
   ];
 
-  audio-programs = with pkgs; [
-    mpv
-    vlc
+  audio-programs = with pkgs; (
+    [
+      mpv
+      vlc
 
-    ffmpeg
+      ytfzf
 
-    ytfzf
-
-    mediainfo
-  ];
+      ffmpeg-full
+      mediainfo
+    ]
+    ++ (with unstable; [
+      ])
+  );
 
   audio-downloaders = with pkgs; [
     yt-dlp

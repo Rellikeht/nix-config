@@ -1,10 +1,11 @@
 # vim: autoindent expandtab softtabstop=2 shiftwidth=2 tabstop=2
 # pkgs, config, option, lib, stdenv, modulesPath
 {pkgs, ...}: let
-  b = builtins;
-
+  # b = builtins;
   # OMG THIS WORKS
-  myRofi = final: prev: {
+  unstable = pkgs.unstable;
+
+  rofi = final: prev: {
     rofi = prev.rofi.override {
       plugins = with prev; [
         rofi-calc
@@ -19,9 +20,27 @@
       withNonFreePlugins = true;
     };
   };
+
+  mpv-unwrapped = final: prev: {
+    mpv-unwrapped = prev.mpv-unwrapped.override {
+      # ffmpeg = pkgs.ffmpeg_5-full;
+      ffmpeg = pkgs.ffmpeg-full;
+    };
+  };
+
+  mpv = final: prev: {
+    mpv = prev.mpv.override {
+      scripts = with final.mpvScripts; [
+        mpris
+        # quality-menu
+      ];
+    };
+  };
 in {
   nixpkgs.overlays = [
-    myRofi
+    rofi
     epsonscan2
+    mpv
+    mpv-unwrapped
   ];
 }

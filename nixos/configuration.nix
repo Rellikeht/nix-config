@@ -51,14 +51,12 @@ in
 
         # This enables all collections through pkgs
         packageOverrides = let
-          s = config.nixpkgs.hostPlatform.system;
-          system = builtins.trace s s;
+          system = config.nixpkgs.hostPlatform.system;
         in
           with pkgImport; {
             nixos = pkgs;
             unstable = pkgs-unstable;
             home-manager = homeManager;
-            # builds = pkgImport.myBuilds.packages."x86_64-linux";
             builds = pkgImport.myBuilds.packages.${system};
             inherit nur;
           };
