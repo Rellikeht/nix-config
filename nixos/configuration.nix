@@ -5,7 +5,7 @@
   vars = import /etc/nixos-local/local-vars.nix;
 in
   with pkgImport; {
-    imports = with pkgImport;
+    imports =
       [
         ./packages.nix
         ./overlays.nix
@@ -28,12 +28,15 @@ in
     nixpkgs = {
       config = {
         allowUnfree = true;
-        # Somehow this doesn't help :(
+
         permittedInsecurePackages = [
-          "nix-2.16.2"
+          # this doesn't help :(
+          # "nix-2.16.2"
+          # "nix"
         ];
 
-        #     This is for having packages downloaded declaratively
+        # pkgs downloaded in pkgs.nixexprs
+        # no idea why or if this does anything
         pkgs = import "${nixexprs}" {
           #       Just in case
           inherit
@@ -47,13 +50,18 @@ in
         };
 
         # This enables all collections through pkgs
-        packageOverrides = with pkgImport; rec {
-          nixos = pkgs;
-          unstable = pkgs-unstable;
-          home-manager = homeManager;
-          builds = pkgImport.myBuilds.packages."x86_64-linux";
-          inherit nur;
-        };
+        packageOverrides = let
+          s = config.nixpkgs.hostPlatform.system;
+          system = builtins.trace s s;
+        in
+          with pkgImport; {
+            nixos = pkgs;
+            unstable = pkgs-unstable;
+            home-manager = homeManager;
+            # builds = pkgImport.myBuilds.packages."x86_64-linux";
+            builds = pkgImport.myBuilds.packages.${system};
+            inherit nur;
+          };
       };
 
       # inherit overlays;
@@ -66,6 +74,7 @@ in
       "unstable".source = "${unstableExprs}";
       # Dirty workaround
       "rofi/themes".source = "${pkgs.rofi}/share/rofi/themes";
+      "dhall/Prelude".source = "${dhallPrelude}";
     };
 
     nix = {

@@ -93,28 +93,31 @@ with pkgs; let
     #   adb-sync #?
   ];
 
-  nix-utils = with pkgs; [
-    home-manager.home-manager
+  nix-utils = with pkgs; ([
+      home-manager.home-manager
 
-    nix-zsh-completions
-    nix-bash-completions
-    zsh-nix-shell
-    nix-du
-    nix-top
-    nix-tree
-    nix-search-cli
-    nix-script
-    nixos-shell
-    nixopsUnstable
-    alejandra
-    comma
-    nix-index
+      nix-zsh-completions
+      nix-bash-completions
+      zsh-nix-shell
+      nix-du
+      nix-top
+      nix-tree
+      nix-search-cli
+      nix-script
+      nixos-shell
+      nixopsUnstable
+      alejandra
+      comma
+      nix-index
 
-    patchelf
+      patchelf
 
-    nil
-    # unstable.nixd
-  ];
+      nil
+    ]
+    ++ (with unstable; [
+      # Needs outdated nix with cve :(
+      # nixd
+    ]));
 
   tty-utils = with pkgs; [
     physlock
@@ -340,13 +343,15 @@ with pkgs; let
     sxiv
   ];
 
-  themes = with pkgs; [
-    haskellPackages.FractalArt
-    arc-theme
-    materia-theme
-    sddm-chili-theme
-    papirus-icon-theme
-  ];
+  themes = with pkgs; ([
+      arc-theme
+      materia-theme
+      sddm-chili-theme
+      papirus-icon-theme
+    ]
+    ++ (with unstable; [
+      haskellPackages.FractalArt
+    ]));
 
   fonts = with pkgs; [
     fontconfig
@@ -414,7 +419,6 @@ with pkgs; let
 
       gcc
       ghc
-      ocaml
 
       oldPython
       newestPython
@@ -422,6 +426,7 @@ with pkgs; let
       perlProv
     ]
     ++ (with unstable; [
+      ocaml
       go
       zig
       nim
@@ -437,21 +442,24 @@ with pkgs; let
     [
       clang-tools
       lua-language-server
-      pylyzer
+      pylyzer # unstable compiles from source and fails :(
     ]
-    ++ (with unstable; [
-      gopls
-      zls
-      nimlsp
-      rust-analyzer
-    ])
-    ++ (with haskellPackages; [
-      haskell-language-server
-    ])
-    ++ (with unstable.ocamlPackages; [
-      ocaml-lsp
-      ocamlformat
-    ]);
+    ++ (with unstable;
+      [
+        dhall-lsp-server
+
+        gopls
+        zls
+        nimlsp
+        rust-analyzer
+      ]
+      ++ (with unstable.haskellPackages; [
+        haskell-language-server
+      ])
+      ++ (with unstable.ocamlPackages; [
+        ocaml-lsp
+        ocamlformat
+      ]));
 
   formatters = with pkgs;
     [
@@ -460,6 +468,7 @@ with pkgs; let
       shfmt
     ]
     ++ (with unstable; [
+      haskellPackages.floskell
       rustfmt
       ruff
     ]);
@@ -481,8 +490,7 @@ with pkgs; let
     dune_3
   ];
 
-  code-utils = with pkgs;
-    [
+  code-utils = with pkgs; ([
       flex
       bison
       pkg-config
@@ -494,27 +502,41 @@ with pkgs; let
       config.boot.kernelPackages.perf
       #    perf-tools # ?
     ]
-    ++ (with ocamlPackages; [
-      utop
-    ])
-    ++ (with unstable; [
-      zig-shell-completions
-    ]);
+    ++ (
+      with unstable;
+        [
+          zig-shell-completions
+        ]
+        ++ (with unstable.ocamlPackages; [
+          utop
+        ])
+        ++ (with unstable.haskellPackages; [
+          dhall
+          dhall-yaml
+          dhall-nix
+          dhall-json
+          dhall-toml
+        ])
+    ));
 
-  code-libs = with pkgs;
+  code-libs = with pkgs; (
     [
       tclreadline
       tk
-
-      haskellPackages.floskell
-      ocamlPackages.yojson
 
       sqlite
     ]
     ++ (with perlPkgs; [
       WWWYoutubeViewer
       TermReadLineGnu
-    ]);
+    ])
+    ++ (with unstable; ([]
+      ++ (with ocamlPackages; [
+        yojson
+      ])
+      ++ (with haskellPackages; [
+        ])))
+  );
 
   guile-libs = with pkgs; [
     guile-git
@@ -530,19 +552,23 @@ with pkgs; let
     gnuplot
   ];
 
-  typesetting = with pkgs; [
-    unstable.groff # :(
-    typst
-    typstfmt
-    typst-lsp
-    typst-live
-    glow
-    mdp
-    mdr
-    lowdown
-    pinfo
-    highlight
-  ];
+  typesetting = with pkgs; (
+    [
+      typst
+      typstfmt
+      typst-lsp
+      typst-live
+      glow
+      mdp
+      mdr
+      lowdown
+      pinfo
+      highlight
+    ]
+    ++ (with unstable; [
+      groff # :(
+    ])
+  );
 
   scan-print = with pkgs; [
     system-config-printer
@@ -563,13 +589,16 @@ with pkgs; let
     xinit-xsession
   ];
 
-  other = with pkgs; [
-    mesa-demos
-
-    # Cant download :(
-    # unstable doesn't help
-    #    unstable.libsForQt5.xp-pen-deco-01-v2-driver
-  ];
+  other = with pkgs; (
+    [
+      mesa-demos
+    ]
+    ++ (with unstable; [
+      # Cant download :(
+      # unstable doesn't help
+      #    libsForQt5.xp-pen-deco-01-v2-driver
+    ])
+  );
 in {
   environment.systemPackages =
     system-libs

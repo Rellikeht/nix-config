@@ -1,17 +1,20 @@
 # vim: autoindent expandtab softtabstop=2 shiftwidth=2 tabstop=2
-{pkgs, ...}:
+{
+  pkgs,
+  # config,
+  ...
+}:
 with pkgs; let
-  myR = rWrapper.override {
-    packages = with rPackages;
-      [
-        ggplot2
-        units
-        languageserver
-        vioplot
-      ]
-      ++ (with pkgs; [udunits]);
-  };
-
+  # myR = rWrapper.override {
+  #   packages = with rPackages;
+  #     [
+  #       ggplot2
+  #       units
+  #       languageserver
+  #       vioplot
+  #     ]
+  #     ++ (with pkgs; [udunits]);
+  # };
   pythonProv = python311;
   pythonPackages = ps:
     with ps; [
@@ -34,10 +37,8 @@ with pkgs; let
   myPython = pythonProv.withPackages pythonPackages;
 in
   with pkgs; rec {
-    # Because of versions
     python =
       [
-        # pypy3
         pypy310
         myPython
         pylyzer
@@ -53,22 +54,23 @@ in
 
     java = [
       java-language-server
-      jdt-language-server
+      # jdt-language-server
     ];
 
-    haskell = with unstable; [
-      haskellPackages.vector
-      haskellPackages.hashtables
-      haskellPackages.unordered-containers
-      stack
-    ];
+    haskell = with unstable; ([
+        stack
+      ]
+      ++ (with haskellPackages; [
+        vector
+        hashtables
+        unordered-containers
+      ]));
 
     others = [
       # good latex, but not needed now
       #    texlive.combined.scheme-full # ?
       #    texlab
 
-      myR
       pforth
       unstable.tree-sitter
       unstable.julia
@@ -88,6 +90,7 @@ in
       #   #   "CSV"
       # ])
 
+      # myR
       builds.minizinc-ide-bin
       # minizinc
     ];

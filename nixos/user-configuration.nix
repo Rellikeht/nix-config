@@ -1,9 +1,9 @@
 # vim: autoindent expandtab softtabstop=2 shiftwidth=2 tabstop=2
 {
   pkgs,
-  config,
+  # config,
   ...
-} @ inputs: let
+}: let
   vars = import ./local-vars.nix;
   langPkgs = import ./user-lang-pkgs.nix {inherit pkgs;};
   langs = langPkgs.langs;
@@ -74,7 +74,7 @@ in rec {
         "cups"
       ];
 
-      packages = langs ++ nonLangs; # ++ jdks;
+      packages = langs ++ nonLangs ++ jdks;
       shell = pkgs.zsh;
     };
   };
