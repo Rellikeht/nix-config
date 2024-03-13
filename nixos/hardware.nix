@@ -2,7 +2,7 @@
 # pkgs, config, option, lib, stdenv, modulesPath
 {
   pkgs,
-  config,
+  # config,
   ...
 }: let
   b = builtins;
@@ -14,8 +14,9 @@ in {
     networkmanager.enable = true;
 
     firewall = {
-      #      enable = false;
-      allowPing = false;
+      # :(
+      # enable = false;
+      allowPing = true;
 
       # TODO
       # Open ports in the firewall.
@@ -43,7 +44,7 @@ in {
       ";
 
       extraModules = with pkgs; [
-        #pulseaudio-modules-bt
+        # pulseaudio-modules-bt
       ];
     };
 
@@ -70,6 +71,10 @@ in {
         sane-airscan
         hplipWithPlugin
       ];
+    };
+
+    opengl = {
+      enable = true;
     };
   };
 

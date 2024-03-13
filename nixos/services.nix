@@ -159,5 +159,6 @@ in rec {
     # unclutter ?
 
     # TODO aria2 daemon
+    # TODO hoogle ??
   };
 }

@@ -18,7 +18,6 @@ in
 
         ./user-configuration.nix
         ./root.nix
-        ./gits.nix
 
         ./hardware.nix
         ./devices.nix

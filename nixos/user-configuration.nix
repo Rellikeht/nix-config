@@ -85,7 +85,7 @@ in rec {
       "*/30 * * * * ${userName} ~/.dwm/dremove.sh"
     ];
 
-    # TODO devices to local hardware config
+    # TODO devices to local hardware config ?
     syncthing = {
       enable = true;
       user = "${userName}";

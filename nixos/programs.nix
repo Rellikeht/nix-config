@@ -108,7 +108,7 @@ in {
     # ???
     java = {
       enable = true;
-      package = pkgs.jdk17;
+      package = pkgs.jdk; #17;
     };
 
     command-not-found.enable = true;
@@ -127,14 +127,24 @@ in {
       nix-direnv = {
         enable = true;
       };
-
-      #      silent = true;
+      # silent = true;
     };
 
     git = {
       enable = true;
+      prompt.enable = true;
       package = pkgs.gitFull;
-      # TODO config
+
+      # TODO more config
+      config = {
+        init = {
+          defaultBranch = "master";
+        };
+        url = {
+          "https://github.com/" = {insteadOf = ["gh:" "github:"];};
+          "https://gitlab.com/" = {insteadOf = ["gl:" "gitlab:"];};
+        };
+      };
     };
 
     neovim = {

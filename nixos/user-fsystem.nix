@@ -8,9 +8,6 @@
   # userGid,
   ...
 }: let
-  downloads = builtins.mkDerivation {
-    # TODO downloads copying, probably not here
-  };
 in {
   fileSystems = {
     "${userHome}/Downloads" = {

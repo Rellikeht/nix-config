@@ -34,7 +34,7 @@ with pkgs; let
   # This at least doesn't rebuild fucking everything
   # From fucking source
   newestPython = python313;
-  oldPython = python312;
+  # oldPython = python312;
   pythonProv = python311;
   pythonPackages = ps:
     with ps; [
@@ -69,7 +69,6 @@ with pkgs; let
     pciutils
 
     reptyr
-    os-prober
 
     htop # got used to variant without vim bindings :(
     # htop-vim
@@ -106,12 +105,11 @@ with pkgs; let
       nix-script
       nixos-shell
       nixopsUnstable
-      alejandra
       comma
       nix-index
-
       patchelf
 
+      alejandra
       nil
     ]
     ++ (with unstable; [
@@ -174,7 +172,7 @@ with pkgs; let
       transmission
 
       dumptorrent
-      transmission-gtk
+      # transmission-gtk
     ]
     ++ (with unstable; [
       gdown # temporary ???
@@ -422,8 +420,9 @@ with pkgs; let
 
       gcc
       ghc
+      nickel
 
-      oldPython
+      # oldPython
       newestPython
       myPython
       perlProv
@@ -437,7 +436,7 @@ with pkgs; let
     ]);
 
   jdks = with pkgs; [
-    jdk
+    # jdk
   ];
   # TODO links and/or env variable for differentiation
 
@@ -446,10 +445,11 @@ with pkgs; let
       clang-tools
       lua-language-server
       pylyzer # unstable compiles from source and fails :(
+      nls
     ]
     ++ (with unstable;
       [
-        dhall-lsp-server
+        # dhall-lsp-server
 
         gopls
         zls
@@ -514,11 +514,11 @@ with pkgs; let
           utop
         ])
         ++ (with unstable.haskellPackages; [
-          dhall
-          dhall-yaml
-          dhall-nix
-          dhall-json
-          dhall-toml
+          # dhall
+          # dhall-yaml
+          # dhall-nix
+          # dhall-json
+          # dhall-toml
         ])
     ));
 
@@ -526,7 +526,6 @@ with pkgs; let
     [
       tclreadline
       tk
-
       sqlite
     ]
     ++ (with perlPkgs; [
@@ -561,10 +560,12 @@ with pkgs; let
       typstfmt
       typst-lsp
       typst-live
+
       glow
-      mdp
       mdr
+      # mdp
       lowdown
+
       pinfo
       highlight
     ]
@@ -589,7 +590,7 @@ with pkgs; let
     breeze-hacked
 
     # TODO this should be in system xsession settings
-    xinit-xsession
+    # xinit-xsession
   ];
 
   other = with pkgs; (
@@ -650,6 +651,5 @@ in {
   environment.variables = {
   };
 }
-# TODO flake builds of my programs
 # TODO smapi - battery, proper linux for that
 
