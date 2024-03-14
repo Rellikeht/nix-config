@@ -69,9 +69,10 @@ in
     environment.etc = {
       "nixpkgs".source = "${nixexprs}";
       "unstable".source = "${unstableExprs}";
+      "dhall/Prelude".source = "${dhallPrelude}";
+
       # Dirty workaround
       "rofi/themes".source = "${pkgs.rofi}/share/rofi/themes";
-      "dhall/Prelude".source = "${dhallPrelude}";
     };
 
     nix = {
@@ -89,7 +90,7 @@ in
       # daemonCPUSchedPolicy = "idle";
 
       settings = {
-        auto-optimise-store = true;
+        auto-optimise-store = false; #true;
         access-tokens = "github.com=${vars.githubToken}";
         allowed-users = [
           "@users"

@@ -48,7 +48,8 @@ in
       ]);
 
     jdks = [
-      jdk11
+      # jdk11
+      jre8
       jdk17
     ];
 
@@ -66,34 +67,40 @@ in
         unordered-containers
       ]));
 
-    others = [
-      # good latex, but not needed now
-      #    texlive.combined.scheme-full # ?
-      #    texlab
+    others =
+      [
+        # good latex, but not needed now
+        #    texlive.combined.scheme-full # ?
+        #    texlab
 
-      pforth
-      unstable.tree-sitter
-      unstable.julia
+        # pforth
 
-      # Not cached enough :(
-      # And read only file system
-      # This may be job for home manager activation
-      # (unstable.julia.withPackages [
-      #   "LanguageServer"
-      #   "OhMyREPL"
-      #   "Revise"
+        # Not cached enough :(
+        # And read only file system
+        # This may be job for home manager activation
+        # (unstable.julia.withPackages [
+        #   "LanguageServer"
+        #   "OhMyREPL"
+        #   "Revise"
 
-      #   #   "BenchmarkTools"
-      #   #   "Plots"
-      #   #   "Unitful"
-      #   #   "JSON3"
-      #   #   "CSV"
-      # ])
-
-      # myR
-      builds.minizinc-ide-bin
-      # minizinc
-    ];
+        #   #   "BenchmarkTools"
+        #   #   "Plots"
+        #   #   "Unitful"
+        #   #   "JSON3"
+        #   #   "CSV"
+        # ])
+        # myR
+      ]
+      ++ (with unstable; [
+        tree-sitter
+        julia-bin
+      ])
+      ++ (with lua54Packages; [
+        lua
+      ])
+      ++ (with builds; [
+        minizinc-ide-bin
+      ]);
 
     langs = python ++ haskell ++ java ++ jdks ++ others;
   }

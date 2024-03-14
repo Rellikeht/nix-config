@@ -1,7 +1,6 @@
 # vim: autoindent expandtab softtabstop=2 shiftwidth=2 tabstop=2
 {pkgs, ...}: let
   # b = builtins;
-  defBrowser = "firefox.desktop";
   path = [
     "/usr/bin/"
   ];
@@ -99,6 +98,7 @@ in rec {
       isNormalUser = true;
       shell = pkgs.zsh;
       group = "users";
+      extraGroups = [];
     };
 
     groups = {
@@ -111,7 +111,10 @@ in rec {
 
   xdg = {
     mime = {
-      defaultApplications = {
+      # TODO ???
+      defaultApplications = let
+        defBrowser = "firefox.desktop";
+      in {
         "application/pdf" = "zathura.desktop";
         "text/html" = defBrowser;
 

@@ -559,11 +559,10 @@ with pkgs; let
       typst
       typstfmt
       typst-lsp
-      typst-live
+      # typst-live
 
       glow
       mdr
-      # mdp
       lowdown
 
       pinfo

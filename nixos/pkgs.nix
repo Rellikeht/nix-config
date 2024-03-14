@@ -1,5 +1,6 @@
 # vim: autoindent expandtab softtabstop=2 shiftwidth=2 tabstop=2
-# TODO do that with flakes maybe
+# Yes, that's all kind of flake inputs, will became themes
+# when i finally migrate my config to flake
 let
   # Version of whole system ?
   stateVersion = "23.11";
@@ -7,7 +8,7 @@ let
   userName = "michal";
   # userHome = "/home/${userName}";
 
-  getChan = addr: import (fetchTarball addr);
+  # getChan = addr: import (fetchTarball addr);
   universalConf = {config = {allowUnfree = true;};};
 
   # Links to pkgs repos
