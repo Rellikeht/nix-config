@@ -88,6 +88,7 @@ in rec {
     # TODO devices to local hardware config ?
     syncthing = {
       enable = true;
+      package = pkgs.unstable.syncthing;
       user = "${userName}";
       configDir = "${userHome}/.config/syncthing";
       dataDir = "${userHome}/Shared";

@@ -134,25 +134,28 @@ with pkgs; let
 
   # NETWORK
 
-  network-utils = with pkgs; [
-    nmap
-    nettools
-    iperf
+  network-utils = with pkgs; ([
+      nmap
+      nettools
+      iperf
 
-    networkmanager
-    networkmanager-openvpn
-    openvpn
+      networkmanager
+      networkmanager-openvpn
+      openvpn
 
-    phodav
-    syncthing
-    kubo
+      phodav
+      kubo
 
-    cadaver
-    inetutils
+      cadaver
+      inetutils
 
-    dhcpcd
-    wpa_supplicant
-  ];
+      dhcpcd
+      wpa_supplicant
+    ]
+    ++ (with unstable; [
+      # syncthing
+      stc-cli
+    ]));
 
   network-programs = with pkgs;
     [
@@ -211,6 +214,9 @@ with pkgs; let
     gawk
 
     man
+    man-pages
+    linux-manual
+    stdman
     help2man
   ];
 
@@ -347,13 +353,17 @@ with pkgs; let
       sddm-chili-theme
       papirus-icon-theme
     ]
-    ++ (with unstable; [
-      haskellPackages.FractalArt
-    ]));
+    ++ (with unstable;
+      [
+      ]
+      ++ (with haskellPackages; [
+        FractalArt
+      ])));
 
   fonts = with pkgs; [
     fontconfig
     freetype
+    font-awesome
   ];
 
   documents = with pkgs; [
@@ -419,6 +429,7 @@ with pkgs; let
       tcl
 
       gcc
+      clang
       ghc
       nickel
 
@@ -452,29 +463,34 @@ with pkgs; let
         # dhall-lsp-server
 
         gopls
-        zls
         nimlsp
+        zls
         rust-analyzer
       ]
-      ++ (with unstable.haskellPackages; [
+      ++ (with haskellPackages; [
         haskell-language-server
       ])
-      ++ (with unstable.ocamlPackages; [
+      ++ (with ocamlPackages; [
         ocaml-lsp
         ocamlformat
       ]));
 
   formatters = with pkgs;
     [
+      cmake-format
+
       luaformatter
       vim-vint
       shfmt
     ]
-    ++ (with unstable; [
-      haskellPackages.floskell
-      rustfmt
-      ruff
-    ]);
+    ++ (with unstable;
+      [
+        rustfmt
+        ruff
+      ]
+      ++ (with haskellPackages; [
+        floskell
+      ]));
 
   pkg-managers = with pkgs;
     [
@@ -494,6 +510,7 @@ with pkgs; let
   ];
 
   code-utils = with pkgs; ([
+      git-doc
       flex
       bison
       pkg-config
@@ -501,19 +518,25 @@ with pkgs; let
       shellcheck
       checkbashisms
 
+      gdb
+
       hyperfine
       config.boot.kernelPackages.perf
       #    perf-tools # ?
     ]
+    ++ (with haskellPackages; [
+      cabal-install
+      stack
+    ])
     ++ (
       with unstable;
         [
           zig-shell-completions
         ]
-        ++ (with unstable.ocamlPackages; [
+        ++ (with ocamlPackages; [
           utop
         ])
-        ++ (with unstable.haskellPackages; [
+        ++ (with haskellPackages; [
           # dhall
           # dhall-yaml
           # dhall-nix
@@ -556,11 +579,6 @@ with pkgs; let
 
   typesetting = with pkgs; (
     [
-      typst
-      typstfmt
-      typst-lsp
-      # typst-live
-
       glow
       mdr
       lowdown
@@ -569,7 +587,12 @@ with pkgs; let
       highlight
     ]
     ++ (with unstable; [
-      groff # :(
+      typst
+      typstfmt
+      typst-lsp
+      typst-live
+
+      groff
     ])
   );
 
@@ -599,7 +622,7 @@ with pkgs; let
     ++ (with unstable; [
       # Cant download :(
       # unstable doesn't help
-      #    libsForQt5.xp-pen-deco-01-v2-driver
+      # libsForQt5.xp-pen-deco-01-v2-driver
     ])
   );
 in {

@@ -55,13 +55,13 @@ in
 
     java = [
       java-language-server
-      # jdt-language-server
     ];
 
     haskell = with unstable; ([
-        stack
       ]
       ++ (with haskellPackages; [
+        stack
+        # cabal
         vector
         hashtables
         unordered-containers
@@ -102,5 +102,10 @@ in
         minizinc-ide-bin
       ]);
 
-    langs = python ++ haskell ++ java ++ jdks ++ others;
+    langs =
+      python
+      ++ haskell
+      ++ java
+      ++ jdks
+      ++ others;
   }
