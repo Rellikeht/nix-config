@@ -251,6 +251,7 @@ with pkgs; let
   ];
 
   editors = with pkgs; [
+    ed
     vim
     neovim
     kakoune
@@ -258,8 +259,6 @@ with pkgs; let
 
     emacs
     neovim-qt
-
-    ed
   ];
 
   # FILES
@@ -455,7 +454,6 @@ with pkgs; let
     [
       clang-tools
       lua-language-server
-      pylyzer # unstable compiles from source and fails :(
       nls
     ]
     ++ (with unstable;
@@ -466,6 +464,8 @@ with pkgs; let
         nimlsp
         zls
         rust-analyzer
+        # unstable compiles from source and fails :( )
+        # pylyzer
       ]
       ++ (with haskellPackages; [
         haskell-language-server
@@ -489,7 +489,7 @@ with pkgs; let
         ruff
       ]
       ++ (with haskellPackages; [
-        floskell
+        # floskell
       ]));
 
   pkg-managers = with pkgs;
@@ -525,9 +525,7 @@ with pkgs; let
       #    perf-tools # ?
     ]
     ++ (with haskellPackages; [
-      cabal-install
-      stack
-    ])
+      ])
     ++ (
       with unstable;
         [

@@ -26,8 +26,8 @@
     tesseract
     almonds
 
-    gimp
-    inkscape
+    # gimp
+    # inkscape
   ];
 in rec {
   users = {

@@ -32,7 +32,7 @@ in {
     };
 
     # this sets kernel
-    #    kernelPackages = null;
+    # kernelPackages = null;
 
     kernelModules = [
       "ntfs3"
@@ -56,7 +56,7 @@ in {
   zramSwap = {
     enable = true;
     algorithm = "zstd";
-    memoryPercent = 80;
+    memoryPercent = 90;
     priority = 256;
   };
 }
