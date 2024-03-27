@@ -26,17 +26,21 @@ in rec {
     };
     thermald.enable = true;
 
-    # TODO pipewire
-    #    pipewire = {
-    #      enable = true;
-    #
-    #      alsa = {
-    #        enable = true;
-    #        support32Bit = true;
-    #      };
-    #
-    #      pulse.enable = true;
-    #    };
+    pipewire = {
+      enable = true;
+      audio.enable = true;
+      pulse.enable = true;
+      systemWide = true;
+
+      wireplumber = {
+        enable = true;
+      };
+
+      alsa = {
+        enable = true;
+        support32Bit = true;
+      };
+    };
 
     tlp = {
       enable = true;
@@ -91,7 +95,7 @@ in rec {
           ];
 
           # TODO fucking xinitrc
-          #          extraSessionCommands = "\$HOME/.xinitrc_common";
+          # extraSessionCommands = "\$HOME/.xinitrc_common";
         };
 
         awesome = {

@@ -386,14 +386,21 @@ with pkgs; let
     # wireplumber
   ];
 
-  audio-utils = with pkgs; [
-    pulsemixer
-    alsa-tools # ?
-    # pipecontrol
-    pavucontrol
+  audio-utils = with pkgs; (
+    [
+      pulsemixer
+      alsa-tools # ?
+      # pipecontrol
+      pavucontrol
 
-    playerctl
-  ];
+      playerctl
+    ]
+    ++ (with xfce; [
+      xfce4-volumed-pulse
+      xfce4-pulseaudio-plugin
+      xfce4-timer-plugin
+    ])
+  );
 
   audio-programs = with pkgs; (
     [

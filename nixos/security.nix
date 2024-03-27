@@ -11,6 +11,7 @@
 in {
   security = {
     lockKernelModules = false;
+    rtkit.enable = true;
 
     doas = {
       enable = true;

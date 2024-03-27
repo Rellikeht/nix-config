@@ -62,6 +62,7 @@ in rec {
         "input"
         "adm"
         "plocate"
+        "pipewire"
 
         "adbusers"
         "networkmanager"

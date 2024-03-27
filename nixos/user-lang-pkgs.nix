@@ -26,11 +26,11 @@ with pkgs; let
 
       pynvim
       yt-dlp
-      flake8
-      autopep8
+      # flake8
+      # autopep8
 
       matplotlib
-      pandas
+      # pandas
     ];
   myPython = pythonProv.withPackages pythonPackages;
 in
@@ -48,12 +48,13 @@ in
 
     jdks = [
       # jdk11
-      jre8
+      # jre8
       jdk17
     ];
 
     java = [
       java-language-server
+      jdt-language-server
     ];
 
     haskell = with unstable; ([
