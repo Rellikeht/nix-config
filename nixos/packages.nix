@@ -30,12 +30,14 @@ with pkgs; let
   #      ];
   #  };
 
+  # Optimized python should be done separately
+  # and built on remote server
   #pythonProv = pythonOptimized;
   # This at least doesn't rebuild fucking everything
   # From fucking source
   newestPython = python313;
-  # oldPython = python312;
   pythonProv = python311;
+  # oldPython = python312;
   pythonPackages = ps:
     with ps; [
       bpython
@@ -184,14 +186,14 @@ with pkgs; let
   # BASIC
 
   shell-utils = with pkgs; [
-    rlwrap
-
-    zsh-completions
-    zsh-syntax-highlighting
-    zsh-powerlevel10k
+    # zsh-completions
+    # zsh-syntax-highlighting
+    # zsh-powerlevel10k # ??
     dash
+
     fzf
     fzy
+    rlwrap
 
     screen
     less
@@ -383,7 +385,6 @@ with pkgs; let
 
   audio-libs = with pkgs; [
     alsa-utils
-    # wireplumber
   ];
 
   audio-utils = with pkgs; (
@@ -423,7 +424,6 @@ with pkgs; let
 
   # CODE
 
-  # No idea how much of that unstables is needed
   code = with pkgs;
     [
       sbcl
@@ -439,11 +439,11 @@ with pkgs; let
       ghc
       nickel
 
-      # oldPython
       newestPython
       myPython
       perlProv
     ]
+    # No idea how much of that unstables is needed
     ++ (with unstable; [
       ocaml
       go
@@ -453,9 +453,7 @@ with pkgs; let
     ]);
 
   jdks = with pkgs; [
-    # jdk
   ];
-  # TODO links and/or env variable for differentiation
 
   lsps = with pkgs;
     [
@@ -471,7 +469,7 @@ with pkgs; let
         nimlsp
         zls
         rust-analyzer
-        # unstable compiles from source and fails :( )
+        # unstable compiles from source and fails for now :( )
         # pylyzer
       ]
       ++ (with haskellPackages; [
@@ -496,7 +494,7 @@ with pkgs; let
         ruff
       ]
       ++ (with haskellPackages; [
-        # floskell
+        floskell
       ]));
 
   pkg-managers = with pkgs;
@@ -529,7 +527,6 @@ with pkgs; let
 
       hyperfine
       config.boot.kernelPackages.perf
-      #    perf-tools # ?
     ]
     ++ (with haskellPackages; [
       ])

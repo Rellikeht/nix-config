@@ -1,11 +1,10 @@
 # vim: autoindent expandtab softtabstop=2 shiftwidth=2 tabstop=2
 {
   pkgs,
-  config,
-  option,
+  # config,
+  # option,
   ...
-}: let
-in {
+}: {
   programs = {
     # Some programs need SUID wrappers, can be configured further or are
     # started in user sessions.
@@ -23,6 +22,9 @@ in {
 
     zsh = {
       enable = true;
+      enableLsColors = true;
+      histSize = 2000;
+      enableCompletion = false; # enabled in init section
       enableBashCompletion = true;
 
       autosuggestions = {
@@ -32,9 +34,8 @@ in {
 
       syntaxHighlighting = {
         enable = true;
-        highlighters = [
-          # bad root
 
+        highlighters = [
           "main"
           "brackets"
           "regexp"
@@ -43,34 +44,47 @@ in {
       };
 
       setOptions = [
-        "HIST_IGNORE_DUPS"
+        "HIST_SAVE_NO_DUPS"
+        "HIST_REDUCE_BLANKS"
         "HIST_FCNTL_LOCK"
+        "EXTENDED_HISTORY"
+        "SHARE_HISTORY"
+        # "INC_APPEND_HISTORY"
       ];
 
-      #      interactiveShellInit = "
-      shellInit = "
+      # This slows down zsh at least 100ms
+      promptInit = ''
+        source ${pkgs.unstable.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
+      '';
+
+      shellInit = ''
+        # Done by configuration option
+        __BASH_COMPINIT_RUN=1
+
         bindkey -e
-        [ -e ~/.zshrc ] && source ~/.zshrc
         export WORDCHARS='%~!?+'
+        ZSH_AUTOSUGGEST_USE_ASYNC='true'
+        SAVEHIST=5000
 
-#        my-backward-delete-word () {
-#           local WORDCHARS='~!#$%^*<>?+/'
-#           zle backward-delete-word
-#        }
-#        zle -N my-backward-delete-word
-#        bindkey    '\\e^?' my-backward-delete-word
+        zstyle ':completion:*' use-cache on
+        zstyle ':completion:*' cache-path "$XDG_CACHE_HOME/zsh/zscompcache"
 
+        zstyle :compinstall filename '~/.zshrc'
+        zstyle :compinstall filename '/etc/zshrc'
+
+        # this slows zsh down ~50ms
+        autoload -Uz compinit
+        compinit
+        __COMPINIT_RUN=1
+
+        # Just in case
         conditional_source () {
-          [ -f \"\$1\" ] && source \"\$1\"
+          [ -f "$1" ] && source "$1"
         }
+      '';
 
-        conditional_source \"/etc/.aliasrc\"
-        conditional_source \"\$HOME/.aliasrc\"
-        conditional_source \"/etc/.funcrc\"
-        conditional_source \"\$HOME/.funcrc\"
-        conditional_source \"/etc/.varrc\"
-        conditional_source \"\$HOME/.varrc\"
-      ";
+      interactiveShellInit = ''
+      '';
     };
 
     tmux = {
@@ -80,7 +94,6 @@ in {
       keyMode = "vi";
       customPaneNavigationAndResize = true;
       terminal = "tmux-direct";
-      #shortcut = "q";
 
       extraConfig = let
         prefix = "M-Space";
@@ -100,9 +113,9 @@ in {
       enable = true;
       lockerCommand = "${pkgs.xlockmore}/bin/xlock";
 
-      #      extraOptions = [
-      #        ""
-      #      ];
+      # extraOptions = [
+      #   ""
+      # ];
     };
 
     # ???
@@ -149,10 +162,9 @@ in {
 
     neovim = {
       enable = true;
-
-      # TODO ?
-      #      configure = {};
-      #      runtime = {};
+      package = pkgs.neovim-unwrapped;
+      # configure = {};
+      # runtime = {};
     };
   };
 }

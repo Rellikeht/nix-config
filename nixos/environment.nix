@@ -140,17 +140,16 @@ in {
       extraGroups = [];
     };
 
+    # done in other places
     groups = {
-      #      "name" = {
-      #        gid = 0;
-      #        name = "name";
-      #      };
     };
   };
 
   xdg = {
     mime = {
       # TODO ???
+      # probably undoable anyway
+      # at least in bigger amounts
       defaultApplications = let
         defBrowser = "firefox.desktop";
       in {
@@ -170,5 +169,3 @@ in {
     };
   };
 }
-# TODO rc files
-
