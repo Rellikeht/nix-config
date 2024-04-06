@@ -247,10 +247,14 @@ with pkgs; let
     lolcat
   ];
 
-  terminals = with pkgs; [
-    alacritty
-    rxvt-unicode-emoji
-  ];
+  terminals = with pkgs; ([
+      rxvt-unicode-emoji
+    ]
+    ++ (
+      with unstable; [
+        alacritty
+      ]
+    ));
 
   editors = with pkgs; [
     ed

@@ -15,6 +15,7 @@ in
         ./security.nix
         ./services.nix
         ./commands.nix
+        ./systemd.nix
 
         ./user-configuration.nix
         ./root.nix
@@ -28,16 +29,12 @@ in
       config = {
         allowUnfree = true;
 
-        permittedInsecurePackages = [
-          # this doesn't help :(
-          # "nix-2.16.2"
-          # "nix"
-        ];
+        permittedInsecurePackages = [];
 
         # pkgs downloaded in pkgs.nixexprs
         # no idea why or if this does anything
         pkgs = import "${nixexprs}" {
-          #       Just in case
+          # Just in case
           inherit
             (config.nixpkgs)
             config
@@ -64,8 +61,8 @@ in
       # inherit overlays;
     };
 
-    #   This puts nixos pkgs in /etc
-    #   For nixPath purposes ?
+    # This puts nixos pkgs in /etc
+    # For nixPath purposes ?
     environment.etc = {
       "nixpkgs".source = "${nixexprs}";
       "unstable".source = "${unstableExprs}";

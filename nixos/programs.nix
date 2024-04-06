@@ -53,6 +53,8 @@
       ];
 
       # This slows down zsh at least 100ms
+      # This should be replaced by some flake
+      # and home manager magic
       promptInit = ''
         source ${pkgs.unstable.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
       '';

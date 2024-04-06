@@ -76,7 +76,7 @@ in rec {
       ];
 
       packages = langs ++ nonLangs ++ jdks;
-      shell = pkgs.zsh;
+      shell = pkgs.unstable.zsh;
     };
   };
 

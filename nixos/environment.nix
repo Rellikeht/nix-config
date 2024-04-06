@@ -120,17 +120,7 @@ in {
   };
 
   users = {
-    defaultUserShell = pkgs.zsh;
-  };
-
-  systemd = {
-    ctrlAltDelUnit = "";
-    extraConfig = "
-      DefaultTimeoutStopSec=15s
-    ";
-  };
-
-  users = {
+    defaultUserShell = pkgs.unstable.zsh;
     enforceIdUniqueness = true;
 
     users.test = {
