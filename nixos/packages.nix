@@ -46,6 +46,7 @@ with pkgs; let
       pylsp-mypy
       mypy
       pynvim
+      mdformat
     ];
 
   myPython = pythonProv.withPackages pythonPackages;

@@ -1,13 +1,14 @@
 # vim: autoindent expandtab softtabstop=2 shiftwidth=2 tabstop=2
 {
   pkgs,
-  # config,
+  config,
   # option,
   ...
 }: let
 in {
   users.users.root = {
     # isNormalUser = true;
-    shell = pkgs.zsh;
+    # shell = pkgs.unstable.zsh;
+    shell = config.users.defaultUserShell;
   };
 }

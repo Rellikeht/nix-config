@@ -23,6 +23,7 @@ with pkgs; let
       python-lsp-server
       pylsp-mypy
       mypy
+      mdformat
 
       pynvim
       yt-dlp

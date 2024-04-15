@@ -1,7 +1,7 @@
 # vim: autoindent expandtab softtabstop=2 shiftwidth=2 tabstop=2
 {
   pkgs,
-  # config,
+  config,
   ...
 }: let
   vars = import ./local-vars.nix;
@@ -76,7 +76,8 @@ in rec {
       ];
 
       packages = langs ++ nonLangs ++ jdks;
-      shell = pkgs.unstable.zsh;
+      # shell = pkgs.unstable.zsh;
+      shell = config.users.defaultUserShell;
     };
   };
 

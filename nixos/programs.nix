@@ -1,7 +1,7 @@
 # vim: autoindent expandtab softtabstop=2 shiftwidth=2 tabstop=2
 {
   pkgs,
-  # config,
+  config,
   # option,
   ...
 }: {
@@ -48,8 +48,8 @@
         "HIST_REDUCE_BLANKS"
         "HIST_FCNTL_LOCK"
         "EXTENDED_HISTORY"
-        "SHARE_HISTORY"
-        # "INC_APPEND_HISTORY"
+        # "SHARE_HISTORY"
+        "INC_APPEND_HISTORY"
       ];
 
       # This slows down zsh at least 100ms

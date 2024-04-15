@@ -1,5 +1,9 @@
 # vim: autoindent expandtab softtabstop=2 shiftwidth=2 tabstop=2
-{pkgs, ...}: let
+{
+  pkgs,
+  config,
+  ...
+}: let
   # b = builtins;
   path = [
     "/usr/bin/"
@@ -40,8 +44,8 @@ in {
     homeBinInPath = true;
     localBinInPath = true;
 
-    interactiveShellInit = ""; # TODO
-    loginShellInit = ""; # TODO
+    interactiveShellInit = "";
+    loginShellInit = "";
 
     shellAliases = {
       ll = "ls -la";
@@ -125,7 +129,8 @@ in {
 
     users.test = {
       isNormalUser = true;
-      shell = pkgs.zsh;
+      # shell = pkgs.zsh;
+      shell = config.users.defaultUserShell;
       group = "users";
       extraGroups = [];
     };
