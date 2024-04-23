@@ -50,11 +50,12 @@ in
     jdks = [
       # jdk11
       # jre8
-      jdk17
+      # jdk17
+      jdk
     ];
 
     java = [
-      java-language-server
+      # java-language-server
       jdt-language-server
     ];
 
@@ -63,13 +64,12 @@ in
       ++ (with haskellPackages; [
         haskell-language-server
         floskell
-        stack
+        # vector
+        # hashtables
+        # unordered-containers
         # cabal
-        vector
-        hashtables
-        unordered-containers
-        cabal-install
-        stack
+        # cabal-install
+        # stack
       ]));
 
     others =
@@ -78,8 +78,8 @@ in
         # myR
       ]
       ++ (with unstable; [
-        texlive.combined.scheme-medium
-        texlab
+        # texlive.combined.scheme-medium
+        # texlab
 
         tree-sitter
         julia-bin

@@ -23,7 +23,7 @@ in {
     variables = {
       EDITOR = "vim";
       VISUAL = "svim";
-      LESS = "--save-marks --status-column --incsearch --ignore-case";
+      LESS = "--save-marks --status-column --incsearch --ignore-case --status-col-width=1";
       ZIG_LOCAL_CACHE_DIR = "/tmp/$USER-zig/";
       PYTHONDONTWRITEBYTECODE = "false";
       _JAVA_AWT_WM_NONREPARENTING = "1";

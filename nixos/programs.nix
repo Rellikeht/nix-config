@@ -25,7 +25,9 @@
       enableLsColors = true;
       histSize = 2000;
       enableCompletion = false; # enabled in init section
-      enableBashCompletion = true;
+      # TODO test
+      # enableBashCompletion = true;
+      enableGlobalCompInit = true;
 
       autosuggestions = {
         enable = true;
@@ -120,10 +122,9 @@
       # ];
     };
 
-    # ???
     java = {
       enable = true;
-      package = pkgs.jdk; #17;
+      package = pkgs.jdk;
     };
 
     command-not-found.enable = true;

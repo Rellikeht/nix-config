@@ -187,10 +187,10 @@ with pkgs; let
   # BASIC
 
   shell-utils = with pkgs; [
-    # zsh-completions
-    # zsh-syntax-highlighting
-    # zsh-powerlevel10k # ??
     dash
+    # ???
+    zsh-completions
+    zsh-you-should-use
 
     fzf
     fzy
@@ -363,7 +363,7 @@ with pkgs; let
       [
       ]
       ++ (with haskellPackages; [
-        FractalArt
+        # FractalArt
       ])));
 
   fonts = with pkgs; [
@@ -492,6 +492,7 @@ with pkgs; let
       luaformatter
       vim-vint
       shfmt
+      yamlfix
     ]
     ++ (with unstable;
       [
