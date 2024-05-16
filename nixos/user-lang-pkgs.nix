@@ -1,20 +1,6 @@
 # vim: autoindent expandtab softtabstop=2 shiftwidth=2 tabstop=2
-{
-  pkgs,
-  # config,
-  ...
-}:
+{pkgs, ...}:
 with pkgs; let
-  # myR = rWrapper.override {
-  #   packages = with rPackages;
-  #     [
-  #       ggplot2
-  #       units
-  #       languageserver
-  #       vioplot
-  #     ]
-  #     ++ (with pkgs; [udunits]);
-  # };
   pythonProv = python311;
   pythonPackages = ps:
     with ps; [
@@ -27,11 +13,7 @@ with pkgs; let
 
       pynvim
       yt-dlp
-      # flake8
-      # autopep8
-
       matplotlib
-      # pandas
     ];
   myPython = pythonProv.withPackages pythonPackages;
 in
@@ -43,14 +25,10 @@ in
       ]
       ++ (with unstable; [
         ruff
-        # :( )
-        # pylyzer
+        pylyzer
       ]);
 
     jdks = [
-      # jdk11
-      # jre8
-      # jdk17
       jdk
     ];
 
@@ -74,7 +52,7 @@ in
 
     others =
       [
-        # pforth
+        pforth
         # myR
       ]
       ++ (with unstable; [
@@ -88,7 +66,8 @@ in
         lua
       ])
       ++ (with builds; [
-        minizinc-ide-bin
+        # minizinc-ide-bin
+        # pylyzer
       ]);
 
     langs =

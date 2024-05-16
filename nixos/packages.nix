@@ -10,31 +10,6 @@ with pkgs; let
   perlPkgs = perl538Packages;
   #perlPkgs = perlProv.pkgs;
 
-  #  pythonPackage = python311Full;
-  #  pythonOverride = pythonPackage.override {
-  #    enableOptimizations = true;
-  #    reproducibleBuild = false;
-  #    self = pythonOverride;
-  #  };
-  #  pyOverPkgs = pythonOverride.pkgs;
-
-  #  pythonOptimized = pythonOverride.pkgs.buildPythonPackage rec {
-  #    name = "python-example";
-  #    #inherit src;
-  #    propagatedBuildInputs = with pyOverPkgs; [
-  #      numpy
-  #    ];
-  #    nativeBuildInputs = with pyOverPkgs;
-  #      pkgs.lib.optionals (pkgs.lib.inNixShell) [
-  #        ipython
-  #      ];
-  #  };
-
-  # Optimized python should be done separately
-  # and built on remote server
-  #pythonProv = pythonOptimized;
-  # This at least doesn't rebuild fucking everything
-  # From fucking source
   newestPython = python313;
   pythonProv = python311;
   # oldPython = python312;
@@ -117,7 +92,7 @@ with pkgs; let
     ]
     ++ (with unstable; [
       # Needs outdated nix with cve :(
-      # nixd
+      nixd
     ]));
 
   tty-utils = with pkgs; [
@@ -178,10 +153,9 @@ with pkgs; let
       transmission
 
       dumptorrent
-      # transmission-gtk
     ]
     ++ (with unstable; [
-      gdown # temporary ???
+      gdown
     ]);
 
   # BASIC
@@ -262,6 +236,7 @@ with pkgs; let
     vim
     neovim
     kakoune
+    kak-lsp
     vis
 
     emacs
@@ -381,6 +356,8 @@ with pkgs; let
   ];
 
   browsers = with pkgs; [
+    vimb
+    luakit
     qutebrowser
     firefox
     ungoogled-chromium
@@ -462,20 +439,19 @@ with pkgs; let
 
   lsps = with pkgs;
     [
-      clang-tools
       lua-language-server
       nls
     ]
     ++ (with unstable;
       [
+        clang-tools
         # dhall-lsp-server
 
         gopls
         nimlsp
         zls
         rust-analyzer
-        # unstable compiles from source and fails for now :( )
-        # pylyzer
+        pylyzer
       ]
       ++ (with haskellPackages; [
         haskell-language-server
@@ -611,6 +587,7 @@ with pkgs; let
   ];
 
   my = with pkgs.builds; [
+    # TODO vim tiny
     st
     dwm
     dmenu
@@ -628,9 +605,7 @@ with pkgs; let
       mesa-demos
     ]
     ++ (with unstable; [
-      # Cant download :(
-      # unstable doesn't help
-      # libsForQt5.xp-pen-deco-01-v2-driver
+      libsForQt5.xp-pen-deco-01-v2-driver
     ])
   );
 in {

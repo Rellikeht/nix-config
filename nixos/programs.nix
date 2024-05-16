@@ -25,8 +25,7 @@
       enableLsColors = true;
       histSize = 2000;
       enableCompletion = false; # enabled in init section
-      # TODO test
-      # enableBashCompletion = true;
+      enableBashCompletion = true;
       enableGlobalCompInit = true;
 
       autosuggestions = {
@@ -140,10 +139,10 @@
 
     direnv = {
       enable = true;
+      # silent = true;
       nix-direnv = {
         enable = true;
       };
-      # silent = true;
     };
 
     git = {

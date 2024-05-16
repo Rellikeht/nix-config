@@ -160,9 +160,24 @@ in rec {
     };
 
     ipp-usb.enable = true;
-    # unclutter ?
 
-    # TODO aria2 daemon
+    aria2 = {
+      enable = true;
+      openPorts = false;
+
+      extraArguments = ''
+        --continue=true
+        --max-concurrent-downloads=200
+        --optimize-concurrent-downloads=true
+        --bt-detach-seed-only=true
+        --bt-max-peers=100
+        --seed-ratio=0.0
+        --check-integrity=true
+        --file-allocation=prealloc
+      '';
+    };
+
+    # TODO unclutter, xinit, xsession
     # TODO hoogle ??
   };
 }
