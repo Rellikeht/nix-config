@@ -82,17 +82,18 @@ with pkgs; let
       nix-search-cli
       nix-script
       nixos-shell
-      nixopsUnstable
       comma
       nix-index
       patchelf
+
+      # TODO
+      # nixops_unstable_full
 
       alejandra
       nil
     ]
     ++ (with unstable; [
-      # Needs outdated nix with cve :(
-      nixd
+      # nixd
     ]));
 
   tty-utils = with pkgs; [
@@ -129,11 +130,12 @@ with pkgs; let
 
       dhcpcd
       wpa_supplicant
-    ]
-    ++ (with unstable; [
+
       # syncthing
       stc-cli
-    ]));
+    ]
+    ++ (with unstable; [
+      ]));
 
   network-programs = with pkgs;
     [
@@ -153,10 +155,10 @@ with pkgs; let
       transmission
 
       dumptorrent
+      gdown
     ]
     ++ (with unstable; [
-      gdown
-    ]);
+      ]);
 
   # BASIC
 
@@ -213,7 +215,6 @@ with pkgs; let
 
     delta
 
-    neofetch
     fastfetch
     tree
 
@@ -224,10 +225,10 @@ with pkgs; let
 
   terminals = with pkgs; ([
       rxvt-unicode-emoji
+      alacritty
     ]
     ++ (
       with unstable; [
-        alacritty
       ]
     ));
 
@@ -481,9 +482,9 @@ with pkgs; let
 
   pkg-managers = with pkgs;
     [
-      opam
     ]
     ++ (with unstable; [
+      opam
       nimble
       cargo
     ]);
@@ -509,13 +510,13 @@ with pkgs; let
 
       hyperfine
       config.boot.kernelPackages.perf
+      zig-shell-completions
     ]
     ++ (with haskellPackages; [
       ])
     ++ (
       with unstable;
         [
-          zig-shell-completions
         ]
         ++ (with ocamlPackages; [
           utop
@@ -603,10 +604,10 @@ with pkgs; let
   other = with pkgs; (
     [
       mesa-demos
+      libsForQt5.xp-pen-deco-01-v2-driver
     ]
     ++ (with unstable; [
-      libsForQt5.xp-pen-deco-01-v2-driver
-    ])
+      ])
   );
 in {
   environment.systemPackages =

@@ -1,7 +1,7 @@
 # vim: autoindent expandtab softtabstop=2 shiftwidth=2 tabstop=2
 {
   pkgs,
-  config,
+  # config,
   # option,
   ...
 }: {
@@ -14,7 +14,7 @@
       agent = {
         enable = true;
         enableSSHSupport = true;
-        pinentryFlavor = "gtk2";
+        pinentryPackage = pkgs.pinentry-gtk2;
       };
     };
 
@@ -150,7 +150,6 @@
       prompt.enable = true;
       package = pkgs.gitFull;
 
-      # TODO more config
       config = {
         init = {
           defaultBranch = "master";

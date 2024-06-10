@@ -4,7 +4,6 @@
   config,
   ...
 }: let
-  # b = builtins;
   path = [
     "/usr/bin/"
   ];
@@ -37,7 +36,17 @@ in {
       XDG_CONFIG_HOME = "$HOME/.config/";
       XDG_BIN_HOME = "$HOME/.local/bin/";
       JULIA_EDITOR = "ssvim";
-      LD_LIBRARY_PATH = ["/run/opengl-driver/lib"];
+      LD_LIBRARY_PATH =
+        [
+          "/run/opengl-driver/lib"
+        ]
+        ++ [
+          (pkgs.lib.makeLibraryPath
+            (with pkgs; [
+              zlib
+              stdenv.cc.cc.lib
+            ]))
+        ];
     };
 
     binsh = "${pkgs.dash}/bin/dash";

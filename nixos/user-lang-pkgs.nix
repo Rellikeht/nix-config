@@ -38,6 +38,9 @@ in
     ];
 
     haskell = with unstable; ([
+        # cabal
+        cabal-install
+        stack
       ]
       ++ (with haskellPackages; [
         haskell-language-server
@@ -45,9 +48,6 @@ in
         # vector
         # hashtables
         # unordered-containers
-        # cabal
-        # cabal-install
-        # stack
       ]));
 
     others =

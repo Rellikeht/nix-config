@@ -65,18 +65,30 @@ in rec {
       enable = true;
     };
 
+    # Enable touchpad support (enabled default in most desktopManager).
+    libinput = {
+      enable = true;
+      touchpad = {
+        tapping = true; # ???
+        disableWhileTyping = true;
+      };
+    };
+
+    displayManager = {
+      defaultSession = "xfce";
+      sddm = {
+        enable = true;
+        theme = "chili";
+        # theme = pkgs.sddm-chili-theme;
+      };
+    };
+
     xserver = {
       enable = true;
-      layout = "pl";
-      xkbOptions = "caps:escape";
 
-      # Enable touchpad support (enabled default in most desktopManager).
-      libinput = {
-        enable = true;
-        touchpad = {
-          tapping = true; # ???
-          disableWhileTyping = true;
-        };
+      xkb = {
+        layout = "pl";
+        options = "caps:escape";
       };
 
       desktopManager.xfce = {
@@ -106,14 +118,7 @@ in rec {
 
       displayManager = {
         lightdm.enable = false;
-        defaultSession = "xfce";
         sessionCommands = "";
-
-        sddm = {
-          enable = true;
-          theme = "chili";
-          # theme = pkgs.sddm-chili-theme;
-        };
       };
 
       xautolock = {
@@ -149,7 +154,7 @@ in rec {
       cacheEntriesMax = 32767;
       domainName = "nygus";
 
-      nssmdns = true;
+      nssmdns4 = true;
       openFirewall = true;
 
       publish = {
@@ -161,21 +166,23 @@ in rec {
 
     ipp-usb.enable = true;
 
-    aria2 = {
-      enable = true;
-      openPorts = false;
+    # aria2 = {
+    #   enable = true;
+    #   openPorts = false;
+    #   # rpcSecretFile = "/run/secrets/aria2-rpc-secret";
+    #   # rpcSecretFile = "/dev/null";
 
-      extraArguments = ''
-        --continue=true
-        --max-concurrent-downloads=200
-        --optimize-concurrent-downloads=true
-        --bt-detach-seed-only=true
-        --bt-max-peers=100
-        --seed-ratio=0.0
-        --check-integrity=true
-        --file-allocation=prealloc
-      '';
-    };
+    #   extraArguments = ''
+    #     --continue=true
+    #     --max-concurrent-downloads=200
+    #     --optimize-concurrent-downloads=true
+    #     --bt-detach-seed-only=true
+    #     --bt-max-peers=100
+    #     --seed-ratio=0.0
+    #     --check-integrity=true
+    #     --file-allocation=prealloc
+    #   '';
+    # };
 
     # TODO unclutter, xinit, xsession
     # TODO hoogle ??
