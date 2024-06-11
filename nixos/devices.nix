@@ -5,35 +5,43 @@
   ...
 }: let
 in {
-  fileSystems."/" = {
-    options = [
-      "nodiratime"
-      "noatime"
-    ];
+  fileSystems = {
+    "/" = {
+      # {{{
+      options = [
+        # {{{
+        "nodiratime"
+        "noatime"
+      ]; # }}}
+    }; # }}}
   };
 
   boot = {
     loader = {
+      # {{{
       timeout = 2;
 
       grub = {
+        # {{{
         enable = true;
         # theme = pkgs.nixos-grub2-theme;
         theme = null;
         useOSProber = true;
-      };
-    };
+      }; # }}}
+    }; # }}}
 
     tmp = {
+      # {{{
       cleanOnBoot = true;
       useTmpfs = true;
-    };
+    }; # }}}
 
     kernel = {
+      # {{{
       sysctl = {
         "vm.swappiness" = 10;
       };
-    };
+    }; # }}}
 
     # ?
     # kernelPackages = null;
@@ -41,20 +49,27 @@ in {
     # kernelPackages = pkgs.linuxPackages_zen;
 
     kernelModules = [
+      # {{{
       "ntfs3"
+      "kvm"
 
-      # TODO ?
+      # todo ?
+      # doesn't work
+      # something is seriously fucked
+      # no idea what
+
       # "acpi-cpufreq"
       "cpufreq_powersave"
       "cpufreq_conservative"
       "cpufreq_ondemand"
       "cpufreq_userspace"
-    ];
+    ]; # }}}
 
     kernelParams = [];
     extraModulePackages = with config.boot.kernelPackages; [];
 
     supportedFilesystems = [
+      # {{{
       "ntfs"
       "exfat"
       "fat32"
@@ -63,13 +78,31 @@ in {
       "xfs"
       "btrfs"
       "f2fs"
-    ];
+    ]; # }}}
+
+    initrd = {
+      enable = true;
+
+      kernelModules = [
+        # {{{
+        # "ntfs3"
+        # "kvm"
+
+        # # TODO ?
+        # "acpi-cpufreq"
+        # "cpufreq_powersave"
+        # "cpufreq_conservative"
+        # "cpufreq_ondemand"
+        # "cpufreq_userspace"
+      ]; # }}}
+    };
   };
 
   zramSwap = {
+    # {{{
     enable = true;
     algorithm = "zstd";
     memoryPercent = 90;
     priority = 256;
-  };
+  }; # }}}
 }
