@@ -1,5 +1,9 @@
 # vim: autoindent expandtab softtabstop=2 shiftwidth=2 tabstop=2
-{config, ...}: let
+{
+  pkgs,
+  config,
+  ...
+}: let
 in {
   fileSystems."/" = {
     options = [
@@ -31,11 +35,20 @@ in {
       };
     };
 
-    # this sets kernel
+    # ?
     # kernelPackages = null;
+    # kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.linuxPackages_zen;
 
     kernelModules = [
       "ntfs3"
+
+      # TODO ?
+      # "acpi-cpufreq"
+      "cpufreq_powersave"
+      "cpufreq_conservative"
+      "cpufreq_ondemand"
+      "cpufreq_userspace"
     ];
 
     kernelParams = [];

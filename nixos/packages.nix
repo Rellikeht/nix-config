@@ -11,10 +11,11 @@ with pkgs; let
   #perlPkgs = perlProv.pkgs;
 
   newestPython = python313;
-  pythonProv = python311;
-  # oldPython = python312;
+  pythonProv = python312;
+  # oldPython = python311;
   pythonPackages = ps:
     with ps; [
+      # {{{
       bpython
       pip
       python-lsp-server
@@ -22,13 +23,14 @@ with pkgs; let
       mypy
       pynvim
       mdformat
-    ];
+    ]; # }}}
 
   myPython = pythonProv.withPackages pythonPackages;
 
   # SYSTEM
 
   system-libs = with pkgs; [
+    # {{{
     procps
     lm_sensors
     util-linux
@@ -36,9 +38,10 @@ with pkgs; let
     psmisc
     mesa
     libuuid
-  ];
+  ]; # }}}
 
   system-utils = with pkgs; [
+    # {{{
     v4l-utils
 
     lsof
@@ -57,9 +60,10 @@ with pkgs; let
     arch-install-scripts
     android-file-transfer
     android-tools
-  ];
+  ]; # }}}
 
   filesystems = with pkgs; [
+    # {{{
     e2fsprogs
     ntfs3g
 
@@ -68,13 +72,12 @@ with pkgs; let
 
     adbfs-rootless
     #   adb-sync #?
-  ];
+  ]; # }}}
 
   nix-utils = with pkgs; ([
+      # {{{
       home-manager.home-manager
 
-      nix-zsh-completions
-      nix-bash-completions
       zsh-nix-shell
       nix-du
       nix-top
@@ -91,16 +94,19 @@ with pkgs; let
 
       alejandra
       nil
-    ]
+    ] # }}}
     ++ (with unstable; [
+      # {{{
       # nixd
-    ]));
+    ])); # }}}
 
   tty-utils = with pkgs; [
+    # {{{
     physlock
-  ];
+  ]; # }}}
 
   secrets = with pkgs; [
+    # {{{
     gpgme
     gpg-tui
 
@@ -109,11 +115,12 @@ with pkgs; let
     keepass-diff
     keepmenu
     kpcli
-  ];
+  ]; # }}}
 
   # NETWORK
 
   network-utils = with pkgs; ([
+      # {{{
       nmap
       nettools
       iperf
@@ -133,12 +140,14 @@ with pkgs; let
 
       # syncthing
       stc-cli
-    ]
+    ] # }}}
     ++ (with unstable; [
-      ]));
+      # {{{
+    ])); # }}}
 
   network-programs = with pkgs;
     [
+      # {{{
       wget
       curl
       curlie
@@ -156,13 +165,15 @@ with pkgs; let
 
       dumptorrent
       gdown
-    ]
+    ] # }}}
     ++ (with unstable; [
-      ]);
+      # {{{
+    ]); # }}}
 
   # BASIC
 
   shell-utils = with pkgs; [
+    # {{{
     dash
     # ???
     zsh-completions
@@ -197,9 +208,10 @@ with pkgs; let
     linux-manual
     stdman
     help2man
-  ];
+  ]; # }}}
 
   shell-libs = with pkgs; [
+    # {{{
     gnum4
     xxh
     zlib
@@ -207,9 +219,10 @@ with pkgs; let
     tre
     iconv
     readline
-  ];
+  ]; # }}}
 
   shell-graphics = with pkgs; [
+    # {{{
     cmatrix
     tmatrix
 
@@ -221,18 +234,21 @@ with pkgs; let
     fortune
     figlet
     lolcat
-  ];
+  ]; # }}}
 
   terminals = with pkgs; ([
+      # {{{
       rxvt-unicode-emoji
       alacritty
-    ]
+    ] # }}}
     ++ (
       with unstable; [
-      ]
+        # {{{
+      ] # }}}
     ));
 
   editors = with pkgs; [
+    # {{{
     ed
     vim
     neovim
@@ -242,17 +258,19 @@ with pkgs; let
 
     emacs
     neovim-qt
-  ];
+  ]; # }}}
 
   # FILES
 
   file-management = with pkgs; [
+    # {{{
     vifm
     ranger
     stow
-  ];
+  ]; # }}}
 
   archives = with pkgs; [
+    # {{{
     xarchiver
 
     gnutar
@@ -271,28 +289,31 @@ with pkgs; let
 
     rar
     unrar
-  ];
+  ]; # }}}
 
   fsys-utils = with pkgs; [
+    # {{{
     fdupes
     plocate
 
     gparted
     gpart
     parted
-  ];
+  ]; # }}}
 
   # GRAPHICAL
 
   xorg = with pkgs.xorg; [
+    # {{{
     xmodmap
     xinit
     xev
     xrandr
     xrdb
-  ];
+  ]; # }}}
 
   x-utils = with pkgs; [
+    # {{{
     brightnessctl
 
     xlockmore
@@ -316,78 +337,90 @@ with pkgs; let
 
     rofi
     rofi-pass
-  ];
+  ]; # }}}
 
   graphics = with pkgs; [
+    # {{{
     imagemagickBig
     graphicsmagick
     pinta
-  ];
+  ]; # }}}
 
   viewers = with pkgs; [
+    # {{{
     feh
     sxiv
-  ];
+  ]; # }}}
 
   themes = with pkgs; ([
+      # {{{
       arc-theme
       materia-theme
       sddm-chili-theme
       papirus-icon-theme
-    ]
+    ] # }}}
     ++ (with unstable;
       [
-      ]
+        # {{{
+      ] # }}}
       ++ (with haskellPackages; [
+        # {{{
         # FractalArt
-      ])));
+      ]))); # }}}
 
   fonts = with pkgs; [
+    # {{{
     fontconfig
     freetype
     font-awesome
-  ];
+  ]; # }}}
 
   documents = with pkgs; [
+    # {{{
     ghostscript
     pdfgrep
 
     zathura
     mupdf
-  ];
+  ]; # }}}
 
   browsers = with pkgs; [
+    # {{{
     vimb
     luakit
     qutebrowser
     firefox
     ungoogled-chromium
-  ];
+  ]; # }}}
 
   # AUDIO
 
   audio-libs = with pkgs; [
+    # {{{
     alsa-utils
-  ];
+  ]; # }}}
 
   audio-utils = with pkgs; (
     [
+      # {{{
       pulsemixer
       alsa-tools # ?
       # pipecontrol
       pavucontrol
 
       playerctl
-    ]
+    ] # }}}
     ++ (with xfce; [
+      # {{{
       xfce4-volumed-pulse
       xfce4-pulseaudio-plugin
       xfce4-timer-plugin
-    ])
+    ]) # }}}
   );
 
   audio-programs = with pkgs; (
     [
+      # {{{
       mpv
       vlc
 
@@ -395,20 +428,23 @@ with pkgs; let
 
       ffmpeg-full
       mediainfo
-    ]
+    ] # }}}
     ++ (with unstable; [
-      ])
+      # {{{
+    ]) # }}}
   );
 
   audio-downloaders = with pkgs; [
+    # {{{
     yt-dlp
     spotdl
-  ];
+  ]; # }}}
 
   # CODE
 
   code = with pkgs;
     [
+      # {{{
       sbcl
       clisp
       guile
@@ -425,26 +461,30 @@ with pkgs; let
       newestPython
       myPython
       perlProv
-    ]
+    ] # }}}
     # No idea how much of that unstables is needed
     ++ (with unstable; [
+      # {{{
       ocaml
       go
       zig
       nim
       rustc
-    ]);
+    ]); # }}}
 
   jdks = with pkgs; [
-  ];
+    # {{{
+  ]; # }}}
 
   lsps = with pkgs;
     [
+      # {{{
       lua-language-server
       nls
-    ]
+    ] # }}}
     ++ (with unstable;
       [
+        # {{{
         clang-tools
         # dhall-lsp-server
 
@@ -453,51 +493,60 @@ with pkgs; let
         zls
         rust-analyzer
         pylyzer
-      ]
+      ] # }}}
       ++ (with haskellPackages; [
+        # {{{
         haskell-language-server
-      ])
+      ]) # }}}
       ++ (with ocamlPackages; [
+        # {{{
         ocaml-lsp
         ocamlformat
-      ]));
+      ])); # }}}
 
   formatters = with pkgs;
     [
+      # {{{
       cmake-format
 
       luaformatter
       vim-vint
       shfmt
       yamlfix
-    ]
+    ] # }}}
     ++ (with unstable;
       [
+        # {{{
         rustfmt
         ruff
-      ]
+      ] # }}}
       ++ (with haskellPackages; [
+        # {{{
         floskell
-      ]));
+      ])); # }}}
 
   pkg-managers = with pkgs;
     [
-    ]
+      # {{{
+    ] # }}}
     ++ (with unstable; [
+      # {{{
       opam
       nimble
       cargo
-    ]);
+    ]); # }}}
 
   builders = with pkgs; [
+    # {{{
     gnumake
     automake
     cmake
 
     dune_3
-  ];
+  ]; # }}}
 
   code-utils = with pkgs; ([
+      # {{{
       git-doc
       flex
       bison
@@ -511,83 +560,99 @@ with pkgs; let
       hyperfine
       config.boot.kernelPackages.perf
       zig-shell-completions
-    ]
+    ] # }}}
     ++ (with haskellPackages; [
-      ])
+      # {{{
+    ]) # }}}
     ++ (
       with unstable;
         [
-        ]
+          # {{{
+        ] # }}}
         ++ (with ocamlPackages; [
+          # {{{
           utop
-        ])
+        ]) # }}}
         ++ (with haskellPackages; [
+          # {{{
           # dhall
           # dhall-yaml
           # dhall-nix
           # dhall-json
           # dhall-toml
-        ])
+        ]) # }}}
     ));
 
   code-libs = with pkgs; (
     [
+      # {{{
       tclreadline
       tk
       sqlite
-    ]
+    ] # }}}
     ++ (with perlPkgs; [
+      # {{{
       WWWYoutubeViewer
       TermReadLineGnu
-    ])
-    ++ (with unstable; ([]
+    ]) # }}}
+    ++ (with unstable; ([
+        # {{{
+      ] # }}}
       ++ (with ocamlPackages; [
+        # {{{
         yojson
-      ])
+      ]) # }}}
       ++ (with haskellPackages; [
-        ])))
+        # {{{
+      ]))) # }}}
   );
 
   guile-libs = with pkgs; [
+    # {{{
     guile-git
     guile-ssh
     guile-gnutls
-  ];
+  ]; # }}}
 
   # OTHER
 
   meth = with pkgs; [
+    # {{{
     maxima
     libqalculate
     gnuplot
-  ];
+  ]; # }}}
 
   typesetting = with pkgs; (
     [
+      # {{{
       glow
       mdr
       lowdown
 
       pinfo
       highlight
-    ]
+    ] # }}}
     ++ (with unstable; [
+      # {{{
       typst
       typstfmt
       typst-lsp
       typst-live
 
       groff
-    ])
+    ]) # }}}
   );
 
   scan-print = with pkgs; [
+    # {{{
     system-config-printer
     sane-backends
     sane-frontends
-  ];
+  ]; # }}}
 
   my = with pkgs.builds; [
+    # {{{
     # TODO vim tiny
     st
     dwm
@@ -599,15 +664,17 @@ with pkgs; let
 
     # TODO this should be in system xsession settings
     # xinit-xsession
-  ];
+  ]; # }}}
 
   other = with pkgs; (
     [
+      # {{{
       mesa-demos
       libsForQt5.xp-pen-deco-01-v2-driver
-    ]
+    ] # }}}
     ++ (with unstable; [
-      ])
+      # {{{
+    ]) # }}}
   );
 in {
   environment.systemPackages =
@@ -655,7 +722,8 @@ in {
     ++ other;
 
   environment.variables = {
-  };
+    # {{{
+  }; # }}}
 }
 # TODO smapi - battery, proper linux for that
 

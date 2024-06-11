@@ -20,6 +20,11 @@
 
     xfconf.enable = true;
 
+    bash = {
+      enableCompletion = true;
+      enableLsColors = true;
+    };
+
     zsh = {
       enable = true;
       enableLsColors = true;
