@@ -38,7 +38,7 @@ in {
     # ?
     # kernelPackages = null;
     # kernelPackages = pkgs.linuxPackages_latest;
-    kernelPackages = pkgs.linuxPackages_zen;
+    # kernelPackages = pkgs.linuxPackages_zen;
 
     kernelModules = [
       "ntfs3"

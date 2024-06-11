@@ -12,14 +12,17 @@ in {
     enableAllTerminfo = true;
 
     profileRelativeSessionVariables = {
+      # {{{
       PATH = path;
       PYTHONDONTWRITEBYTECODE = ["true"];
-    };
+    }; # }}}
 
     profileRelativeEnvVars = {
-    };
+      # {{{
+    }; # }}}
 
     variables = {
+      # {{{
       EDITOR = "vim";
       VISUAL = "svim";
       LESS = "--save-marks --status-column --incsearch --ignore-case --status-col-width=1";
@@ -28,9 +31,10 @@ in {
       _JAVA_AWT_WM_NONREPARENTING = "1";
       _JAVA_OPTIONS = "-Dawt.useSystemAAFontSettings=lcd";
       NIXPKGS_ALLOW_UNFREE = "1";
-    };
+    }; # }}}
 
     sessionVariables = {
+      # {{{
       PATH = path;
       XDG_CACHE_HOME = "$HOME/.cache/";
       XDG_CONFIG_HOME = "$HOME/.config/";
@@ -38,16 +42,18 @@ in {
       JULIA_EDITOR = "ssvim";
       LD_LIBRARY_PATH =
         [
+          # {{{
           "/run/opengl-driver/lib"
-        ]
+        ] # }}}
         ++ [
           (pkgs.lib.makeLibraryPath
             (with pkgs; [
+              # {{{
               zlib
               stdenv.cc.cc.lib
-            ]))
+            ])) # }}}
         ];
-    };
+    }; # }}}
 
     binsh = "${pkgs.dash}/bin/dash";
     homeBinInPath = true;
@@ -57,11 +63,12 @@ in {
     loginShellInit = "";
 
     shellAliases = {
+      # {{{
       ll = "ls -la";
       nv = "nvim";
       npr = "nix repl --expr 'import <nixpkgs> {}'";
       nur = "nix repl --expr 'import <unstable> {}'";
-    };
+    }; # }}}
 
     # TODO needed directories and symlinks
     extraInit = "";
@@ -70,42 +77,6 @@ in {
     etc = let
       json = pkgs.formats.json {};
     in {
-      # one big wtf, but may work
-      "wireplumber/bluetooth.lua.d/51-bluez-config.lua".text = ''
-        bluez_monitor.properties = {
-        	["bluez5.enable-sbc-xq"] = true,
-        	["bluez5.enable-msbc"] = true,
-        	["bluez5.enable-hw-volume"] = true,
-        	["bluez5.headset-roles"] = "[ hsp_hs hsp_ag hfp_hf hfp_ag ]"
-        }
-      '';
-
-      "pipewire/pipewire.d/92-low-latency.conf".source = json.generate "92-low-latency.conf" {
-        context = {
-          properties = {
-            default.clock.rate = 48000;
-            default.clock.quantum = 32;
-            default.clock.min-quantum = 16;
-            default.clock.max-quantum = 32;
-          };
-          modules = [
-            {
-              name = "libpipewire-module-protocol-pulse";
-              args = {
-                pulse.min.req = "32/48000";
-                pulse.default.req = "32/48000";
-                pulse.max.req = "32/48000";
-                pulse.min.quantum = "16/48000";
-                pulse.max.quantum = "32/48000";
-              };
-            }
-          ];
-          stream.properties = {
-            node.latency = "32/48000";
-            resample.quality = 1;
-          };
-        };
-      };
     };
   };
 
@@ -113,50 +84,57 @@ in {
   time.timeZone = "Europe/Warsaw";
 
   console = {
+    # {{{
     font = "Lat2-Terminus16";
     #    keyMap = "us";
     useXkbConfig = true; # use xkbOptions in tty.
-  };
+  }; # }}}
 
   fonts.packages = with pkgs; [
+    # {{{
     meslo-lgs-nf
     meslo-lg
     noto-fonts
     noto-fonts-emoji
     noto-fonts-cjk
     liberation_ttf
-  ];
+  ]; # }}}
 
   qt = {
+    # {{{
     style = "gtk2";
     platformTheme = "gtk2";
-  };
+  }; # }}}
 
   users = {
+    # {{{
     defaultUserShell = pkgs.unstable.zsh;
     enforceIdUniqueness = true;
 
     users.test = {
+      # {{{
       isNormalUser = true;
       # shell = pkgs.zsh;
       shell = config.users.defaultUserShell;
       group = "users";
       extraGroups = [];
-    };
+    }; # }}}
 
     # done in other places
     groups = {
     };
-  };
+  }; # }}}
 
   xdg = {
     mime = {
+      # {{{
       # TODO ???
       # probably undoable anyway
       # at least in bigger amounts
       defaultApplications = let
         defBrowser = "firefox.desktop";
       in {
+        # {{{
         "application/pdf" = "zathura.desktop";
         "text/html" = defBrowser;
 
@@ -169,7 +147,7 @@ in {
           "feh.desktop"
           "sxiv.desktop"
         ];
-      };
-    };
+      }; # }}}
+    }; # }}}
   };
 }

@@ -7,11 +7,12 @@
 in rec {
   services = {
     udev = {
+      # {{{
       enable = true;
       packages = with pkgs; [
         utsushi
       ];
-    };
+    }; # }}}
 
     auto-cpufreq = {
       enable = false;
@@ -24,6 +25,7 @@ in rec {
 
     openssh.enable = true;
     printing = {
+      # {{{
       enable = true;
       drivers = with pkgs; [
         epson-escpr
@@ -32,9 +34,10 @@ in rec {
 
       # ???
       # tempDir = "/tmp/cups";
-    };
+    }; # }}}
 
     pipewire = {
+      # {{{
       enable = true;
       audio.enable = true;
       pulse.enable = true;
@@ -42,17 +45,63 @@ in rec {
 
       wireplumber = {
         enable = true;
+
+        extraConfig = {
+          "monitor.bluez.properties" = {
+            # {{{
+            "bluez5.enable-sbc-xq" = true;
+            "bluez5.enable-msbc" = true;
+            "bluez5.enable-hw-volume" = true;
+            "bluez5.roles" = ["hsp_hs" "hsp_ag" "hfp_hf" "hfp_ag"];
+          }; # }}}
+        };
       };
 
       alsa = {
+        # {{{
         enable = true;
         support32Bit = true;
+      }; # }}}
+
+      extraConfig = {
+        pipewire."92-low-latency" = {
+          # {{{
+          context = {
+            properties = {
+              default.clock.rate = 48000; # {{{
+              default.clock.quantum = 32;
+              default.clock.min-quantum = 32;
+              default.clock.max-quantum = 32;
+            }; # }}}
+
+            modules = [
+              # {{{
+              {
+                name = "libpipewire-module-protocol-pulse"; # {{{
+                args = {
+                  pulse.min.req = "32/48000";
+                  pulse.default.req = "32/48000";
+                  pulse.max.req = "32/48000";
+                  pulse.min.quantum = "16/48000";
+                  pulse.max.quantum = "32/48000";
+                }; # }}}
+              }
+            ]; # }}}
+
+            stream.properties = {
+              # {{{
+              node.latency = "32/48000";
+              resample.quality = 1;
+            }; # }}}
+          };
+        }; # }}}
       };
-    };
+    }; # }}}
 
     tlp = {
       enable = true;
       settings = {
+        # {{{
         CPU_SCALING_GOVERNOR_ON_AC = "performance";
         # CPU_SCALING_GOVERNOR_ON_BAT = "conservative";
         CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
@@ -61,14 +110,15 @@ in rec {
         CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
 
         STOP_CHARGE_THRESH_BAT0 = 80;
-      };
+      }; # }}}
     };
 
     locate = {
+      # {{{
       enable = true;
       package = pkgs.plocate;
       localuser = null;
-    };
+    }; # }}}
 
     fractalart = {
       enable = true;
@@ -76,37 +126,44 @@ in rec {
 
     # Enable touchpad support (enabled default in most desktopManager).
     libinput = {
+      # {{{
       enable = true;
       touchpad = {
         tapping = true; # ???
         disableWhileTyping = true;
       };
-    };
+    }; # }}}
 
     displayManager = {
+      # {{{
       defaultSession = "xfce";
       sddm = {
         enable = true;
         theme = "chili";
         # theme = pkgs.sddm-chili-theme;
       };
-    };
+    }; # }}}
 
     xserver = {
+      # {{{
       enable = true;
 
       xkb = {
+        # {{{
         layout = "pl";
         options = "caps:escape";
-      };
+      }; # }}}
 
       desktopManager.xfce = {
+        # {{{
         enable = true;
         enableScreensaver = false; # ?
-      };
+      }; # }}}
 
       windowManager = {
+        # {{{
         i3 = {
+          # {{{
           enable = true;
           package = pkgs.i3; # ??
 
@@ -117,13 +174,14 @@ in rec {
 
           # TODO fucking xinitrc
           # extraSessionCommands = "\$HOME/.xinitrc_common";
-        };
+        }; # }}}
 
         awesome = {
+          # {{{
           enable = true;
-          #          noArgb = true;
-        };
-      };
+          # noArgb = true;
+        }; # }}}
+      }; # }}}
 
       displayManager = {
         lightdm.enable = false;
@@ -143,22 +201,24 @@ in rec {
         killer = "/run/current-system/systemd/bin/systemctl suspend";
         killtime = 10;
       };
-    };
+    }; # }}}
 
     cron = {
+      # {{{
       enable = true;
 
       systemCronJobs = [
         # @reboot creating directories ??
         "*/30 * * * * root updatedb"
       ];
-    };
+    }; # }}}
 
     blueman = {
       enable = true;
     };
 
     avahi = {
+      # {{{
       enable = true;
       cacheEntriesMax = 32767;
       domainName = "nygus";
@@ -171,7 +231,7 @@ in rec {
         addresses = true;
         userServices = true;
       };
-    };
+    }; # }}}
 
     ipp-usb.enable = true;
 
