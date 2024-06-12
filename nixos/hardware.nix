@@ -14,11 +14,10 @@ in {
     networkmanager.enable = true;
 
     firewall = {
-      # :(
+      # TODO
       # enable = false;
       allowPing = true;
 
-      # TODO
       # Open ports in the firewall.
       #      allowedTCPPorts = [ ... ];
       #      allowedUDPPorts = [ ... ];

@@ -19,18 +19,62 @@ in rec {
     };
 
     thermald = {
+      # {{{
       # TODO
       enable = true;
-    };
+    }; # }}}
 
-    openssh.enable = true;
+    openssh = {
+      # {{{
+      enable = true;
+      allowSFTP = true;
+      openFirewall = true;
+
+      settings = {
+        # {{{
+        PasswordAuthentication = true;
+        X11Forwarding = true;
+        PermitRootLogin = "no";
+      }; # }}}
+
+      extraConfig =
+        # {{{
+        ''
+        '';
+      # }}}
+    }; # }}}
+
+    fail2ban = {
+      # {{{
+      # TODO
+      enable = false;
+
+      daemonSettings = {
+        # {{{
+      }; # }}}
+
+      extraPackages = with pkgs; [
+        # {{{
+      ]; # }}}
+
+      # this probably should be private
+      bantime = "15m";
+      bantime-increment = {
+        # {{{
+      }; # }}}
+
+      # This should be private
+      ignoreIP = [];
+    }; # }}}
+
     printing = {
       # {{{
       enable = true;
       drivers = with pkgs; [
+        # {{{
         epson-escpr
         epson-escpr2
-      ];
+      ]; # }}}
 
       # ???
       # tempDir = "/tmp/cups";
@@ -44,6 +88,7 @@ in rec {
       systemWide = true;
 
       wireplumber = {
+        # {{{
         enable = true;
 
         extraConfig = {
@@ -55,7 +100,7 @@ in rec {
             "bluez5.roles" = ["hsp_hs" "hsp_ag" "hfp_hf" "hfp_ag"];
           }; # }}}
         };
-      };
+      }; # }}}
 
       alsa = {
         # {{{
@@ -99,6 +144,7 @@ in rec {
     }; # }}}
 
     tlp = {
+      # {{{
       enable = true;
       settings = {
         # {{{
@@ -111,7 +157,7 @@ in rec {
 
         STOP_CHARGE_THRESH_BAT0 = 80;
       }; # }}}
-    };
+    }; # }}}
 
     locate = {
       # {{{
