@@ -191,6 +191,7 @@ with pkgs; let
     time
     progress
     pv
+    timer
 
     parallel
     findutils
@@ -275,6 +276,7 @@ with pkgs; let
 
     gnutar
     xz
+    pixz
 
     p7zip
     zip

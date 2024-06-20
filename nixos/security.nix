@@ -3,39 +3,49 @@
 {...}: let
   b = builtins;
   noPassCmd = name: {
+    # {{{
     groups = ["wheel"];
     noPass = true;
     keepEnv = true; # ??
     cmd = name;
-  };
+  }; # }}}
 in {
   security = {
+    # {{{
     lockKernelModules = false;
     rtkit.enable = true;
+    # }}}
 
     doas = {
+      # {{{
       enable = true;
       extraRules =
         [
+          # {{{
           {
+            # {{{
             groups = ["wheel"];
             keepEnv = true;
             persist = true;
-          }
-        ]
+          } # }}}
+        ] # }}}
         ++ map noPassCmd [
+          # {{{
           "brightnessctl"
-        ];
-    };
+        ]; # }}}
+    }; # }}}
 
     sudo = {
+      # {{{
       enable = true;
       extraRules = [
+        # {{{
         {
+          # {{{
           groups = ["wheel"];
           commands = ["ALL"];
-        }
-      ];
-    };
+        } # }}}
+      ]; # }}}
+    }; # }}}
   };
 }

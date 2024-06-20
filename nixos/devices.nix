@@ -65,8 +65,14 @@ in {
       "cpufreq_userspace"
     ]; # }}}
 
-    kernelParams = [];
-    extraModulePackages = with config.boot.kernelPackages; [];
+    kernelParams = [
+      # {{{
+      "intel_pstate=passive"
+    ]; # }}}
+
+    extraModulePackages = with config.boot.kernelPackages; [
+      # {{{
+    ]; # }}}
 
     supportedFilesystems = [
       # {{{
