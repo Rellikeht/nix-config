@@ -54,10 +54,10 @@
       # {{{
       enable = true;
       enableLsColors = true;
-      histSize = 2000;
-      enableCompletion = false; # enabled in init section
+      histSize = 10000;
+      enableCompletion = true;
       enableBashCompletion = true;
-      enableGlobalCompInit = true;
+      enableGlobalCompInit = false;
 
       autosuggestions = {
         # {{{
@@ -84,7 +84,6 @@
         "HIST_REDUCE_BLANKS"
         "HIST_FCNTL_LOCK"
         "EXTENDED_HISTORY"
-        # "SHARE_HISTORY"
         "INC_APPEND_HISTORY"
       ]; # }}}
 
@@ -98,9 +97,10 @@
         '';
       # }}}
 
-      shellInit =
+      interactiveShellInit =
         # {{{
         ''
+
           # Done by configuration option
           __BASH_COMPINIT_RUN=1
 
@@ -109,27 +109,48 @@
           ZSH_AUTOSUGGEST_USE_ASYNC='true'
           SAVEHIST=5000
 
+          zmodload -i zsh/complist
+
           zstyle ':completion:*' use-cache on
           zstyle ':completion:*' cache-path "$XDG_CACHE_HOME/zsh/zscompcache"
 
-          zstyle :compinstall filename '~/.zshrc'
-          zstyle :compinstall filename '/etc/zshrc'
+          # TODO this shit simply can't work
+          # nix completion
+          __NIX_COMP_PATH="${pkgs.unstable.nix-zsh-completions}/share/zsh"
+          fpath=("$__NIX_COMP_PATH/site-functions" $fpath)
+          __NIXFILE="$__NIX_COMP_PATH/plugins/nix/nix-zsh-completions.plugin.zsh"
+          source "$__NIXFILE"
+
+          # good stuff
+          zstyle ':completion:*' menu select
+          zstyle ':completion:*' verbose yes
+
+          # colors files until they have common prefix
+          zstyle -e ':completion:*:default' list-colors 'reply=("''${PREFIX:+=(#bi)($PREFIX:t)(?)*==35=35;01}:''${(s.:.)LS_COLORS}")';
+
+          # smart case baby
+          zstyle ':completion:*'  matcher-list 'm:{a-z}={A-Z}'
+
+          # zstyle :compinstall filename '~/.zshrc'
+          # zstyle :compinstall filename '/etc/zshrc'
 
           # this slows zsh down ~50ms
-          autoload -Uz compinit
-          compinit
+          # autoload -U compinit
+          # compinit
           __COMPINIT_RUN=1
+
+        '';
+      # }}}
+
+      shellInit =
+        # {{{
+        ''
 
           # Just in case
           conditional_source () {
             [ -f "$1" ] && source "$1"
           }
-        '';
-      # }}}
 
-      interactiveShellInit =
-        # {{{
-        ''
         '';
       # }}}
     }; # }}}

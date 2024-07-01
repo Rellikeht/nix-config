@@ -1,8 +1,10 @@
 # vim: autoindent expandtab softtabstop=2 shiftwidth=2 tabstop=2
 {
+  # {{{
   pkgs,
   config,
   ...
+  # }}}
 }: let
 in {
   fileSystems = {
@@ -53,12 +55,9 @@ in {
       "ntfs3"
       "kvm"
 
-      # todo ?
-      # doesn't work
-      # something is seriously fucked
-      # no idea what
-
+      # ??
       # "acpi-cpufreq"
+
       "cpufreq_powersave"
       "cpufreq_conservative"
       "cpufreq_ondemand"
@@ -67,6 +66,7 @@ in {
 
     kernelParams = [
       # {{{
+      # this repairs governors
       "intel_pstate=passive"
     ]; # }}}
 
@@ -87,6 +87,7 @@ in {
     ]; # }}}
 
     initrd = {
+      # {{{
       enable = true;
 
       kernelModules = [
@@ -101,7 +102,7 @@ in {
         # "cpufreq_ondemand"
         # "cpufreq_userspace"
       ]; # }}}
-    };
+    }; # }}}
   };
 
   zramSwap = {

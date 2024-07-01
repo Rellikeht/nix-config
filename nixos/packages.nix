@@ -1,15 +1,22 @@
 # vim: autoindent expandtab softtabstop=2 shiftwidth=2 tabstop=2
 {
-  pkgs,
+  pkgs, # {{{
   config,
   ...
+  # }}}
 }:
 with pkgs; let
-  # b = builtins;
+  # {{{
+  b = builtins;
+  # }}}
+
+  # {{{
   perlProv = perl538;
   perlPkgs = perl538Packages;
   #perlPkgs = perlProv.pkgs;
+  # }}}
 
+  # {{{ python
   newestPython = python313;
   pythonProv = python312;
   # oldPython = python311;
@@ -22,10 +29,36 @@ with pkgs; let
       pylsp-mypy
       mypy
       pynvim
+
       mdformat
+      gdown
     ]; # }}}
 
   myPython = pythonProv.withPackages pythonPackages;
+  # }}}
+
+  # {{{ lua
+  luaCommonPkgs = ps:
+    with ps; [
+      # {{{
+      luacheck
+      luautf8
+      luafilesystem
+    ]; # }}}
+
+  luajitPkgs = ps:
+    luaCommonPkgs ps
+    ++ (with ps; [
+      # {{{
+      magick
+    ]); # }}}
+
+  luaPkgs = ps:
+    luaCommonPkgs ps
+    ++ (with ps; [
+      # {{{
+    ]); # }}}
+  # }}}
 
   # SYSTEM
 
@@ -172,44 +205,51 @@ with pkgs; let
 
   # BASIC
 
-  shell-utils = with pkgs; [
-    # {{{
-    dash
-    # ???
-    zsh-completions
-    zsh-you-should-use
+  shell-utils = with pkgs;
+    [
+      # {{{
+      fzy
+      rlwrap
 
-    fzf
-    fzy
-    rlwrap
+      screen
+      less
+      bat
+      file
 
-    screen
-    less
-    bat
-    file
+      time
+      progress
+      pv
+      timer
 
-    time
-    progress
-    pv
-    timer
+      parallel
+      findutils
+      coreutils-full
+      moreutils
 
-    parallel
-    findutils
-    coreutils-full
+      gnugrep
+      silver-searcher
 
-    gnugrep
-    silver-searcher
+      bc
+      gnused
+      gawk
 
-    bc
-    gnused
-    gawk
+      man
+      man-pages
+      linux-manual
+      stdman
+      help2man
+      # }}}
+    ]
+    ++ (with unstable; [
+      # {{{
+      fzf
+      dash
 
-    man
-    man-pages
-    linux-manual
-    stdman
-    help2man
-  ]; # }}}
+      # ???
+      zsh-completions
+      zsh-you-should-use
+      nix-zsh-completions
+    ]); # }}}
 
   shell-libs = with pkgs; [
     # {{{
@@ -251,7 +291,7 @@ with pkgs; let
   editors = with pkgs; [
     # {{{
     ed
-    vim
+    (lib.setPrio 200 vim)
     neovim
     kakoune
     kak-lsp
@@ -450,8 +490,8 @@ with pkgs; let
       sbcl
       clisp
       guile
-      lua
-      luajit
+      (lib.setPrio 150 (lua5_4.withPackages luaPkgs))
+      (lib.setPrio 100 (luajit.withPackages luajitPkgs))
       gforth
       tcl
 
@@ -661,7 +701,7 @@ with pkgs; let
     dmenu
     tabbed
 
-    svim
+    (lib.setPrio 200 svim)
     breeze-hacked
 
     # TODO this should be in system xsession settings
@@ -679,6 +719,7 @@ with pkgs; let
     ]) # }}}
   );
 in {
+  # {{{
   environment.systemPackages =
     system-libs
     ++ system-utils
@@ -722,6 +763,7 @@ in {
     ++ scan-print
     ++ my
     ++ other;
+  # }}}
 
   environment.variables = {
     # {{{
