@@ -46,11 +46,59 @@
 
     bash = {
       # {{{
+
       enableCompletion = true;
       enableLsColors = true;
+
+      interactiveShellInit =
+        # {{{
+        ''
+
+          # z.lua or plain old z as fallback
+          if whichp z.lua &>/dev/null; then
+              # {{{ Because doing this normal way messes $?
+              # It is exported as $EXIT
+              TEMP="$(mktemp)"
+              z.lua --init bash once enhanced echo fzf >"$TEMP"
+              patch "$TEMP" .bash_zlua_patch &>/dev/null
+              eval "$(cat $TEMP)"
+              rm "$TEMP"
+              TEMP=
+          # }}}
+          elif whichp z &>/dev/null; then
+              . "$(whichp z)"
+          fi
+          __Z_INITIALIZED=1
+
+        ''; # }}}
+
+      loginShellInit =
+        # {{{
+        ''
+        ''; # }}}
+
+      promptInit =
+        # {{{
+        ''
+        ''; # }}}
+
+      shellInit =
+        # {{{
+        ''
+
+          # Just in case
+          conditional_source () {
+            [ -f "$1" ] && source "$1"
+          }
+
+        ''; # }}}
+
+      #
     }; # }}}
 
     zsh = {
+      # {{{
+
       # {{{
       enable = true;
       enableLsColors = true;
@@ -58,11 +106,12 @@
       enableCompletion = true;
       enableBashCompletion = true;
       enableGlobalCompInit = false;
+      # }}}
 
       autosuggestions = {
         # {{{
         enable = true;
-        strategy = ["completion" "history" "match_prev_cmd"];
+        strategy = ["completion" "match_prev_cmd"];
       }; # }}}
 
       syntaxHighlighting = {

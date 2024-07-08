@@ -249,6 +249,8 @@ with pkgs; let
       zsh-completions
       zsh-you-should-use
       nix-zsh-completions
+
+      z-lua
     ]); # }}}
 
   shell-libs = with pkgs; [
@@ -308,6 +310,7 @@ with pkgs; let
     vifm
     ranger
     stow
+    pcmanfm
   ]; # }}}
 
   archives = with pkgs; [
@@ -331,6 +334,11 @@ with pkgs; let
 
     rar
     unrar
+    # unrar-free
+
+    # archivemount
+    fuse-archive
+    rar2fs
   ]; # }}}
 
   fsys-utils = with pkgs; [
@@ -341,6 +349,8 @@ with pkgs; let
     gparted
     gpart
     parted
+
+    fuseiso
   ]; # }}}
 
   # GRAPHICAL
@@ -379,6 +389,7 @@ with pkgs; let
 
     rofi
     rofi-pass
+    xdragon
   ]; # }}}
 
   graphics = with pkgs; [

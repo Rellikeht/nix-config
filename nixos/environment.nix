@@ -70,7 +70,6 @@ in {
       nur = "nix repl --expr 'import <unstable> {}'";
     }; # }}}
 
-    # TODO needed directories and symlinks
     extraInit = "";
     extraSetup = "";
 
