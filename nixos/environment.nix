@@ -1,12 +1,15 @@
 # vim: autoindent expandtab softtabstop=2 shiftwidth=2 tabstop=2
 {
+  # {{{
   pkgs,
   config,
   ...
+  # }}}
 }: let
   path = [
+    # {{{
     "/usr/bin/"
-  ];
+  ]; # }}}
 in {
   environment = {
     enableAllTerminfo = true;
@@ -55,12 +58,23 @@ in {
         ];
     }; # }}}
 
+    # {{{
     binsh = "${pkgs.dash}/bin/dash";
     homeBinInPath = true;
     localBinInPath = true;
+    # }}}
 
-    interactiveShellInit = "";
-    loginShellInit = "";
+    interactiveShellInit =
+      # {{{
+      ''
+      '';
+    # }}}
+
+    loginShellInit =
+      # {{{
+      ''
+      '';
+    # }}}
 
     shellAliases = {
       # {{{
@@ -70,17 +84,30 @@ in {
       nur = "nix repl --expr 'import <unstable> {}'";
     }; # }}}
 
-    extraInit = "";
-    extraSetup = "";
+    extraInit =
+      # {{{
+      ''
+      '';
+    # }}}
+
+    extraSetup =
+      # {{{
+      ''
+      '';
+    # }}}
 
     etc = let
+      # {{{
       json = pkgs.formats.json {};
+      # }}}
     in {
-    };
+      # {{{
+    }; # }}}
   };
-
+  # {{{
   i18n.defaultLocale = "en_GB.UTF-8";
   time.timeZone = "Europe/Warsaw";
+  # }}}
 
   console = {
     # {{{
@@ -107,14 +134,14 @@ in {
 
   users = {
     # {{{
-    defaultUserShell = pkgs.unstable.zsh;
+    defaultUserShell = pkgs.unstable.bashInteractive;
     enforceIdUniqueness = true;
 
     users.test = {
       # {{{
       isNormalUser = true;
-      # shell = pkgs.zsh;
-      shell = config.users.defaultUserShell;
+      shell = pkgs.unstable.zsh;
+      # shell = config.users.defaultUserShell;
       group = "users";
       extraGroups = [];
     }; # }}}

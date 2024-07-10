@@ -22,6 +22,7 @@ in
 
         ./hardware.nix
         ./devices.nix
+        ./boot.nix
       ]
       ++ locals.modules;
 

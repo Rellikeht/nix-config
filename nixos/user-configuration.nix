@@ -1,14 +1,19 @@
 # vim: autoindent expandtab softtabstop=2 shiftwidth=2 tabstop=2
 {
+  # {{{
   pkgs,
   config,
   ...
+  # }}}
 }: let
+  # {{{
   vars = import ./local-vars.nix;
   langPkgs = import ./user-lang-pkgs.nix {inherit pkgs;};
   langs = langPkgs.langs;
   jdks = langPkgs.jdks;
+  # }}}
 
+  # {{{
   pkgImport = import ./pkgs.nix;
   userName = pkgImport.userName;
   userHome = "/home/${userName}";
@@ -16,8 +21,10 @@
   userGroup = "michal";
   userGid = 1000;
   userUid = 1000;
+  # }}}
 
   nonLangs = with pkgs; [
+    # {{{
     moc
     libreoffice-fresh
     wxmaxima
@@ -28,19 +35,21 @@
 
     # gimp
     # inkscape
-  ];
+  ]; # }}}
 in rec {
   users = {
     groups = {
+      # {{{
       ${userGroup} = {
         gid = userGid;
         members = [
           userName
         ];
       };
-    };
+    }; # }}}
 
     users.default = {
+      # {{{
       name = userName;
       home = userHome;
       uid = userUid;
@@ -52,6 +61,7 @@ in rec {
       inherit homeMode;
 
       extraGroups = [
+        # {{{
         "wheel"
 
         "users"
@@ -73,22 +83,24 @@ in rec {
         "lp"
         "scanner"
         "cups"
-      ];
+      ]; # }}}
 
       packages = langs ++ nonLangs ++ jdks;
-      # shell = pkgs.unstable.zsh;
-      shell = config.users.defaultUserShell;
-    };
+      shell = pkgs.unstable.zsh;
+      # shell = config.users.defaultUserShell;
+    }; # }}}
   };
 
   services = {
     cron.systemCronJobs = [
+      # {{{
       "*/20 * * * * ${userName} ~/.dwm/dbackup.sh"
       "*/30 * * * * ${userName} ~/.dwm/dremove.sh"
-    ];
+    ]; # }}}
 
     # TODO devices to local hardware config ?
     syncthing = {
+      # {{{
       enable = true;
       package = pkgs.unstable.syncthing;
       user = "${userName}";
@@ -99,6 +111,7 @@ in rec {
       overrideFolders = true;
 
       settings = {
+        # {{{
         devices = vars.syncthingDevs;
         folders = vars.syncthingFolders;
 
@@ -109,6 +122,7 @@ in rec {
         };
 
         options = {
+          # {{{
           minHomeDiskFree = {
             unit = "%";
             value = 2;
@@ -121,9 +135,9 @@ in rec {
           localAnnounceEnabled = true;
 
           reconnectIntervalS = 20;
-        };
+        }; # }}}
 
-        # TODO
+        # {{{ TODO
         #          ignores = [
         #          { line = "*.swp"; }
         #          {  line = "*.~"; }
@@ -131,18 +145,19 @@ in rec {
         #          {  line = "*.bin"; }
         #          {  line = "*.so"; }
         #          ];
-      };
-    };
+      }; # }}}}}}
+    }; # }}}
   };
 
   imports = [
     (
       import ./user-fsystem.nix
       {
+        # {{{
         inherit userName userGroup;
         inherit userHome homeMode;
         inherit userGid userUid;
-      }
+      } # }}}
     )
   ];
 }

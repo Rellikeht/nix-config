@@ -93,6 +93,8 @@ with pkgs; let
     arch-install-scripts
     android-file-transfer
     android-tools
+
+    appimage-run
   ]; # }}}
 
   filesystems = with pkgs; [
