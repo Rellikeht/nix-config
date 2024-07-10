@@ -11,6 +11,8 @@ in rec {
       enable = true;
       packages = with pkgs; [
         utsushi
+        android-udev-rules
+        game-devices-udev-rules
       ];
     }; # }}}
 
