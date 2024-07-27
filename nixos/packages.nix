@@ -230,6 +230,8 @@ with pkgs; let
 
       gnugrep
       silver-searcher
+      ripgrep
+      ripgrep-all
 
       bc
       gnused
@@ -292,18 +294,20 @@ with pkgs; let
       ] # }}}
     ));
 
-  editors = with pkgs; [
-    # {{{
-    ed
-    (lib.setPrio 200 vim)
-    neovim
-    kakoune
-    kak-lsp
-    vis
+  editors = with pkgs; ([
+      # {{{
+      ed
+      (lib.setPrio 200 vim)
+      kakoune
+      kak-lsp
+      vis
 
-    emacs
-    neovim-qt
-  ]; # }}}
+      emacs
+    ]
+    ++ (with unstable; [
+      neovim
+      neovim-qt
+    ])); # }}}
 
   # FILES
 
@@ -411,12 +415,12 @@ with pkgs; let
       # {{{
       arc-theme
       materia-theme
-      sddm-chili-theme
       papirus-icon-theme
     ] # }}}
     ++ (with unstable;
       [
         # {{{
+        sddm-chili-theme
       ] # }}}
       ++ (with haskellPackages; [
         # {{{
@@ -525,6 +529,8 @@ with pkgs; let
       zig
       nim
       rustc
+
+      universal-ctags
     ]); # }}}
 
   jdks = with pkgs; [
@@ -732,8 +738,8 @@ with pkgs; let
     ]) # }}}
   );
 in {
-  # {{{
   environment.systemPackages =
+    # {{{
     system-libs
     ++ system-utils
     ++ filesystems

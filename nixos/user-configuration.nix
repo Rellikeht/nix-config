@@ -23,19 +23,24 @@
   userUid = 1000;
   # }}}
 
-  nonLangs = with pkgs; [
-    # {{{
-    moc
-    libreoffice-fresh
-    wxmaxima
-    giac-with-xcas
+  nonLangs = with pkgs; ([
+      # {{{
+      moc
+      libreoffice-fresh
+      wxmaxima
+      giac-with-xcas
 
-    tesseract
-    almonds
+      tesseract
+      almonds
 
-    # gimp
-    # inkscape
-  ]; # }}}
+      calibre
+      # gimp
+      # inkscape
+    ] # }}}
+    ++ (with haskellPackages; [
+      # {{{
+      pandoc-cli
+    ])); # }}}
 in rec {
   users = {
     groups = {
@@ -98,7 +103,6 @@ in rec {
       "*/30 * * * * ${userName} ~/.dwm/dremove.sh"
     ]; # }}}
 
-    # TODO devices to local hardware config ?
     syncthing = {
       # {{{
       enable = true;
@@ -107,8 +111,8 @@ in rec {
       configDir = "${userHome}/.config/syncthing";
       dataDir = "${userHome}/Shared";
 
-      overrideDevices = true;
-      overrideFolders = true;
+      overrideDevices = false;
+      overrideFolders = false;
 
       settings = {
         # {{{

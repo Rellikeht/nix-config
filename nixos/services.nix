@@ -190,8 +190,9 @@ in rec {
       defaultSession = "xfce";
       sddm = {
         enable = true;
+        package = pkgs.unstable.sddm;
+        wayland.enable = false;
         theme = "chili";
-        # theme = pkgs.sddm-chili-theme;
       };
     }; # }}}
 
