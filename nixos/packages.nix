@@ -376,7 +376,6 @@ with pkgs; let
 
     xlockmore
     xss-lock
-    xautolock
 
     xcape
     xclip
@@ -392,6 +391,7 @@ with pkgs; let
 
     unclutter
     nitrogen
+    libnotify
 
     rofi
     rofi-pass

@@ -180,8 +180,28 @@ in rec {
       # {{{
       enable = true;
       touchpad = {
-        tapping = true; # ???
+        tapping = false; # ???
         disableWhileTyping = true;
+        middleEmulation = true;
+
+        additionalOptions =
+          # {{{
+          ''
+            Option "IgnorePalm" "true"
+            Option "VertEdgeScroll" "on"
+            Option "VertTwoFingerScroll" "on"
+            Option "HorizEdgeScroll" "on"
+            Option "HorizTwoFingerScroll" "on"
+            Option "EmulateTwoFingerMinZ" "40"
+            Option "EmulateTwoFingerMinW" "8"
+            Option "CoastingSpeed" "0"
+            Option "FingerLow" "40"
+            Option "FingerHigh" "80"
+            Option "MaxTapTime" "150"
+
+            # Option "CircularScrolling" "on"
+            # Option "CircScrollTrigger" "2"
+          ''; # }}}
       };
     }; # }}}
 
@@ -242,10 +262,15 @@ in rec {
 
       xautolock = {
         enable = true;
+        enableNotifier = true;
+        notifier = "${pkgs.libnotify}/bin/notify-send 'Locking in 10 seconds'";
+        notify = 60;
+
         nowlocker = "${services.xserver.xautolock.locker}";
         extraOptions = [
+          # {{{
           "-detectsleep"
-        ];
+        ]; # }}}
 
         locker = "${pkgs.xlockmore}/bin/xlock";
         time = 5;

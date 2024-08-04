@@ -72,4 +72,11 @@ in {
     cpuFreqGovernor = "schedutil";
     powertop.enable = true;
   };
+
+  # trackpoint = {
+  #   enable = true;
+  #   emulateWheel = true;
+  #   sensitivity = 128;
+  #   speed = 97;
+  # };
 }
