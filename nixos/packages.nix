@@ -223,10 +223,15 @@ with pkgs; let
       pv
       timer
 
-      parallel
       findutils
       coreutils-full
-      moreutils
+      (lib.setPrio 100 moreutils)
+      (lib.setPrio 200 parallel)
+      (
+        pkgs.writeScriptBin
+        "mparallel"
+        ''exec ${moreutils}/bin/parallel $@''
+      )
 
       gnugrep
       silver-searcher
@@ -693,12 +698,14 @@ with pkgs; let
 
       pinfo
       highlight
+
+      # TODO when this shit will work
+      # typst-lsp
     ] # }}}
     ++ (with unstable; [
       # {{{
       typst
       typstfmt
-      typst-lsp
       typst-live
 
       groff
@@ -722,9 +729,6 @@ with pkgs; let
 
     (lib.setPrio 200 svim)
     breeze-hacked
-
-    # TODO this should be in system xsession settings
-    # xinit-xsession
   ]; # }}}
 
   other = with pkgs; (

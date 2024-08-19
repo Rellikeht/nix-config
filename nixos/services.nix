@@ -208,12 +208,21 @@ in rec {
     displayManager = {
       # {{{
       defaultSession = "xfce";
+
       sddm = {
+        # {{{
         enable = true;
         package = pkgs.unstable.sddm;
         wayland.enable = false;
         theme = "chili";
-      };
+      }; # }}}
+
+      # just in case,
+      # doesn't do anything for now
+      sessionPackages = with pkgs; [
+        # {{{
+        builds.xinit-xsession
+      ]; # }}}
     }; # }}}
 
     xserver = {
@@ -234,6 +243,12 @@ in rec {
 
       windowManager = {
         # {{{
+        dwm = {
+          # {{{
+          enable = true;
+          package = pkgs.builds.dwm;
+        }; # }}}
+
         i3 = {
           # {{{
           enable = true;
@@ -256,11 +271,24 @@ in rec {
       }; # }}}
 
       displayManager = {
+        # {{{
+        startx.enable = true;
         lightdm.enable = false;
         sessionCommands = "";
-      };
+
+        session = [
+          # {{{
+          {
+            # {{{ this makes xinit xsession work
+            manage = "window";
+            name = "xinitrc";
+            start = "${pkgs.builds.xinit-xsession}/bin/xinitrcsession-helper";
+          } # }}}
+        ]; # }}}
+      }; # }}}
 
       xautolock = {
+        # {{{
         enable = true;
         enableNotifier = true;
         notifier = "${pkgs.libnotify}/bin/notify-send 'Locking in 10 seconds'";
@@ -277,7 +305,7 @@ in rec {
 
         killer = "/run/current-system/systemd/bin/systemctl suspend";
         killtime = 10;
-      };
+      }; # }}}
     }; # }}}
 
     cron = {
