@@ -132,7 +132,6 @@ with pkgs; let
     ] # }}}
     ++ (with unstable; [
       # {{{
-      # nixd
     ])); # }}}
 
   tty-utils = with pkgs; [
@@ -173,7 +172,6 @@ with pkgs; let
       dhcpcd
       wpa_supplicant
 
-      # syncthing
       stc-cli
     ] # }}}
     ++ (with unstable; [
@@ -225,8 +223,8 @@ with pkgs; let
 
       findutils
       coreutils-full
-      (lib.setPrio 100 moreutils)
-      (lib.setPrio 200 parallel)
+      moreutils
+      (hiPrio parallel)
       (
         pkgs.writeScriptBin
         "mparallel"
@@ -345,7 +343,7 @@ with pkgs; let
 
     rar
     unrar
-    # unrar-free
+    unrar-free
 
     # archivemount
     fuse-archive

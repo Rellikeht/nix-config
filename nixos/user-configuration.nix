@@ -25,15 +25,15 @@
 
   nonLangs = with pkgs; ([
       # {{{
-      moc
       libreoffice-fresh
       wxmaxima
       giac-with-xcas
+      calibre
 
       tesseract
       almonds
 
-      calibre
+      # moc
       # gimp
       # inkscape
     ] # }}}
@@ -92,11 +92,11 @@ in rec {
 
       packages = langs ++ nonLangs ++ jdks;
       shell = pkgs.unstable.zsh;
-      # shell = config.users.defaultUserShell;
     }; # }}}
   };
 
   services = {
+    # {{{
     cron.systemCronJobs = [
       # {{{
       "*/20 * * * * ${userName} ~/.dwm/dbackup.sh"
@@ -116,8 +116,6 @@ in rec {
 
       settings = {
         # {{{
-        devices = vars.syncthingDevs;
-        folders = vars.syncthingFolders;
 
         gui = {
           theme = "dark";
@@ -140,18 +138,9 @@ in rec {
 
           reconnectIntervalS = 20;
         }; # }}}
-
-        # {{{ TODO
-        #          ignores = [
-        #          { line = "*.swp"; }
-        #          {  line = "*.~"; }
-        #          {  line = "*.out"; }
-        #          {  line = "*.bin"; }
-        #          {  line = "*.so"; }
-        #          ];
-      }; # }}}}}}
+      }; # }}}
     }; # }}}
-  };
+  }; # }}}
 
   imports = [
     (
