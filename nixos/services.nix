@@ -272,7 +272,7 @@ in rec {
 
       displayManager = {
         # {{{
-        startx.enable = true;
+        # startx.enable = true;
         lightdm.enable = false;
         sessionCommands = "";
 

@@ -29,9 +29,15 @@ with pkgs; let
       pylsp-mypy
       mypy
       pynvim
+      gdown
 
       mdformat
-      gdown
+      mdformat-gfm
+      mdformat-tables
+
+      # ??
+      mdformat-toc
+      mdformat-mkdocs
     ]; # }}}
 
   myPython = pythonProv.withPackages pythonPackages;
@@ -345,7 +351,7 @@ with pkgs; let
     unrar
     unrar-free
 
-    # archivemount
+    archivemount
     fuse-archive
     rar2fs
   ]; # }}}
@@ -697,14 +703,15 @@ with pkgs; let
       pinfo
       highlight
 
-      # TODO when this shit will work
-      # typst-lsp
+      typst-lsp
+      tinymist
     ] # }}}
     ++ (with unstable; [
       # {{{
       typst
+      # typst-live
       typstfmt
-      typst-live
+      prettypst
 
       groff
     ]) # }}}

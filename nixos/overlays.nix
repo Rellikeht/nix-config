@@ -32,7 +32,9 @@
     mpv = prev.mpv.override {
       scripts = with final.mpvScripts; [
         mpris
-        # quality-menu
+        thumbnail
+        quality-menu
+        sponsorblock
       ];
     };
   };
