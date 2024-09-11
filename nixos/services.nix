@@ -207,7 +207,7 @@ in rec {
 
     displayManager = {
       # {{{
-      defaultSession = "xfce";
+      # defaultSession = "xfce";
 
       sddm = {
         # {{{
@@ -221,7 +221,7 @@ in rec {
       # doesn't do anything for now
       sessionPackages = with pkgs; [
         # {{{
-        builds.xinit-xsession
+        # builds.xinit-xsession
       ]; # }}}
     }; # }}}
 

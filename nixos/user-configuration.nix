@@ -107,6 +107,8 @@ in rec {
       # {{{
       enable = true;
       package = pkgs.unstable.syncthing;
+      openDefaultPorts = true;
+
       user = "${userName}";
       configDir = "${userHome}/.config/syncthing";
       dataDir = "${userHome}/Shared";

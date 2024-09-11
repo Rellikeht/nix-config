@@ -47,9 +47,11 @@ with pkgs; let
   luaCommonPkgs = ps:
     with ps; [
       # {{{
+      lua
       luacheck
       luautf8
       luafilesystem
+      luaformatter
     ]; # }}}
 
   luajitPkgs = ps:
@@ -510,16 +512,30 @@ with pkgs; let
 
   # CODE
 
-  code = with pkgs;
+  code = with pkgs; let
+    luap = lua5_4.withPackages luaPkgs;
+    cc = c:
+      if (c == "+" || c == "-" || c == "." || c == "_")
+      then ""
+      else c;
+    name =
+      lib.concatStrings
+      (map cc (lib.stringToCharacters luap.lua.luaAttr));
+    luawrap = writeScriptBin name ''
+      exec ${luap}/bin/lua $@
+    '';
+  in
     [
       # {{{
       sbcl
       clisp
       guile
-      (lib.setPrio 150 (lua5_4.withPackages luaPkgs))
-      (lib.setPrio 100 (luajit.withPackages luajitPkgs))
       gforth
       tcl
+
+      (lib.setPrio 100 (luajit.withPackages luajitPkgs))
+      (lib.setPrio 200 luap)
+      luawrap
 
       gcc
       clang

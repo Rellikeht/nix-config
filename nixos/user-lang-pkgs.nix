@@ -62,9 +62,9 @@ in
         tree-sitter
         julia-bin
       ])
-      ++ (with lua54Packages; [
-        lua
-      ])
+      # ++ (with lua54Packages; [
+      #   lua
+      # ])
       ++ (with builds; [
         # minizinc-ide-bin
         # pylyzer

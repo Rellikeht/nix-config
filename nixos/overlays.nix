@@ -1,6 +1,10 @@
 # vim: autoindent expandtab softtabstop=2 shiftwidth=2 tabstop=2
 # pkgs, config, option, lib, stdenv, modulesPath
-{pkgs, ...}: let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   # b = builtins;
   # OMG THIS WORKS
   unstable = pkgs.unstable;
@@ -38,11 +42,31 @@
       ];
     };
   };
+
+  vis = final: prev: {
+    vis = prev.vis.override {
+      lua = let
+        lua =
+          lib.findFirst
+          (p: lib.hasPrefix "lua" p.name)
+          (1 + "a")
+          prev.vis.buildInputs;
+        luaEnv =
+          lua.withPackages
+          (ps: with ps; [lpeg luafilesystem]);
+      in {
+        withPackages = f: luaEnv;
+        luaversion =
+          luaEnv.luaversion;
+      };
+    };
+  };
 in {
   nixpkgs.overlays = [
     rofi
     epsonscan2
     mpv
     mpv-unwrapped
+    vis
   ];
 }
