@@ -1,4 +1,5 @@
 *.swp
+*.swo
 *local*
 local/
 *~
@@ -6,3 +7,4 @@ local/
 !.gitignore
 hardware-configuration.nix
 result
+tags

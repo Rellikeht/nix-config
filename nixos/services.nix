@@ -274,7 +274,10 @@ in rec {
         # {{{
         # startx.enable = true;
         lightdm.enable = false;
-        sessionCommands = "";
+        sessionCommands = ''
+          # automatic screen locking after some time
+          xset s off
+        '';
 
         session = [
           # {{{
@@ -287,26 +290,52 @@ in rec {
         ]; # }}}
       }; # }}}
 
-      xautolock = {
-        # {{{
-        enable = true;
-        enableNotifier = true;
-        notifier = "${pkgs.libnotify}/bin/notify-send 'Locking in 10 seconds'";
-        notify = 60;
+      xautolock =
+        #  {{{
+        let
+          #  {{{
+          b = builtins;
+          mod = n: m: n - m * (n / m);
+          nums = ["0" "1" "2" "3" "4" "5" "6" "7" "8" "9"];
 
-        nowlocker = "${services.xserver.xautolock.locker}";
-        extraOptions = [
+          intToStr = n:
+            if n == 0
+            then "0"
+            else its n "";
+
+          its = n: s:
+            if n == 0
+            then s
+            else let
+              ns = b.elemAt nums (mod n 10) + s;
+              nn = n / 10;
+            in
+              its nn ns;
+          #  }}}
+
+          secs = 15;
+        in {
           # {{{
-          "-detectsleep"
-        ]; # }}}
+          enable = true;
+          enableNotifier = true;
+          notifier =
+            "${pkgs.libnotify}/bin/notify-send"
+            + "\"Locking in ${intToStr secs} seconds\"";
+          notify = secs;
 
-        locker = "${pkgs.xlockmore}/bin/xlock";
-        time = 5;
+          nowlocker = "${services.xserver.xautolock.locker}";
+          extraOptions = [
+            # {{{
+            "-detectsleep"
+          ]; # }}}
 
-        killer = "/run/current-system/systemd/bin/systemctl suspend";
-        killtime = 10;
-      }; # }}}
-    }; # }}}
+          locker = "${pkgs.xlockmore}/bin/xlock";
+          time = 4;
+
+          killer = "/run/current-system/systemd/bin/systemctl suspend";
+          killtime = 10;
+        }; # }}} }}}
+    }; #}}}
 
     cron = {
       # {{{
@@ -358,7 +387,7 @@ in rec {
     #   '';
     # };
 
-    # TODO unclutter, xinit, xsession
-    # TODO hoogle ??
+    # TODO C unclutter, xinit, xsession
+    # TODO D hoogle ??
   };
 }

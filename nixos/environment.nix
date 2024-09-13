@@ -102,6 +102,13 @@ in {
       # }}}
     in {
       # {{{
+      "mpv/mpv.conf" = {
+        text = ''
+          # for osc extension
+          osc=no
+        '';
+        mode = "444";
+      };
     }; # }}}
   };
   # {{{

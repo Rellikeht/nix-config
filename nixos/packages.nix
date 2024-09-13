@@ -231,8 +231,9 @@ with pkgs; let
 
       findutils
       coreutils-full
-      moreutils
-      (hiPrio parallel)
+
+      (parallel // {meta.priority = 4;})
+      # (moreutils // {meta.priority = 6;})
       (
         pkgs.writeScriptBin
         "mparallel"
@@ -253,6 +254,7 @@ with pkgs; let
       linux-manual
       stdman
       help2man
+      (plan9port // {meta.priority = 6;})
       # }}}
     ]
     ++ (with unstable; [
@@ -308,7 +310,7 @@ with pkgs; let
   editors = with pkgs; ([
       # {{{
       ed
-      (lib.setPrio 200 vim)
+      (vim // {meta.priority = 6;})
       kakoune
       kak-lsp
       vis
@@ -533,8 +535,12 @@ with pkgs; let
       gforth
       tcl
 
-      (lib.setPrio 100 (luajit.withPackages luajitPkgs))
-      (lib.setPrio 200 luap)
+      (luajit.withPackages luajitPkgs
+        // {
+          meta.priority =
+            6;
+        })
+      (luap // {meta.priority = 4;})
       luawrap
 
       gcc
@@ -748,7 +754,7 @@ with pkgs; let
     dmenu
     tabbed
 
-    (lib.setPrio 200 svim)
+    (svim // {meta.priority = 4;})
     breeze-hacked
   ]; # }}}
 
