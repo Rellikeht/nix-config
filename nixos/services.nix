@@ -195,9 +195,9 @@ in rec {
             Option "EmulateTwoFingerMinZ" "40"
             Option "EmulateTwoFingerMinW" "8"
             Option "CoastingSpeed" "0"
-            Option "FingerLow" "40"
-            Option "FingerHigh" "80"
-            Option "MaxTapTime" "150"
+            Option "FingerLow" "35" # TODO
+            Option "FingerHigh" "80" # TODO
+            Option "MaxTapTime" "200" # TODO
 
             # Option "CircularScrolling" "on"
             # Option "CircScrollTrigger" "2"
@@ -335,7 +335,7 @@ in rec {
           killer = "/run/current-system/systemd/bin/systemctl suspend";
           killtime = 10;
         }; # }}} }}}
-    }; #}}}
+    }; # }}}
 
     cron = {
       # {{{
@@ -369,7 +369,7 @@ in rec {
 
     ipp-usb.enable = true;
 
-    # aria2 = {
+    # aria2 = { {{{
     #   enable = true;
     #   openPorts = false;
     #   # rpcSecretFile = "/run/secrets/aria2-rpc-secret";
@@ -385,9 +385,35 @@ in rec {
     #     --check-integrity=true
     #     --file-allocation=prealloc
     #   '';
-    # };
+    # }; }}}
 
     # TODO C unclutter, xinit, xsession
     # TODO D hoogle ??
   };
+
+  environment.etc = {
+    #  {{{
+    "X11/xorg.conf.d/20-thinkpad.conf".text = ''
+      # NONE OF THIS SHIT WORK
+
+      Section "InputClass"
+      	Identifier	"Trackpoint Wheel Emulation"
+      	MatchProduct	"TPPS/2 IBM TrackPoint|DualPoint Stick|Synaptics Inc. Composite TouchPad / TrackPoint|ThinkPad USB Keyboard with TrackPoint|USB Trackpoint pointing device|Composite TouchPad / TrackPoint"
+      	MatchDevicePath	"/dev/input/event*"
+        # Option		"EmulateWheel"		"true"
+        # Option		"EmulateWheelButton"	"2"
+        # Option		"Emulate3Buttons"	"false"
+        # Option		"XAxisMapping"		"6 7"
+        # Option		"YAxisMapping"		"4 5"
+        Option "SendEventsMode" "1 0"
+      EndSection
+
+      Section "InputClass"
+      	Identifier	"ThinkPad Extra Buttons"
+      	MatchProduct	"ThinkPad Extra Buttons"
+      	MatchDevicePath	"/dev/input/event*"
+        Option "SendEventsMode" "1 0"
+      EndSection
+    '';
+  }; #  }}}
 }

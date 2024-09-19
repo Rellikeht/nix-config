@@ -255,6 +255,7 @@ with pkgs; let
       stdman
       help2man
       (plan9port // {meta.priority = 6;})
+      complgen
       # }}}
     ]
     ++ (with unstable; [
