@@ -25,17 +25,15 @@
 
   nonLangs = with pkgs; ([
       # {{{
-      libreoffice-fresh
-      wxmaxima
-      giac-with-xcas
-      calibre
+      # libreoffice-fresh
+      # wxmaxima
+      # giac-with-xcas
+      # calibre
 
-      tesseract
-      almonds
+      # tesseract
+      # almonds
 
       # moc
-      # gimp
-      # inkscape
     ] # }}}
     ++ (with haskellPackages; [
       # {{{

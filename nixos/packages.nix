@@ -17,9 +17,11 @@ with pkgs; let
   # }}}
 
   # {{{ python
+
   newestPython = python313;
   pythonProv = python312;
   # oldPython = python311;
+
   pythonPackages = ps:
     with ps; [
       # {{{
@@ -31,13 +33,13 @@ with pkgs; let
       pynvim
       gdown
 
-      mdformat
-      mdformat-gfm
-      mdformat-tables
+      # mdformat
+      # mdformat-gfm
+      # mdformat-tables
 
       # ??
-      mdformat-toc
-      mdformat-mkdocs
+      # mdformat-toc
+      # mdformat-mkdocs
     ]; # }}}
 
   myPython = pythonProv.withPackages pythonPackages;
@@ -228,6 +230,7 @@ with pkgs; let
       progress
       pv
       timer
+      libcaca
 
       findutils
       coreutils-full
@@ -253,6 +256,8 @@ with pkgs; let
       man-pages
       linux-manual
       stdman
+      tldr
+
       help2man
       (plan9port // {meta.priority = 6;})
       complgen
@@ -290,6 +295,7 @@ with pkgs; let
     delta
 
     fastfetch
+    onefetch
     tree
 
     fortune
@@ -712,7 +718,7 @@ with pkgs; let
   meth = with pkgs; [
     # {{{
     maxima
-    libqalculate
+    # libqalculate
     gnuplot
   ]; # }}}
 
@@ -768,6 +774,10 @@ with pkgs; let
     ++ (with unstable; [
       # {{{
     ]) # }}}
+    ++ (with nodePackages; [
+      #  {{{
+      # prettier
+    ]) #  }}}
   );
 in {
   environment.systemPackages =

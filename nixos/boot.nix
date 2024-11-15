@@ -25,6 +25,7 @@ in {
       # {{{
       cleanOnBoot = true;
       useTmpfs = true;
+      tmpfsSize = "100%";
     }; # }}}
 
     kernel = {

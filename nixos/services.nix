@@ -72,6 +72,10 @@ in rec {
     printing = {
       # {{{
       enable = true;
+
+      # 9.9 cve :)
+      browsed.enable = false;
+
       drivers = with pkgs; [
         # {{{
         epson-escpr
@@ -207,7 +211,7 @@ in rec {
 
     displayManager = {
       # {{{
-      # defaultSession = "xfce";
+      defaultSession = "none+xinitrc";
 
       sddm = {
         # {{{
