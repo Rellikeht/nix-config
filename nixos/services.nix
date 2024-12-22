@@ -233,6 +233,11 @@ in rec {
       # {{{
       enable = true;
 
+      videoDrivers = [
+        #  {{{
+        "intel"
+      ]; #  }}}
+
       xkb = {
         # {{{
         layout = "pl";

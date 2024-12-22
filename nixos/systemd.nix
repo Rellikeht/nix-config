@@ -39,7 +39,6 @@ in {
     #       "rw"
     #       "nosuid"
     #       "nodev"
-    #       # "noexec"
     #       "size=100%"
     #       # "size=${config.boot.tmp.tmpfsSize}"
     #     ];

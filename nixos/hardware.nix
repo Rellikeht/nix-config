@@ -63,6 +63,13 @@ in {
       enable = true;
       extraPackages = with pkgs; [
         mesa.drivers
+        intel-compute-runtime
+        intel-media-driver
+
+        vaapiIntel
+        vaapiVdpau
+        libvdpau-va-gl
+        ocl-icd
       ];
     };
   };

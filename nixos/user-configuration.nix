@@ -86,6 +86,7 @@ in rec {
         "lp"
         "scanner"
         "cups"
+        "docker"
       ]; # }}}
 
       packages = langs ++ nonLangs ++ jdks;

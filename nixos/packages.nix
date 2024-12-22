@@ -279,7 +279,8 @@ with pkgs; let
   shell-libs = with pkgs; [
     # {{{
     gnum4
-    xxh
+    # xxh
+    xxHash
     zlib
     pcre
     tre
