@@ -84,6 +84,7 @@ in {
         # {{{
         # "ntfs3"
         # "kvm"
+        "i915"
 
         # # TODO ?
         # "acpi-cpufreq"

@@ -441,7 +441,13 @@ with pkgs; let
     ++ (with unstable;
       [
         # {{{
-        sddm-chili-theme
+        # here are inserted names for use in config
+        # because naming things in obvious way is too hard
+        sddm-chili-theme # chili
+        sddm-sugar-dark # sugar-dark
+        sddm-astronaut # doesn't work
+        # doesn't work, no matter "-" or "_" between words
+        where-is-my-sddm-theme
       ] # }}}
       ++ (with haskellPackages; [
         # {{{

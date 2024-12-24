@@ -211,7 +211,10 @@ in rec {
 
     displayManager = {
       # {{{
+      enable = true;
       defaultSession = "none+xinitrc";
+      logToFile = true;
+      logToJournal = true;
 
       sddm = {
         # {{{
@@ -232,10 +235,12 @@ in rec {
     xserver = {
       # {{{
       enable = true;
+      exportConfiguration = true;
 
       videoDrivers = [
         #  {{{
-        "intel"
+        "modesetting"
+        # "intel"
       ]; #  }}}
 
       xkb = {
@@ -282,7 +287,19 @@ in rec {
       displayManager = {
         # {{{
         # startx.enable = true;
-        lightdm.enable = false;
+        lightdm = {
+          enable = false;
+
+          extraConfig = ''
+            logind-check-graphical=true
+          '';
+
+          greeters = {
+            gtk.enable = true;
+            # mini.enable = true;
+          };
+        };
+
         sessionCommands = ''
           # automatic screen locking after some time
           xset s off
