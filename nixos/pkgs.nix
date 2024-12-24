@@ -2,7 +2,7 @@
 # Yes, that's all kind of flake inputs, will became themes
 # when i finally migrate my config to flake
 let
-  stateVersion = "24.05";
+  stateVersion = "24.11";
   sysName = "declarativeMonster";
   userName = "michal";
   # userHome = "/home/${userName}";
@@ -16,7 +16,8 @@ let
   homeManagerLink = "https://github.com/nix-community/home-manager/archive/release-${stateVersion}.tar.gz";
   nurLink = "https://github.com/nix-community/NUR/archive/master.tar.gz";
 
-  #oldVer = "23.11";
+  # TODO calculate that
+  #oldVer = "24.05";
   #oldLink = "https://nixos.org/channels/nixos-${oldVer}/nixexprs.tar.xz";
   #old = getChan oldLink universalConf;
 

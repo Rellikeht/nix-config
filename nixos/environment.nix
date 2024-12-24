@@ -129,7 +129,7 @@ in {
     meslo-lg
     noto-fonts
     noto-fonts-emoji
-    noto-fonts-cjk
+    noto-fonts-cjk-sans
     liberation_ttf
   ]; # }}}
 

@@ -75,7 +75,7 @@ in
 
     nix = {
       # channel.enable = false;
-      package = pkgs.nixFlakes;
+      package = pkgs.nixVersions.stable;
 
       # This makes nixpkgs downloaded before available
       # for building system

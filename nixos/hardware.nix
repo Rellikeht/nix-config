@@ -28,10 +28,10 @@ in {
     # proxy.noProxy = "127.0.0.1,localhost,internal.domain";
   };
 
-  sound = {
-    enable = true;
-    mediaKeys.enable = true;
-  };
+  # sound = {
+  #   enable = true;
+  #   mediaKeys.enable = true;
+  # };
 
   hardware = {
     bluetooth = {

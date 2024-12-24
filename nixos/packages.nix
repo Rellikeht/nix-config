@@ -204,7 +204,7 @@ with pkgs; let
 
       megatools
       rclone
-      transmission
+      transmission_4
 
       dumptorrent
       gdown
