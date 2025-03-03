@@ -32,6 +32,8 @@ in {
         ++ map noPassCmd [
           # {{{
           "brightnessctl"
+          "mount"
+          "umount"
         ]; # }}}
     }; # }}}
 

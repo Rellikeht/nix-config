@@ -219,7 +219,8 @@ in rec {
       sddm = {
         # {{{
         enable = true;
-        package = pkgs.unstable.sddm;
+        # package = pkgs.kdePackages.sddm;
+        package = pkgs.libsForQt5.sddm;
         wayland.enable = false;
         theme = "chili";
       }; # }}}

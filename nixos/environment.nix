@@ -165,7 +165,7 @@ in {
       # probably undoable anyway
       # at least in bigger amounts
       defaultApplications = let
-        defBrowser = "firefox.desktop";
+        defBrowser = "qutebrowser.desktop";
       in {
         # {{{
         "application/pdf" = "zathura.desktop";

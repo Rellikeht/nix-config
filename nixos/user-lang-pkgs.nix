@@ -1,7 +1,7 @@
 # vim: autoindent expandtab softtabstop=2 shiftwidth=2 tabstop=2
 {pkgs, ...}:
 with pkgs; let
-  pythonProv = python311;
+  pythonProv = python312;
 
   pythonPackages = ps:
     with ps; [

@@ -7,8 +7,8 @@
 }: let
 in {
   users.users.root = {
-    # isNormalUser = true;
     # shell = pkgs.unstable.zsh;
-    shell = config.users.defaultUserShell;
+    shell = pkgs.zsh;
+    # shell = config.users.defaultUserShell;
   };
 }

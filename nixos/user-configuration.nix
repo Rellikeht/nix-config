@@ -3,6 +3,7 @@
   # {{{
   pkgs,
   config,
+  userName,
   ...
   # }}}
 }: let
@@ -58,7 +59,7 @@ in rec {
       uid = userUid;
       group = userGroup;
       initialPassword = vars.initPass;
-      description = "standard user";
+      description = userName;
       isNormalUser = true;
       createHome = true;
       inherit homeMode;
@@ -90,7 +91,7 @@ in rec {
       ]; # }}}
 
       packages = langs ++ nonLangs ++ jdks;
-      shell = pkgs.unstable.zsh;
+      shell = pkgs.zsh;
     }; # }}}
   };
 

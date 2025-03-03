@@ -11,14 +11,12 @@ with pkgs; let
   # }}}
 
   # {{{
-  perlProv = perl538;
-  perlPkgs = perl538Packages;
-  #perlPkgs = perlProv.pkgs;
+  perlProv = perl540;
+  perlPkgs = perl540Packages;
   # }}}
 
   # {{{ python
-
-  newestPython = python313;
+  newestPython = python314;
   pythonProv = python312;
   # oldPython = python311;
 
@@ -218,8 +216,8 @@ with pkgs; let
   shell-utils = with pkgs;
     [
       # {{{
-      fzy
       rlwrap
+      dash
 
       screen
       less
@@ -230,17 +228,15 @@ with pkgs; let
       progress
       pv
       timer
-      libcaca
 
       findutils
       coreutils-full
 
       (parallel // {meta.priority = 4;})
-      # (moreutils // {meta.priority = 6;})
       (
         pkgs.writeScriptBin
         "mparallel"
-        ''exec ${moreutils}/bin/parallel $@''
+        ''exec ${moreutils}/bin/parallel "$@"''
       )
 
       gnugrep
@@ -266,7 +262,6 @@ with pkgs; let
     ++ (with unstable; [
       # {{{
       fzf
-      dash
 
       # ???
       zsh-completions
@@ -279,13 +274,17 @@ with pkgs; let
   shell-libs = with pkgs; [
     # {{{
     gnum4
-    # xxh
     xxHash
     zlib
-    pcre
     tre
     iconv
     readline
+
+    pcre2
+    (
+      writeScriptBin "pcregrep"
+      ''exec ${pcre2}/bin/pcre2grep "$@"''
+    )
   ]; # }}}
 
   shell-graphics = with pkgs; [
@@ -437,17 +436,19 @@ with pkgs; let
       arc-theme
       materia-theme
       papirus-icon-theme
+      breeze-hacked-cursor-theme
+
+      # here are inserted names for use in config
+      # because naming things in obvious way is too hard
+      sddm-chili-theme # chili
+      sddm-sugar-dark # sugar-dark
+      sddm-astronaut # doesn't work
+      # doesn't work, no matter "-" or "_" between words
+      where-is-my-sddm-theme
     ] # }}}
     ++ (with unstable;
       [
         # {{{
-        # here are inserted names for use in config
-        # because naming things in obvious way is too hard
-        sddm-chili-theme # chili
-        sddm-sugar-dark # sugar-dark
-        sddm-astronaut # doesn't work
-        # doesn't work, no matter "-" or "_" between words
-        where-is-my-sddm-theme
       ] # }}}
       ++ (with haskellPackages; [
         # {{{
@@ -475,8 +476,9 @@ with pkgs; let
     vimb
     luakit
     qutebrowser
-    firefox
+    librewolf
     ungoogled-chromium
+    brave
   ]; # }}}
 
   # AUDIO
@@ -538,7 +540,7 @@ with pkgs; let
       lib.concatStrings
       (map cc (lib.stringToCharacters luap.lua.luaAttr));
     luawrap = writeScriptBin name ''
-      exec ${luap}/bin/lua $@
+      exec ${luap}/bin/lua "$@"
     '';
   in
     [
@@ -646,6 +648,7 @@ with pkgs; let
     # {{{
     gnumake
     automake
+    autoconf
     cmake
 
     dune_3
@@ -769,7 +772,6 @@ with pkgs; let
     tabbed
 
     (svim // {meta.priority = 4;})
-    breeze-hacked
   ]; # }}}
 
   other = with pkgs; (
