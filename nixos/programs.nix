@@ -55,6 +55,7 @@
       interactiveShellInit =
         # {{{
         ''
+          . ${pkgs.pass.extensions.pass-otp}/share/bash-completion/completions/pass-otp
 
           # z.lua or plain old z as fallback
           if whichp z.lua &>/dev/null; then

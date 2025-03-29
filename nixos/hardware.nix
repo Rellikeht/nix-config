@@ -17,7 +17,7 @@ in {
     firewall = {
       #  {{{
       # TODO
-      # enable = false;
+      enable = false;
       allowPing = true;
 
       # Open ports in the firewall.
@@ -85,7 +85,9 @@ in {
     #  {{{
     enable = true;
     cpuFreqGovernor = "schedutil";
-    powertop.enable = true;
+
+    # autosuspends things and is hard to overcome
+    powertop.enable = false;
   }; #  }}}
 
   # trackpoint = {

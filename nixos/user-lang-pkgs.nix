@@ -8,6 +8,7 @@ with pkgs; let
       #  {{{
       bpython
       pip
+      uv
       python-lsp-server
       pylsp-mypy
       mypy
@@ -69,8 +70,9 @@ in
         # texlive.combined.scheme-medium
         # texlab
 
-        # tree-sitter
+        tree-sitter
         # julia-bin
+        gotools
       ]) #  }}}
       ++ (with lua54Packages; [
         #  {{{
@@ -78,7 +80,7 @@ in
       ]) #  }}}
       ++ (with nodePackages; [
         #  {{{
-        # prettier
+        prettier
       ]) #  }}}
       ++ (with builds; [
         #  {{{

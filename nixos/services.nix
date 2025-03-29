@@ -161,10 +161,12 @@ in rec {
         CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
 
         CPU_MAX_PERF_ON_AC = 100;
-        # CPU_MAX_PERF_ON_BAT = 60;
+        CPU_MAX_PERF_ON_BAT = 100;
 
-        # TODO :(
-        STOP_CHARGE_THRESH_BAT0 = 80;
+        START_CHARGE_THRESH_BAT0 = 65;
+        STOP_CHARGE_THRESH_BAT0 = 75;
+
+        USB_AUTOSUSPEND = 0;
       }; # }}}
     }; # }}}
 

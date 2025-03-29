@@ -34,6 +34,7 @@ in {
           "brightnessctl"
           "mount"
           "umount"
+          "tlp-stat"
         ]; # }}}
     }; # }}}
 

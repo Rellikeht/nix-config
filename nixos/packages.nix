@@ -25,9 +25,10 @@ with pkgs; let
       # {{{
       bpython
       pip
+      uv
       python-lsp-server
-      pylsp-mypy
-      mypy
+      # pylsp-mypy
+      # mypy
       pynvim
       gdown
 
@@ -81,29 +82,33 @@ with pkgs; let
     libuuid
   ]; # }}}
 
-  system-utils = with pkgs; [
-    # {{{
-    v4l-utils
+  system-utils = with pkgs;
+    [
+      # {{{
+      v4l-utils
 
-    lsof
-    lshw
-    acpi
-    pciutils
+      lsof
+      lshw
+      acpi
+      pciutils
 
-    reptyr
+      reptyr
 
-    htop # got used to variant without vim bindings :(
-    # htop-vim
+      htop # got used to variant without vim bindings :(
+      # htop-vim
 
-    su
-    binutils
+      su
+      binutils
 
-    arch-install-scripts
-    android-file-transfer
-    android-tools
+      arch-install-scripts
+      android-file-transfer
+      android-tools
 
-    appimage-run
-  ]; # }}}
+      appimage-run
+    ]
+    ++ (with nvtopPackages; [
+      intel
+    ]); # }}}
 
   filesystems = with pkgs; [
     # {{{
@@ -152,7 +157,13 @@ with pkgs; let
     gpgme
     gpg-tui
 
-    pass
+    (pass.withExtensions (exts:
+      with exts; [
+        pass-otp
+        pass-file
+        pass-update
+        pass-genphrase
+      ]))
     keepassxc
     keepass-diff
     keepmenu
@@ -321,13 +332,13 @@ with pkgs; let
       kakoune
       kak-lsp
       vis
-
       emacs
-    ]
-    ++ (with unstable; [
+
       neovim
       neovim-qt
-    ])); # }}}
+    ]
+    ++ (with unstable; [
+      ])); # }}}
 
   # FILES
 
@@ -597,7 +608,7 @@ with pkgs; let
         # dhall-lsp-server
 
         gopls
-        nimlsp
+        nimlangserver
         zls
         rust-analyzer
         pylyzer
@@ -742,15 +753,13 @@ with pkgs; let
       pinfo
       highlight
 
-      typst-lsp
       tinymist
     ] # }}}
     ++ (with unstable; [
       # {{{
       typst
-      # typst-live
       typstfmt
-      prettypst
+      # prettypst
 
       groff
     ]) # }}}
@@ -839,5 +848,3 @@ in {
     # {{{
   }; # }}}
 }
-# TODO smapi - battery, proper linux for that
-
