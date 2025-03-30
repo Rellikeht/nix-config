@@ -53,7 +53,7 @@ in {
             (with pkgs; [
               # {{{
               zlib
-              stdenv.cc.cc.lib
+              # stdenv.cc.cc.lib
             ])) # }}}
         ];
     }; # }}}

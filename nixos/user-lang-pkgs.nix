@@ -29,8 +29,6 @@ in
       ] #  }}}
       ++ (with unstable; [
         #  {{{
-        # ruff
-        # pylyzer
       ]); #  }}}
 
     jdks = [
@@ -70,7 +68,6 @@ in
         # texlive.combined.scheme-medium
         # texlab
 
-        tree-sitter
         # julia-bin
         gotools
       ]) #  }}}
@@ -85,7 +82,6 @@ in
       ++ (with builds; [
         #  {{{
         # minizinc-ide-bin
-        # pylyzer
       ]); #  }}}
 
     langs =
