@@ -91,12 +91,15 @@ in rec {
       enable = true;
       audio.enable = true;
       pulse.enable = true;
-      systemWide = true;
+      systemWide = false;
 
       wireplumber = {
         # {{{
         enable = true;
 
+        # TODO B do this well, because this broke at least once
+        # TODO D add bluetooth autoswitch-to-headset-profile = false
+        # because true breaks things :(
         extraConfig = {
           "monitor.bluez.properties" = {
             # {{{
@@ -104,6 +107,9 @@ in rec {
             "bluez5.enable-msbc" = true;
             "bluez5.enable-hw-volume" = true;
             "bluez5.roles" = ["hsp_hs" "hsp_ag" "hfp_hf" "hfp_ag"];
+            # Somehow now this is needed for better
+            # profiles to work
+            "bluez5.reconnect-profiles" = ["hfp_hf" "hsp_hs" "a2dp_sink"];
           }; # }}}
         };
       }; # }}}
@@ -163,7 +169,7 @@ in rec {
         CPU_MAX_PERF_ON_AC = 100;
         CPU_MAX_PERF_ON_BAT = 100;
 
-        START_CHARGE_THRESH_BAT0 = 65;
+        START_CHARGE_THRESH_BAT0 = 70;
         STOP_CHARGE_THRESH_BAT0 = 75;
 
         USB_AUTOSUSPEND = 0;

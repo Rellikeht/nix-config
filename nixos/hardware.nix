@@ -36,6 +36,8 @@ in {
   # };
 
   hardware = {
+    enableAllFirmware = true;
+
     bluetooth = {
       #  {{{
       enable = true;
@@ -44,6 +46,7 @@ in {
         #  {{{
         General = {
           Enable = "Source,Sink,Media,Socket";
+          FastConnectable = "true";
         };
         Policy = {
           AutoEnable = false;
