@@ -106,7 +106,8 @@
       enable = true;
       enableLsColors = true;
       histSize = 10000;
-      enableCompletion = true;
+      # WTF this does
+      enableCompletion = false;
       enableBashCompletion = true;
       enableGlobalCompInit = false;
       # }}}
@@ -152,7 +153,6 @@
       interactiveShellInit =
         # {{{
         ''
-
           # Done by configuration option
           __BASH_COMPINIT_RUN=1
 
@@ -166,7 +166,7 @@
           zstyle ':completion:*' use-cache on
           zstyle ':completion:*' cache-path "$XDG_CACHE_HOME/zsh/zscompcache"
 
-          # TODO this shit simply can't work
+          # TODO B this shit simply can't work
           # nix completion
           __NIX_COMP_PATH="${pkgs.unstable.nix-zsh-completions}/share/zsh"
           fpath=("$__NIX_COMP_PATH/site-functions" $fpath)
@@ -190,7 +190,6 @@
           # autoload -U compinit
           # compinit
           __COMPINIT_RUN=1
-
         '';
       # }}}
 

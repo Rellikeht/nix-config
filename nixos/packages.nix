@@ -137,7 +137,7 @@ with pkgs; let
       nix-index
       patchelf
 
-      # TODO
+      # TODO D
       # nixops_unstable_full
 
       alejandra
@@ -533,11 +533,14 @@ with pkgs; let
     ]) # }}}
   );
 
-  audio-downloaders = with pkgs; [
-    # {{{
-    yt-dlp
-    spotdl
-  ]; # }}}
+  audio-downloaders = with pkgs;
+    [
+      # {{{
+      spotdl
+    ]
+    ++ (with unstable; [
+      yt-dlp
+    ]); # }}}
 
   # CODE
 
@@ -573,7 +576,6 @@ with pkgs; let
       gcc
       clang
       ghc
-      nickel
 
       newestPython
       myPython
@@ -605,7 +607,6 @@ with pkgs; let
       [
         # {{{
         clang-tools
-        # dhall-lsp-server
 
         gopls
         nimlangserver
@@ -695,11 +696,6 @@ with pkgs; let
         ]) # }}}
         ++ (with haskellPackages; [
           # {{{
-          # dhall
-          # dhall-yaml
-          # dhall-nix
-          # dhall-json
-          # dhall-toml
         ]) # }}}
     ));
 
@@ -774,7 +770,7 @@ with pkgs; let
 
   my = with pkgs.builds; [
     # {{{
-    # TODO vim tiny
+    # TODO D vim tiny
     st
     dwm
     dmenu

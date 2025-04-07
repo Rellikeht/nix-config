@@ -35,7 +35,10 @@
       # almonds
 
       # moc
-    ] # }}}
+    ]
+    ++ (with unstable; [
+      (yt-dlp // {meta.priority = 2;})
+    ]) # }}}
     ++ (with haskellPackages; [
       # {{{
       pandoc-cli
@@ -88,6 +91,10 @@ in rec {
         "scanner"
         "cups"
         "docker"
+        "wireshark"
+        "dialout"
+        "uucp"
+        "tty"
       ]; # }}}
 
       packages = langs ++ nonLangs ++ jdks;

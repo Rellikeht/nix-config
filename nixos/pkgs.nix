@@ -33,7 +33,6 @@ let
   # TODO nix index, but that is probably work for home manager
 
   myBuilds = builtins.getFlake "github:Rellikeht/nix-builds";
-  dhallPrelude = builtins.fetchurl "https://prelude.dhall-lang.org/v22.0.0/package.dhall";
 in {
   #   And some simple exporting
   inherit stateVersion sysName userName;
@@ -43,7 +42,7 @@ in {
   inherit pkgs-unstable unstableExprs;
   inherit homeManager homeManagerExprs;
   inherit nur nurExprs;
-  inherit myBuilds dhallPrelude;
+  inherit myBuilds;
 
   #  inherit oldPkgs;
 }

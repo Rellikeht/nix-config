@@ -67,7 +67,6 @@ in
     environment.etc = {
       "nixpkgs".source = "${nixexprs}";
       "unstable".source = "${unstableExprs}";
-      "dhall/Prelude".source = "${dhallPrelude}";
 
       # Dirty workaround
       "rofi/themes".source = "${pkgs.rofi}/share/rofi/themes";
@@ -126,5 +125,5 @@ in
       name = sysName;
     };
   }
-# TODO conditional imports
+# TODO B conditional imports
 

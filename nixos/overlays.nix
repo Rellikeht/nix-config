@@ -45,7 +45,10 @@
       scripts = with final.mpvScripts; [
         #  {{{
         mpris
-        thumbnail
+        # gets fucked on some videos
+        # thumbnail
+        # needs additional work
+        # thumbfast
         quality-menu
         sponsorblock
       ]; #  }}}
