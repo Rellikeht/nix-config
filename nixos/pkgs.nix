@@ -2,7 +2,7 @@
 # Yes, that's all kind of flake inputs, will became themes
 # when i finally migrate my config to flake
 let
-  stateVersion = "24.11";
+  stateVersion = "25.05";
   sysName = "declarativeMonster";
   userName = "michal";
   # userHome = "/home/${userName}";

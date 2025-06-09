@@ -39,6 +39,34 @@
     };
   }; #  }}}
 
+  # This does almost nothing :(
+  zsh = final: prev: {
+    #  {{{
+
+    # https://discourse.nixos.org/t/how-to-recompile-a-package-with-flags/3603
+    # https://stackoverflow.com/questions/42136197/how-to-override-compile-flags-for-a-single-package-in-nixos
+    zsh = prev.zsh.overrideAttrs (
+      old: {
+        NIX_CFLAGS_COMPILE = ["-O2" "-march=native" "-mtune=native"];
+        NIX_ENFORCE_NO_NATIVE = false;
+      }
+    );
+
+    # Could this shit even work for this scenario?
+    # https://nixos.wiki/wiki/Build_flags
+    # zsh = prev.zsh.override {
+    #   # nixpkgs.localSystem = {
+    #   #   gcc.arch = "native";
+    #   #   gcc.tune = "native";
+    #   # };
+
+    #   # stdenv = prev.impureUseNativeOptimizations prev.stdenv;
+    #   # nixpkgs = prev.nixpkgs prev.stdenv;
+    #   # NIX_CFLAGS_COMPILE = ["-O2" "-march=native" "-mtune=native"];
+    #   NIX_ENFORCE_NO_NATIVE = false;
+    # };
+  }; #  }}}
+
   mpv = final: prev: {
     #  {{{
     mpv = prev.mpv.override {
@@ -77,5 +105,6 @@ in {
     mpv
     mpv-unwrapped
     vis
+    zsh
   ]; #  }}}
 }

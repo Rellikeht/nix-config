@@ -1,7 +1,7 @@
 # vim: autoindent expandtab softtabstop=2 shiftwidth=2 tabstop=2
 {pkgs, ...}:
-with pkgs; let
-  pythonProv = python312;
+let
+  pythonProv = pkgs.python312;
 
   pythonPackages = ps:
     with ps; [
@@ -12,6 +12,10 @@ with pkgs; let
       python-lsp-server
       pylsp-mypy
       mypy
+      # pylint
+      # pylint-venv
+      # pylsp-rope
+      # python-lsp-ruff
       # mdformat
 
       pynvim

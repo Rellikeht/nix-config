@@ -180,7 +180,6 @@ in rec {
       # {{{
       enable = true;
       package = pkgs.plocate;
-      localuser = null;
     }; # }}}
 
     fractalart = {

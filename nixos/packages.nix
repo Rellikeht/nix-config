@@ -5,20 +5,20 @@
   ...
   # }}}
 }:
-with pkgs; let
+let
   # {{{
   b = builtins;
   # }}}
 
   # {{{
-  perlProv = perl540;
-  perlPkgs = perl540Packages;
+  perlProv = pkgs.perl540;
+  perlPkgs = pkgs.perl540Packages;
   # }}}
 
   # {{{ python
-  newestPython = python314;
-  pythonProv = python312;
-  # oldPython = python311;
+  # newestPython = python314;
+  pythonProv = pkgs.python312;
+  # oldPython = python312;
 
   pythonPackages = ps:
     with ps; [
@@ -31,14 +31,6 @@ with pkgs; let
       # mypy
       pynvim
       gdown
-
-      # mdformat
-      # mdformat-gfm
-      # mdformat-tables
-
-      # ??
-      # mdformat-toc
-      # mdformat-mkdocs
     ]; # }}}
 
   myPython = pythonProv.withPackages pythonPackages;
@@ -52,7 +44,6 @@ with pkgs; let
       luacheck
       luautf8
       luafilesystem
-      luaformatter
     ]; # }}}
 
   luajitPkgs = ps:
@@ -280,6 +271,7 @@ with pkgs; let
       nix-zsh-completions
 
       z-lua
+      cht-sh
     ]); # }}}
 
   shell-libs = with pkgs; [
@@ -328,9 +320,10 @@ with pkgs; let
   editors = with pkgs; ([
       # {{{
       ed
-      (vim // {meta.priority = 6;})
+      # TODO alias to svim ?
+      # (vim // {meta.priority = 6;})
       kakoune
-      kak-lsp
+      kakoune-lsp
       vis
       emacs
 
@@ -470,7 +463,6 @@ with pkgs; let
     # {{{
     fontconfig
     freetype
-    font-awesome
   ]; # }}}
 
   documents = with pkgs; [
@@ -572,12 +564,13 @@ with pkgs; let
         })
       (luap // {meta.priority = 4;})
       luawrap
+      luaformatter
 
       gcc
       clang
       ghc
 
-      newestPython
+      # newestPython
       myPython
       perlProv
     ] # }}}

@@ -131,6 +131,7 @@ in {
     noto-fonts-emoji
     noto-fonts-cjk-sans
     liberation_ttf
+    font-awesome
   ]; # }}}
 
   qt = {
@@ -147,7 +148,7 @@ in {
     users.test = {
       # {{{
       isNormalUser = true;
-      shell = pkgs.unstable.zsh;
+      shell = pkgs.zsh;
       # shell = config.users.defaultUserShell;
       group = "users";
       extraGroups = [];

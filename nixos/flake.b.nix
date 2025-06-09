@@ -1,3 +1,4 @@
+# vim: autoindent expandtab softtabstop=2 shiftwidth=2 tabstop=2
 rec {
   inputs = {
     nixpkgs.url = github:NixOS/nixpkgs/nixos-23.11;
