@@ -40,6 +40,7 @@ in rec {
   users = {
     groups = {
       # {{{
+      "syncthing" = {};
       ${userGroup} = {
         gid = userGid;
         members = [
@@ -109,6 +110,7 @@ in rec {
       enable = true;
       package = pkgs.unstable.syncthing;
       openDefaultPorts = true;
+      systemService = false;
 
       user = "${userName}";
       configDir = "${userHome}/.config/syncthing";
