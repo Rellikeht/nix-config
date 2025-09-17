@@ -107,7 +107,7 @@
       enableLsColors = true;
       histSize = 10000;
       # WTF this does
-      enableCompletion = false;
+      enableCompletion = true;
       enableBashCompletion = true;
       enableGlobalCompInit = false;
       # }}}

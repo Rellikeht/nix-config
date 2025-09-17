@@ -16,7 +16,6 @@ in {
         # {{{
         enable = true;
         # theme = pkgs.nixos-grub2-theme;
-        theme = null;
         useOSProber = true;
       }; # }}}
     }; # }}}

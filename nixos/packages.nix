@@ -16,9 +16,7 @@ let
   # }}}
 
   # {{{ python
-  # newestPython = python314;
-  pythonProv = pkgs.python312;
-  # oldPython = python312;
+  pythonProv = pkgs.python313;
 
   pythonPackages = ps:
     with ps; [
@@ -26,9 +24,6 @@ let
       bpython
       pip
       uv
-      python-lsp-server
-      # pylsp-mypy
-      # mypy
       pynvim
       gdown
     ]; # }}}
@@ -570,7 +565,6 @@ let
       clang
       ghc
 
-      # newestPython
       myPython
       perlProv
     ] # }}}
@@ -579,9 +573,6 @@ let
       # {{{
       ocaml
       go
-      zig
-      nim
-      rustc
 
       universal-ctags
     ]); # }}}
@@ -600,12 +591,7 @@ let
       [
         # {{{
         clang-tools
-
         gopls
-        nimlangserver
-        zls
-        rust-analyzer
-        pylyzer
       ] # }}}
       ++ (with haskellPackages; [
         # {{{
@@ -630,7 +616,6 @@ let
     ++ (with unstable;
       [
         # {{{
-        rustfmt
         ruff
       ] # }}}
       ++ (with haskellPackages; [
@@ -645,8 +630,6 @@ let
     ++ (with unstable; [
       # {{{
       opam
-      nimble
-      cargo
     ]); # }}}
 
   builders = with pkgs; [
@@ -673,7 +656,6 @@ let
 
       hyperfine
       config.boot.kernelPackages.perf
-      zig-shell-completions
     ] # }}}
     ++ (with haskellPackages; [
       # {{{
@@ -721,6 +703,8 @@ let
     guile-git
     guile-ssh
     guile-gnutls
+    guile-fibers
+    guile-json
   ]; # }}}
 
   # OTHER

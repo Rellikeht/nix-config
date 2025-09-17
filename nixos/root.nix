@@ -2,13 +2,12 @@
 {
   pkgs,
   config,
-  # option,
   ...
 }: let
 in {
   users.users.root = {
-    # shell = pkgs.unstable.zsh;
-    shell = pkgs.zsh;
+    # shell = pkgs.zsh;
+    shell = pkgs.bashInteractive;
     # shell = config.users.defaultUserShell;
   };
 }

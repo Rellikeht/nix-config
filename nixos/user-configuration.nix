@@ -19,7 +19,7 @@
   userName = pkgImport.userName;
   userHome = "/home/${userName}";
   homeMode = "750";
-  userGroup = "michal";
+  userGroup = "${userName}";
   userGid = 1000;
   userUid = 1000;
   # }}}
@@ -27,14 +27,7 @@
   nonLangs = with pkgs; ([
       # {{{
       # libreoffice-fresh
-      # wxmaxima
-      # giac-with-xcas
       # calibre
-
-      # tesseract
-      # almonds
-
-      # moc
     ]
     ++ (with unstable; [
       (yt-dlp // {meta.priority = 2;})
@@ -77,6 +70,7 @@ in rec {
         "disk"
         "render"
         "input"
+        "uinput"
         "adm"
         "plocate"
         "pipewire"

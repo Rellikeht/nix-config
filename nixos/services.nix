@@ -230,6 +230,13 @@ in rec {
         package = pkgs.libsForQt5.sddm;
         wayland.enable = false;
         theme = "chili";
+
+        settings = {
+          #  {{{
+          Theme = {
+            CursorTheme = "Breeze_Hacked";
+          };
+        }; #  }}}
       }; # }}}
 
       # just in case,
