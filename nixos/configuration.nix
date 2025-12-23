@@ -55,7 +55,7 @@ in
             unstable = pkgs-unstable;
             home-manager = homeManager;
             builds = pkgImport.myBuilds.packages.${system};
-            inherit nur;
+            # inherit nur;
           };
       };
 

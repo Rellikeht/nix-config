@@ -128,6 +128,7 @@ let
 
       alejandra
       nil
+      nixd
     ] # }}}
     ++ (with unstable; [
       # {{{
@@ -731,8 +732,7 @@ let
     ++ (with unstable; [
       # {{{
       typst
-      typstfmt
-      # prettypst
+      typstyle
 
       groff
     ]) # }}}

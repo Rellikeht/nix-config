@@ -2,7 +2,7 @@
 # Yes, that's all kind of flake inputs, will became themes
 # when i finally migrate my config to flake
 let
-  stateVersion = "25.05";
+  stateVersion = "25.11";
   sysName = "declarativeMonster";
   userName = "michal";
   # userHome = "/home/${userName}";
@@ -28,8 +28,8 @@ let
 
   homeManagerExprs = fetchTarball homeManagerLink;
   homeManager = (import homeManagerExprs) {};
-  nurExprs = fetchTarball nurLink;
-  nur = (import nurExprs) {inherit pkgs;};
+  # nurExprs = fetchTarball nurLink;
+  # nur = (import nurExprs) {inherit pkgs;};
   # TODO nix index, but that is probably work for home manager
 
   myBuilds = builtins.getFlake "github:Rellikeht/nix-builds";
@@ -41,7 +41,7 @@ in {
   inherit pkgs nixexprs;
   inherit pkgs-unstable unstableExprs;
   inherit homeManager homeManagerExprs;
-  inherit nur nurExprs;
+  # inherit nur nurExprs;
   inherit myBuilds;
 
   #  inherit oldPkgs;
