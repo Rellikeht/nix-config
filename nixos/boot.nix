@@ -41,6 +41,7 @@ in {
 
     kernelModules = [
       # {{{
+      "uinput"
       "ntfs3"
       "kvm"
 

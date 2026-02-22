@@ -19,23 +19,15 @@ in {
     doas = {
       # {{{
       enable = true;
-      extraRules =
-        [
+      extraRules = [
+        # {{{
+        {
           # {{{
-          {
-            # {{{
-            groups = ["wheel"];
-            keepEnv = true;
-            persist = true;
-          } # }}}
-        ] # }}}
-        ++ map noPassCmd [
-          # {{{
-          "brightnessctl"
-          "mount"
-          "umount"
-          "tlp-stat"
-        ]; # }}}
+          groups = ["wheel"];
+          keepEnv = true;
+          noPass = true;
+        } # }}}
+      ]; # }}}
     }; # }}}
 
     sudo = {

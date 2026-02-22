@@ -37,6 +37,7 @@ in {
 
   hardware = {
     enableAllFirmware = true;
+    uinput.enable = true;
 
     bluetooth = {
       #  {{{

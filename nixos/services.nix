@@ -12,6 +12,10 @@ in rec {
       packages = with pkgs; [
         utsushi
       ];
+      # fixes /dev/uinput permissions
+      extraRules = ''
+        KERNEL=="uinput", SUBSYSTEM=="misc", TAG+="uaccess", OPTIONS+="static_node=uinput", GROUP="input", MODE="0660"
+      '';
     }; # }}}
 
     auto-cpufreq = {
