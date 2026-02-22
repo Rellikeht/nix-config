@@ -228,9 +228,25 @@ in rec {
       sddm = {
         # {{{
         enable = true;
-        package = pkgs.kdePackages.sddm;
         wayland.enable = false;
-        theme = "chili";
+
+        theme = "sddm-astronaut-theme";
+        # theme = "catppuccin-mocha-mauve";
+        extraPackages = with pkgs; [
+
+          # some qt5 vs qt6 problem
+          # elegant-sddm
+          # sddm-chili-theme
+
+          # catppuccin-sddm
+          sddm-astronaut
+
+          # no theme applied, only virtual keyboard
+          # sddm-sugar-dark
+
+          # some problem with applying
+          # where-is-my-sddm-theme
+        ];
 
         settings = {
           #  {{{
