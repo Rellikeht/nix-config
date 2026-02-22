@@ -4,8 +4,7 @@
   config,
   ...
   # }}}
-}:
-let
+}: let
   # {{{
   b = builtins;
   # }}}
@@ -151,10 +150,6 @@ let
         pass-update
         pass-genphrase
       ]))
-    keepassxc
-    keepass-diff
-    keepmenu
-    kpcli
   ]; # }}}
 
   # NETWORK
@@ -189,7 +184,6 @@ let
       # {{{
       wget
       curl
-      curlie
       w3m
 
       aria2
@@ -202,7 +196,6 @@ let
       rclone
       transmission_4
 
-      dumptorrent
       gdown
     ] # }}}
     ++ (with unstable; [
@@ -248,12 +241,10 @@ let
 
       man
       man-pages
-      linux-manual
       stdman
       tldr
 
       help2man
-      (plan9port // {meta.priority = 6;})
       complgen
       # }}}
     ]
@@ -288,18 +279,11 @@ let
 
   shell-graphics = with pkgs; [
     # {{{
-    cmatrix
-    tmatrix
-
     delta
 
     fastfetch
     onefetch
     tree
-
-    fortune
-    figlet
-    lolcat
   ]; # }}}
 
   terminals = with pkgs; ([
@@ -315,13 +299,9 @@ let
 
   editors = with pkgs; ([
       # {{{
-      ed
       # TODO alias to svim ?
       # (vim // {meta.priority = 6;})
-      kakoune
-      kakoune-lsp
       vis
-      emacs
 
       neovim
       neovim-qt
@@ -334,8 +314,6 @@ let
   file-management = with pkgs; [
     # {{{
     vifm
-    ranger
-    stow
     pcmanfm
   ]; # }}}
 
@@ -421,14 +399,16 @@ let
   graphics = with pkgs; [
     # {{{
     imagemagickBig
-    graphicsmagick
     pinta
   ]; # }}}
 
   viewers = with pkgs; [
     # {{{
     feh
-    sxiv
+    nsxiv
+    (writeScriptBin "sxiv" ''
+      exec ${pkgs.nsxiv}/bin/nsxiv "$@"
+    '')
   ]; # }}}
 
   themes = with pkgs; ([
@@ -472,11 +452,8 @@ let
 
   browsers = with pkgs; [
     # {{{
-    vimb
-    luakit
     qutebrowser
     librewolf
-    ungoogled-chromium
     brave
   ]; # }}}
 
@@ -492,7 +469,6 @@ let
       # {{{
       pulsemixer
       alsa-tools # ?
-      # pipecontrol
       pavucontrol
 
       playerctl
@@ -511,8 +487,6 @@ let
       mpv
       vlc
 
-      ytfzf
-
       ffmpeg-full
       mediainfo
     ] # }}}
@@ -524,7 +498,6 @@ let
   audio-downloaders = with pkgs;
     [
       # {{{
-      spotdl
     ]
     ++ (with unstable; [
       yt-dlp
@@ -547,10 +520,8 @@ let
   in
     [
       # {{{
-      sbcl
       clisp
       guile
-      gforth
       tcl
 
       (luajit.withPackages luajitPkgs
@@ -563,8 +534,6 @@ let
       luaformatter
 
       gcc
-      clang
-      ghc
 
       myPython
       perlProv
@@ -596,7 +565,6 @@ let
       ] # }}}
       ++ (with haskellPackages; [
         # {{{
-        haskell-language-server
       ]) # }}}
       ++ (with ocamlPackages; [
         # {{{
@@ -621,7 +589,6 @@ let
       ] # }}}
       ++ (with haskellPackages; [
         # {{{
-        floskell
       ])); # }}}
 
   pkg-managers = with pkgs;
@@ -646,17 +613,12 @@ let
   code-utils = with pkgs; ([
       # {{{
       git-doc
-      flex
-      bison
       pkg-config
 
       shellcheck
       checkbashisms
 
-      gdb
-
       hyperfine
-      config.boot.kernelPackages.perf
     ] # }}}
     ++ (with haskellPackages; [
       # {{{
@@ -684,7 +646,6 @@ let
     ] # }}}
     ++ (with perlPkgs; [
       # {{{
-      WWWYoutubeViewer
       TermReadLineGnu
     ]) # }}}
     ++ (with unstable; ([
@@ -692,7 +653,6 @@ let
       ] # }}}
       ++ (with ocamlPackages; [
         # {{{
-        yojson
       ]) # }}}
       ++ (with haskellPackages; [
         # {{{
@@ -712,8 +672,6 @@ let
 
   meth = with pkgs; [
     # {{{
-    maxima
-    # libqalculate
     gnuplot
   ]; # }}}
 
@@ -721,8 +679,6 @@ let
     [
       # {{{
       glow
-      mdr
-      lowdown
 
       pinfo
       highlight

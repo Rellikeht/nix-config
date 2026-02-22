@@ -11,7 +11,6 @@ in rec {
       enable = true;
       packages = with pkgs; [
         utsushi
-        game-devices-udev-rules
       ];
     }; # }}}
 

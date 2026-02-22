@@ -247,12 +247,12 @@
     # TODO B download database somehow
     # https://github.com/nix-community/nix-index
     # https://github.com/nix-community/nix-index-database
-    nix-index = {
-      # {{{
-      enable = true;
-      enableBashIntegration = false;
-      enableZshIntegration = false;
-    }; # }}}
+    # nix-index = {
+    #   # {{{
+    #   enable = true;
+    #   enableBashIntegration = false;
+    #   enableZshIntegration = false;
+    # }; # }}}
 
     direnv = {
       # {{{

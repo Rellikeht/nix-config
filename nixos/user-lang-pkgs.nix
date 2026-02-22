@@ -10,7 +10,6 @@
       uv
       pynvim
       yt-dlp
-      matplotlib
     ]; #  }}}
   myPython = pythonProv.withPackages pythonPackages;
 in
@@ -29,27 +28,6 @@ in
       #  {{{
       jdk
     ]; #  }}}
-
-    java = [
-      #  {{{
-      # java-language-server
-      jdt-language-server
-    ]; #  }}}
-
-    haskell = with unstable; ([
-        #  {{{
-        # cabal
-        cabal-install
-        stack
-      ] #  }}}
-      ++ (with haskellPackages; [
-        #  {{{
-        haskell-language-server
-        floskell
-        # vector
-        # hashtables
-        # unordered-containers
-      ])); #  }}}
 
     others =
       [
@@ -81,8 +59,6 @@ in
     langs =
       #  {{{
       python
-      ++ haskell
-      ++ java
       ++ jdks
       ++ others; #  }}}
   }
