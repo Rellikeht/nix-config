@@ -11,6 +11,7 @@
 in {
   systemd = {
     ctrlAltDelUnit = "";
+    coredump.enable = false;
 
     sleep.extraConfig =
       #  {{{

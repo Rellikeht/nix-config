@@ -34,7 +34,7 @@
 
     ssh = {
       # {{{
-      agentTimeout = "90m";
+      agentTimeout = "3h";
       # forwardX11 = true;
       startAgent = true;
 

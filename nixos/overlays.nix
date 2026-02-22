@@ -39,6 +39,13 @@
     };
   }; #  }}}
 
+  pass = final: prev: {
+    #  {{{
+    pass = prev.pass.override {
+      dmenu = pkgs.builds.dmenu;
+    };
+  }; #  }}}
+
   # This does almost nothing :(
   zsh = final: prev: {
     #  {{{
@@ -106,5 +113,6 @@ in {
     mpv-unwrapped
     vis
     zsh
+    pass
   ]; #  }}}
 }

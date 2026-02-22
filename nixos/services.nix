@@ -369,10 +369,10 @@ in rec {
           ]; # }}}
 
           locker = "${pkgs.xlockmore}/bin/xlock";
-          time = 4;
+          time = 8;
 
           killer = "/run/current-system/systemd/bin/systemctl suspend";
-          killtime = 10;
+          killtime = 12;
         }; # }}} }}}
     }; # }}}
 
