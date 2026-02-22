@@ -25,10 +25,6 @@ in {
         # HibernateDelaySec=
       ''; #  }}}
 
-    extraConfig = ''
-      DefaultTimeoutStopSec=15s
-    '';
-
     # mounts = [
     #   {
     #     # /tmp {{{

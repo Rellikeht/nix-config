@@ -11,7 +11,6 @@ in rec {
       enable = true;
       packages = with pkgs; [
         utsushi
-        android-udev-rules
         game-devices-udev-rules
       ];
     }; # }}}
@@ -226,8 +225,7 @@ in rec {
       sddm = {
         # {{{
         enable = true;
-        # package = pkgs.kdePackages.sddm;
-        package = pkgs.libsForQt5.sddm;
+        package = pkgs.kdePackages.sddm;
         wayland.enable = false;
         theme = "chili";
 

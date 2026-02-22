@@ -192,7 +192,7 @@ let
       curlie
       w3m
 
-      aria
+      aria2
       lftp
       rsync
 
@@ -415,7 +415,7 @@ let
 
     rofi
     rofi-pass
-    xdragon
+    dragon-drop
   ]; # }}}
 
   graphics = with pkgs; [
