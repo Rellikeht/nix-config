@@ -1,17 +1,22 @@
 # vim: autoindent expandtab softtabstop=2 shiftwidth=2 tabstop=2
-# pkgs, config, option, lib, stdenv, modulesPath
 {
   pkgs,
   config,
   lib,
-  userName,
   ...
 }: let
   b = builtins;
 in {
   systemd = {
     ctrlAltDelUnit = "";
+    # TODO do this in more intelligent way
     coredump.enable = false;
+
+    settings.Manager = {
+      #  {{{
+      # I don't want dangling core files by default
+      DefaultLimitCORE = "0:0";
+    }; #  }}}
 
     sleep.extraConfig =
       #  {{{
@@ -25,24 +30,6 @@ in {
         SuspendState=mem
         # HibernateDelaySec=
       ''; #  }}}
-
-    # mounts = [
-    #   {
-    #     # /tmp {{{
-    #     type = "tmpfs";
-    #     where = "/tmp";
-    #     what = "tmpfs";
-    #     options = b.concatStringsSep "," [
-    #       "1777"
-    #       "strictatime"
-    #       "rw"
-    #       "nosuid"
-    #       "nodev"
-    #       "size=100%"
-    #       # "size=${config.boot.tmp.tmpfsSize}"
-    #     ];
-    #   } #  }}}
-    # ];
 
     user = {
       #  {{{
