@@ -20,7 +20,6 @@
   pythonPackages = ps:
     with ps; [
       # {{{
-      bpython
       pip
       uv
       pynvim
@@ -121,9 +120,6 @@
       comma
       nix-index
       patchelf
-
-      # TODO D
-      # nixops_unstable_full
 
       alejandra
       nil
@@ -302,8 +298,8 @@
 
   editors = with pkgs; ([
       # {{{
-      # TODO alias to svim ?
-      # (vim // {meta.priority = 6;})
+      # TODO rename
+      (vim // {meta.priority = 6;})
       vis
 
       neovim
@@ -701,12 +697,12 @@
 
   my = with pkgs.builds; [
     # {{{
-    # TODO D vim tiny
     st
     dwm
     dmenu
     tabbed
 
+    # TODO alias to vim
     (svim // {meta.priority = 4;})
   ]; # }}}
 

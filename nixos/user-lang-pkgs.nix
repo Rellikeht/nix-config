@@ -5,7 +5,8 @@
   pythonPackages = ps:
     with ps; [
       #  {{{
-      bpython
+      # doesn't work for now
+      # bpython
       pip
       uv
       pynvim
