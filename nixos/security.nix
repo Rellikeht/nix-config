@@ -2,13 +2,6 @@
 # pkgs, config, option, lib, stdenv, modulesPath
 {...}: let
   b = builtins;
-  noPassCmd = name: {
-    # {{{
-    groups = ["wheel"];
-    noPass = true;
-    keepEnv = true; # ??
-    cmd = name;
-  }; # }}}
 in {
   security = {
     # {{{
@@ -33,14 +26,7 @@ in {
     sudo = {
       # {{{
       enable = true;
-      extraRules = [
-        # {{{
-        {
-          # {{{
-          groups = ["wheel"];
-          commands = ["ALL"];
-        } # }}}
-      ]; # }}}
+      wheelNeedsPassword = false;
     }; # }}}
 
     polkit = {

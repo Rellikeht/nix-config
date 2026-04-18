@@ -190,7 +190,10 @@
       lftp
       rsync
 
-      speedtest-cli
+      speedtest-go
+      (writeScriptBin "speedtest" ''
+        exec ${pkgs.speedtest-go}/bin/speedtest-go "$@"
+      '')
 
       megatools
       rclone

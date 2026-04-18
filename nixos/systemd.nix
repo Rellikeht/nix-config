@@ -7,7 +7,10 @@
 }: let
   b = builtins;
 in {
-  systemd = {
+  systemd = let
+    timeout = 15;
+    timeout_s = b.toString timeout;
+  in {
     ctrlAltDelUnit = "";
     # TODO do this in more intelligent way
     coredump.enable = false;
@@ -44,10 +47,22 @@ in {
         #
       };
 
+      extraConfig = ''
+        DefaultTimeoutStartSec=${timeout_s}s
+        DefaultTimeoutStopSec=${timeout_s}s
+        DefaultTimeoutAbortSec=${timeout_s}s
+        DefaultDeviceTimeoutSec=${timeout_s}s
+      '';
       #
     }; #  }}}
 
+    network = {
+      #  {{{
+      wait-online.timeout = timeout;
+    }; #  }}}
+
     services = with lib; let
+      #  {{{
       #  {{{
       cfg = config.services.syncthing;
       jq = "${pkgs.jq}/bin/jq";
@@ -287,6 +302,7 @@ in {
             fi
           ''
         ); #  }}}
+      #  }}}
     in {
       #  {{{
       # because package maintainers fucked up I guess

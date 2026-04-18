@@ -31,13 +31,9 @@ in {
       # {{{
       sysctl = {
         "vm.swappiness" = 10;
+        "vm.min_free_kbytes" = 131072;
       };
     }; # }}}
-
-    # ?
-    # kernelPackages = null;
-    # kernelPackages = pkgs.linuxPackages_latest;
-    # kernelPackages = pkgs.linuxPackages_zen;
 
     kernelModules = [
       # {{{
